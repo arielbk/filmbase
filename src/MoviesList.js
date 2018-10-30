@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
 import Movie from './Movie';
 
-export default class MoviesList extends Component {
+export default class MoviesList extends PureComponent {
   state = {
     movies: [],
   }
@@ -23,11 +23,16 @@ export default class MoviesList extends Component {
   render() {
     const { movies } = this.state;
     return (
-      <div>
+      <MovieGrid>
         {movies.map(movie => <Movie key={movie.id} movie={movie} />)}
-      </div>
+      </MovieGrid>
     );
   }
 }
 
-// const MovieGrid = styled.div``
+const MovieGrid = styled.div`
+  display: grid;
+  padding: 1rem;
+  grid-template-columns: repeat(5, 1fr);
+  grid-row-gap: 1rem;
+`;
