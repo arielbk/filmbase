@@ -21,6 +21,7 @@ const App = () => (
       </header>
       <Switch>
         <Route exact path="/" component={MoviesList} />
+        <Route path="/page:page" component={MoviesList} />
         <Route path="/:id" component={MovieDetail} />
       </Switch>
     </div>
