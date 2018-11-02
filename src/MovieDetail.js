@@ -47,6 +47,7 @@ class MovieDetail extends Component {
   render() {
     const { movie } = this.state;
     const { credits } = this.state;
+    console.log(this.props.match);
     return (
       <MovieWrapper>
         <Background backdrop={Object.keys(movie).length && `${BACKDROP_PATH}${movie.backdrop_path}`} />
@@ -154,7 +155,6 @@ class MovieDetail extends Component {
 
             {/* These should really be somewhere else... */}
             <BackButton onClick={this.props.history.goBack}>Go back!</BackButton>
-            <SearchButton>Search</SearchButton>
 
           </MainContent>
         </MovieInfo>
@@ -330,21 +330,6 @@ const BackButton = styled(Button)`
   position: fixed;
   top: 2rem;
   left: 1rem;
-`;
-
-const SearchButton = styled(Button)`
-  position: fixed;
-  top: 2rem; 
-  right: 1rem;
-  background: #111;
-  border: 1px solid #4E9A46;
-  color: #ccc;
-  padding: 1rem 2rem;
-  :hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    background: #4E9A46;
-    color: #eee;
-  }
 `;
 
 const RelatedFilms = styled.div`

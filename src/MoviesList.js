@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import React, { PureComponent, Fragment } from 'react';
 import ReactStars from 'react-stars';
 
+import Loading from './Loading';
 import PageControls from './PageControls';
 import Movie from './Movie';
 
@@ -13,6 +14,7 @@ export default class MoviesList extends PureComponent {
     genres: [],
     // how the list of movies should be sorted
     sortBy: 'popularity.desc',
+    loading: true,
   }
 
   async componentDidMount() {
@@ -30,16 +32,16 @@ export default class MoviesList extends PureComponent {
 
   fetchMovies = async () => {
     try {
-      let page;
+      let page = 1;
       const { sortBy } = this.state;
+      const { match } = this.props;
       // if there are no params, user must be on homepage (page 1)
-      !this.props.match.params
-        ? page = 1
-        : page = this.props.match.params.page;
+      if (match.params && match.params.page) { page = match.params.page };
       const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}`);
       const movies = await res.json();
       this.setState({
         movies: movies.results,
+        loading: false,
       });
     } catch (e) {
       console.log(e); // eslint-disable-line no-console
@@ -47,7 +49,7 @@ export default class MoviesList extends PureComponent {
   }
 
   render() {
-    const { movies, genres, sortBy } = this.state;
+    const { movies, genres, sortBy, loading } = this.state;
     let page = parseInt(this.props.match.params.page, 10);
     if (isNaN(page)) {
       page = 1;
@@ -81,29 +83,32 @@ export default class MoviesList extends PureComponent {
           </button>
         </SortOptions>
 
-        <MovieGrid>
-          {movies.map(movie => (
-            <Movie key={movie.id} movie={movie}>
-              <h3>{movie.title}</h3>
-              <ReactStars
-                count={5}
-                value={movie.vote_average / 2}
-                size={24}
-                color2="#4e9a46"
-                edit={false}
-              />
-              <div style={{ marginTop: '1rem' }}>
-                {movie.genre_ids.length && movie.genre_ids.map(genreID => (
-                  <span key={genreID}>
-                    {/* can I use a for each to return something?? need to figure this one out */}
-                    {/* just return the genre name if the genre id matches the one brought in from the api */}
-                    {genres.map(genre => genreID === genre.id && <Genre key={genre.name}>{genre.name}</Genre>)}
-                  </span>
-                ))}
-              </div>
-            </Movie>
-          ))}
-        </MovieGrid>
+        {loading
+          ? <Loading />
+          : (
+            <MovieGrid>
+              {movies.map(movie => (
+                <Movie key={movie.id} movie={movie}>
+                  <h3>{movie.title}</h3>
+                  <ReactStars
+                    count={5}
+                    value={movie.vote_average / 2}
+                    size={24}
+                    color2="#4e9a46"
+                    edit={false}
+                  />
+                  <div style={{ marginTop: '1rem' }}>
+                    {movie.genre_ids.length && movie.genre_ids.map(genreID => (
+                      <span key={genreID}>
+                        {genres.map(genre => genreID === genre.id
+                          && <Genre key={genre.name}>{genre.name}</Genre>)}
+                      </span>
+                    ))}
+                  </div>
+                </Movie>
+              ))}
+            </MovieGrid>
+          )}
         <PageControls page={page} />
       </Fragment>
     );
@@ -151,6 +156,9 @@ const SortOptions = styled.div`
     border: none;
     margin: 0.5rem;
     color: #777;
+    :hover {
+      cursor: pointer;
+    }
   }
 `;
 
