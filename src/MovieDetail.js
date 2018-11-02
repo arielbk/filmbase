@@ -19,7 +19,7 @@ class MovieDetail extends Component {
   }
 
   static contextTypes = {
-    router: () => true,
+    router: () => null,
   }
 
   async componentDidMount() {
@@ -47,66 +47,14 @@ class MovieDetail extends Component {
   render() {
     const { movie } = this.state;
     const { credits } = this.state;
-
-    console.log(credits);
-
     return (
       <MovieWrapper>
-        <Background backdrop={`${BACKDROP_PATH}${movie.backdrop_path}`} />
+        <Background backdrop={Object.keys(movie).length && `${BACKDROP_PATH}${movie.backdrop_path}`} />
         <MovieInfo>
           <SidePanel>
             <Overdrive id={String(movie.id)}>
-              <Poster src={`${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
+              <Poster src={Object.keys(movie).length && `${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
             </Overdrive>
-            <h3>
-              {' '}
-              {movie.release_date}
-            </h3>
-            <div>
-              {movie.genres && movie.genres.map(genre => (
-                <GenreTab key={genre.name}>{genre.name}</GenreTab>
-              ))}
-            </div>
-
-            <h4>
-              Runtime:
-              {' '}
-              {movie.runtime}
-              {' '}
-              min
-            </h4>
-            {movie.budget !== 0
-            && (
-            <p>
-              Budget: $
-              {(commaNumber(movie.budget))}
-            </p>
-            )
-            }
-            {movie.revenue !== 0
-            && (
-            <p>
-              Revenue: $
-              {(commaNumber(movie.revenue))}
-            </p>
-            )
-            }
-
-            {movie.belongs_to_collection
-              && (
-                <RelatedFilms>
-                  <h4>part of</h4>
-                  <h3>{movie.belongs_to_collection.name}</h3>
-                  <img src={`${POSTER_PATH_SMALL}${movie.belongs_to_collection.poster_path}`} alt={movie.belongs_to_collection.name} />
-                </RelatedFilms>
-              )
-            }
-          </SidePanel>
-          <MainContent>
-            <h1>{movie.title}</h1>
-            <Tagline>
-              {movie.tagline}
-            </Tagline>
             <Votes>
               <ReactStars
                 count={5}
@@ -118,7 +66,7 @@ class MovieDetail extends Component {
               <div>
                 {movie.vote_average}
                 /10
-                <span>
+                <span style={{ marginLeft: '1rem' }}>
                   (
                   {movie.vote_count}
                   {' '}
@@ -126,20 +74,83 @@ class MovieDetail extends Component {
                 </span>
               </div>
             </Votes>
+            <div>
+              {movie.genres && movie.genres.map(genre => (
+                <GenreTab key={genre.name}>{genre.name}</GenreTab>
+              ))}
+            </div>
+            <SideStat>
+              <span>Released:</span>
+              <h3>
+                {movie.release_date}
+              </h3>
+            </SideStat>
+
+            <SideStat>
+              <span>Runtime:</span>
+              <h3>
+                {movie.runtime}
+                min
+              </h3>
+            </SideStat>
+
+            {movie.budget !== 0
+            && (
+            <SideStat>
+              <span>Budget:</span>
+              <h3>
+                $
+                {(commaNumber(movie.budget))}
+              </h3>
+            </SideStat>
+            )}
+
+            {movie.revenue !== 0
+            && (
+            <SideStat>
+              <span>Revenue:</span>
+              <h3>
+                $
+                {(commaNumber(movie.revenue))}
+              </h3>
+            </SideStat>
+            )}
+
+            {movie.belongs_to_collection
+              && (
+                <RelatedFilms>
+                  <h4>part of</h4>
+                  <h3>{movie.belongs_to_collection.name}</h3>
+                  <img src={Object.keys(movie).length && `${POSTER_PATH_SMALL}${movie.belongs_to_collection.poster_path}`} alt={movie.belongs_to_collection.name} />
+                </RelatedFilms>
+              )
+            }
+          </SidePanel>
+          <MainContent>
+            <Title>
+              <h1 style={{ display: 'inline' }}>{movie.title}</h1>
+              <h4>
+                {movie.tagline}
+              </h4>
+            </Title>
 
             {/* CAST */}
             <Cast>
               {credits.cast && (
                 credits.cast.map(cast => (
-                  <div>
+                  <div key={cast.name}>
                     <h3>{cast.name}</h3>
-                    <img src={`${CAST_PATH}${cast.profile_path}`} alt={cast.name} />
+                    <img src={Object.keys(cast).length && `${CAST_PATH}${cast.profile_path}`} alt={cast.name} />
                     <h4>{cast.character}</h4>
                   </div>
                 )))}
             </Cast>
 
             <Overview>{movie.overview}</Overview>
+
+            <h3>Images</h3>
+            <h3>Videos</h3>
+            <h3>Recommendations</h3>
 
             {/* These should really be somewhere else... */}
             <BackButton onClick={this.props.history.goBack}>Go back!</BackButton>
@@ -156,9 +167,6 @@ export default withRouter(MovieDetail);
 
 const MovieWrapper = styled.div`
   position: relative;
-  // padding-top: 10rem;
-
-  // background-attachment: fixed;
   `;
 
 const Background = styled.div`
@@ -216,21 +224,36 @@ const GenreTab = styled.div`
 `;
 
 const Votes = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin: 0 auto 1.5rem;
-  margin-left: 50%;
-  transform: translate(-50%, 0);
-  // background: rgba(0,0,0,0.4);
-  display: inline-block;
   padding: 0.4rem 0.9rem 1rem 0.2rem;
   text-align: center;
   border-radius: 22px;
   div {
     margin-top: 0.5rem;
+
+    span {
+      font-size: 0.8rem; 
+      color: #aaa;
+    }
   }
+`;
+
+const SideStat = styled.div`
+  font-size: 0.8rem;
+  margin-bottom: 2rem;
+
   span {
-    margin-left: 1rem;
-    font-size: 0.8rem; 
-    color: #aaa;
+    color: #777;
+  }
+  h3 {
+    margin: 0.4rem;
+    font-size: 1.4rem;
+    text-align: center;
+    font-weight: 400;
   }
 `;
 
@@ -239,17 +262,23 @@ const Overview = styled.p`
   margin-bottom: 1.5rem;
 `;
 
-const Tagline = styled.div`
+const Title = styled.div`
+  display: inline-block;
+  margin-bottom: 2rem;
+  width: auto;
+
+h4 {
   color: #777;
-  margin-bottom: 1.5rem;
+  font-weight: 400;
+  margin: 0.3rem 0
+  }
 `;
 
 const Cast = styled.div`
-  // height: 300px;
   display: flex;
   width: 100%;
   padding: 1rem;
-  border-radius: 3px;
+  border-radius: 12px;
   margin-bottom: 2rem;
   background: rgba(0,0,0,0.4);
   overflow-x: auto;
@@ -257,6 +286,8 @@ const Cast = styled.div`
   white-space: nowrap;
 
   div {
+    whitespace: wrap;
+    // max-width: 152px;  
     padding: 0 1rem;
     display: flex;
     flex-direction: column;
@@ -323,17 +354,17 @@ const RelatedFilms = styled.div`
   align-items: center;
   padding: 2rem 1rem;
   margin: 2rem 0;
-  border-radius: 22px;
+  border-radius: 12px;
   background: rgba(0,0,0,0.4);
   max-width: 100%;
   text-align: center;
 
   h4 {
+    color: #777;
     margin: 0;
-    color: #999;
   }
   h3 {
-    margin: 0.4rem 0 0.8rem;
+    margin: 0.8rem 0;
   }
   img {
     border-radius: 3px;

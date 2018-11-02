@@ -6,7 +6,7 @@ import Overdrive from 'react-overdrive';
 
 const POSTER_PATH = 'https://image.tmdb.org/t/p/w185';
 
-class Movie extends Component {
+export default class Movie extends Component {
   render() {
     const { movie } = this.props;
     const { children } = this.props;
@@ -16,8 +16,8 @@ class Movie extends Component {
         onMouseLeave={() => this.setState({ showOverlay: false })}
       >
         <Link to={`/${movie.id}`}>
-          <Overdrive id={movie.id}>
-            <Poster src={`${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
+          <Overdrive id={String(movie.id)}>
+            <Poster src={Object.keys(movie).length && `${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
           </Overdrive>
           <Overlay>
             {children}
@@ -27,8 +27,6 @@ class Movie extends Component {
     );
   }
 }
-
-export default Movie;
 
 Movie.propTypes = {
   movie: PropTypes.shape({
@@ -61,6 +59,7 @@ const Overlay = styled.div`
   background: rgba(0,0,0,0.8);
   height: 100%;
   width: 100%;
+  overflow: hidden;
   position: absolute;
   top: 0;
   left: 0;

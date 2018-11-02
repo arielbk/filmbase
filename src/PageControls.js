@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
 import styled from 'styled-components';
+import React, { Component } from 'react';
 
 export default class PageControls extends Component {
   render() {
