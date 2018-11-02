@@ -32,8 +32,6 @@ export default class MoviesList extends PureComponent {
     try {
       let page;
       const { sortBy } = this.state;
-      console.log('sortby', sortBy)
-      console.log('match', this.props.match);
       // if there are no params, user must be on homepage (page 1)
       !this.props.match.params
         ? page = 1
@@ -49,7 +47,7 @@ export default class MoviesList extends PureComponent {
   }
 
   render() {
-    const { movies, genres } = this.state;
+    const { movies, genres, sortBy } = this.state;
     let page = parseInt(this.props.match.params.page, 10);
     if (isNaN(page)) {
       page = 1;
@@ -57,7 +55,32 @@ export default class MoviesList extends PureComponent {
 
     return (
       <Fragment>
-        <PageControls page={page} />
+
+        <SortOptions>
+          <h4>Sort by:</h4>
+          <button
+            style={sortBy === 'popularity.desc' ? { color: '#5eb94e' } : {}}
+            onClick={() => this.setState({ sortBy: 'popularity.desc' })}
+            type="button"
+          >
+            most popular
+          </button>
+          <button
+            style={sortBy === 'release_date.desc' ? { color: '#5eb94e' } : {}}
+            onClick={() => this.setState({ sortBy: 'release_date.desc' })}
+            type="button"
+          >
+            newest
+          </button>
+          <button
+            style={sortBy === 'vote_average.desc' ? { color: '#5eb94e' } : {}}
+            onClick={() => this.setState({ sortBy: 'vote_average.desc' })}
+            type="button"
+          >
+            best rated
+          </button>
+        </SortOptions>
+
         <MovieGrid>
           {movies.map(movie => (
             <Movie key={movie.id} movie={movie}>
@@ -109,6 +132,25 @@ const MovieGrid = styled.div`
 
   @media (max-width: 420px) {
     grid-template-columns: repeat(1, 1fr);
+  }
+`;
+
+const SortOptions = styled.div`
+  h4 {
+    margin: 0;
+    margin-bottom: 1rem;
+  }
+  margin: 2rem;
+  background: #111;
+  border-radius: 12px;
+  display: inline-block;
+  padding: 1rem;
+  button {
+    font-size: 1rem;
+    background: transparent;
+    border: none;
+    margin: 0.5rem;
+    color: #777;
   }
 `;
 
