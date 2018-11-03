@@ -1,5 +1,6 @@
 *, *:before, *:after {
   box-sizing: border-box;
+  outline-color: #4E9A46;
 }
 
 body {

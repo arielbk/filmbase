@@ -32,6 +32,7 @@ export default class MoviesList extends PureComponent {
 
   fetchMovies = async () => {
     try {
+      await this.setState({ loading: true });
       let page = 1;
       const { sortBy } = this.state;
       const { match } = this.props;
@@ -62,21 +63,21 @@ export default class MoviesList extends PureComponent {
           <h4>Sort by:</h4>
           <button
             style={sortBy === 'popularity.desc' ? { color: '#5eb94e' } : {}}
-            onClick={() => this.setState({ sortBy: 'popularity.desc' })}
+            onClick={() => this.setState({ sortBy: 'popularity.desc' }, this.fetchMovies)}
             type="button"
           >
             most popular
           </button>
           <button
             style={sortBy === 'release_date.desc' ? { color: '#5eb94e' } : {}}
-            onClick={() => this.setState({ sortBy: 'release_date.desc' })}
+            onClick={() => this.setState({ sortBy: 'release_date.desc' }, this.fetchMovies)}
             type="button"
           >
             newest
           </button>
           <button
             style={sortBy === 'vote_average.desc' ? { color: '#5eb94e' } : {}}
-            onClick={() => this.setState({ sortBy: 'vote_average.desc' })}
+            onClick={() => this.setState({ sortBy: 'vote_average.desc' }, this.fetchMovies)}
             type="button"
           >
             best rated
@@ -146,6 +147,7 @@ const SortOptions = styled.div`
     margin-bottom: 1rem;
   }
   margin: 2rem;
+  margin-bottom: 0;
   background: #111;
   border-radius: 12px;
   display: inline-block;
