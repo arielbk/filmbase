@@ -49,6 +49,7 @@ const StyledMovie = styled.div`
   width: 185px;
   height: 278px;
   position: relative;
+  margin: 0 auto;
   a {
     text-decoration: none;
     color: #fff;

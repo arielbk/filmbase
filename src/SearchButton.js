@@ -43,12 +43,13 @@ class SearchButton extends Component {
 export default withRouter(SearchButton);
 
 const StyledSearchButton = styled.input`
+  position: absolute;
+  z-index: 10;
   padding: 1rem;
   border-radius: 22px;
   font-size: 1rem;
   transition: 0.3s;
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  position: absolute;
   top: 2rem; 
   right: 1rem;
   background: #464646;
@@ -62,7 +63,7 @@ const StyledSearchButton = styled.input`
   }
 
   :focus {
-    max-width: 30%;
+    max-width: 300px;
     background: #ccc;
 
     ::placeholder {
@@ -72,5 +73,11 @@ const StyledSearchButton = styled.input`
   
   :hover {
     background: #ccc;
+  }
+
+  @media (max-width: 760px) {
+    position: relative;
+    top: 1.5rem;
+    left: 0;
   }
 `;

@@ -59,6 +59,12 @@ class MovieDetail extends Component {
               <Background backdrop={Object.keys(movie).length && `${BACKDROP_PATH}${movie.backdrop_path}`} />
               <MovieInfo>
                 <SidePanel>
+                  <SideTitle>
+                    <h1 style={{ display: 'inline' }}>{movie.title}</h1>
+                    <h4>
+                      {movie.tagline}
+                    </h4>
+                  </SideTitle>
                   <Overdrive id={String(movie.id)}>
                     <Poster src={Object.keys(movie).length && `${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
                   </Overdrive>
@@ -134,12 +140,12 @@ class MovieDetail extends Component {
                   }
                 </SidePanel>
                 <MainContent>
-                  <Title>
+                  <MainTitle>
                     <h1 style={{ display: 'inline' }}>{movie.title}</h1>
                     <h4>
                       {movie.tagline}
                     </h4>
-                  </Title>
+                  </MainTitle>
 
                   {/* CAST */}
                   <Cast>
@@ -176,7 +182,7 @@ export default withRouter(MovieDetail);
 
 const MovieWrapper = styled.div`
   position: relative;
-  `;
+`;
 
 const Background = styled.div`
   position: absolute;
@@ -191,12 +197,19 @@ const Background = styled.div`
 `;
 
 const MovieInfo = styled.div`
-  // background: rgba(10,10,10,0.8);
   background-image: linear-gradient(rgba(0,0,0,0.8), rgba(10,10,10,1));
   text-align: left;
-  padding: 4rem 10%;
+  padding: 6rem 10%;
   display: flex;
   justify-content: center;
+
+  @media (max-width: 760px) {
+    display: block;
+  }
+
+  @media (max-width: 360px) {
+    padding: 6rem 1rem;
+  }
 `;
 
 const MainContent = styled.div`
@@ -207,13 +220,20 @@ const MainContent = styled.div`
     margin-bottom: 0.4rem;
     text-shadow: 1px 6px 22px #000;
   }
+
+  @media (max-width: 760px) {
+    padding: 0;
+  }
 `;
 
 const SidePanel = styled.div`
   position: relative;
   margin: 0 1rem;
   width: 186px;
-  // top: -8rem;
+
+  @media (max-width: 760px) {
+    margin: 0 auto;
+  }
 `;
 
 const GenreTab = styled.div`
@@ -283,6 +303,18 @@ h4 {
   }
 `;
 
+const MainTitle = styled(Title)`
+  @media (max-width: 760px) {
+    display: none;
+  }
+`;
+
+const SideTitle = styled(Title)`
+  @media (min-width: 760px) {
+    display: none;
+  }
+`;
+
 const Cast = styled.div`
   display: flex;
   width: 100%;
@@ -296,7 +328,6 @@ const Cast = styled.div`
 
   div {
     whitespace: wrap;
-    // max-width: 152px;  
     padding: 0 1rem;
     display: flex;
     flex-direction: column;
@@ -324,13 +355,13 @@ const Button = styled.button`
   font-size: 1rem;
   transition: 0.3s;
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  background: #4E9A46;
+  background: #4e9a46;
   color: #eee;
   border: 1px solid rgba(0,0,0,0);
   :hover {
     cursor: pointer;
     background: #111;
-    border: 1px solid #4E9A46;
+    border: 1px solid #4e9a46;
     color: #ccc;
   }
 `;
@@ -339,6 +370,10 @@ const BackButton = styled(Button)`
   position: fixed;
   top: 2rem;
   left: 1rem;
+
+  @media (max-width: 760px) {
+    display: none;
+  }
 `;
 
 const RelatedFilms = styled.div`
