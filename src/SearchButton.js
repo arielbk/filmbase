@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import { Redirect } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import React, { Component, Fragment } from 'react';
 
-export default class SearchButton extends Component {
+class SearchButton extends Component {
   state = {
     input: '',
-    redirect: false,
   }
 
   handleChange = (e) => {
@@ -14,13 +13,18 @@ export default class SearchButton extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const { history } = this.props;
     const { input } = this.state;
     if (input === '') return;
-    this.setState({ redirect: true });
+    history.push(`/search/${input}`);
+
+    // this is not the greatest solution but it works
+    // reload the page so that the movielist component will refetch api data
+    window.location.reload(true);
   }
 
   render() {
-    const { input, redirect } = this.state;
+    const { input } = this.state;
     return (
       <Fragment>
         <form onSubmit={this.handleSubmit}>
@@ -31,11 +35,12 @@ export default class SearchButton extends Component {
             onChange={this.handleChange}
           />
         </form>
-        {redirect && <Redirect push to={`/search/${input}`} />}
       </Fragment>
     );
   }
 }
+
+export default withRouter(SearchButton);
 
 const StyledSearchButton = styled.input`
   padding: 1rem;

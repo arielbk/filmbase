@@ -15,9 +15,12 @@ export default class MoviesList extends PureComponent {
     // how the list of movies should be sorted
     sortBy: 'popularity.desc',
     loading: true,
+    searchQuery: null,
   }
 
   async componentDidMount() {
+    const searchQuery = this.props.match.params.query;
+    await this.setState({ searchQuery });
     this.fetchMovies();
     try {
       const genresRes = await fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US');
@@ -34,11 +37,16 @@ export default class MoviesList extends PureComponent {
     try {
       await this.setState({ loading: true });
       let page = 1;
-      const { sortBy } = this.state;
+      const { sortBy, searchQuery } = this.state;
       const { match } = this.props;
       // if there are no params, user must be on homepage (page 1)
-      if (match.params && match.params.page) { page = match.params.page };
-      const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}`);
+      if (match.params && match.params.page) { page = match.params.page; }
+      let res;
+      if (!searchQuery) {
+        res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}`);
+      } else {
+        res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&query=${searchQuery}&page=${page}&include_adult=false`);
+      }
       const movies = await res.json();
       this.setState({
         movies: movies.results,
@@ -50,7 +58,9 @@ export default class MoviesList extends PureComponent {
   }
 
   render() {
-    const { movies, genres, sortBy, loading } = this.state;
+    const {
+      movies, genres, sortBy, loading,
+    } = this.state;
     let page = parseInt(this.props.match.params.page, 10);
     if (isNaN(page)) {
       page = 1;
