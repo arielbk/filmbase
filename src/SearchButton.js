@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router';
+import React, { Component, Fragment } from 'react';
 
 export default class SearchButton extends Component {
   state = {

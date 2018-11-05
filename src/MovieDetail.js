@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import Overdrive from 'react-overdrive';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import commaNumber from 'comma-number';
 import ReactStars from 'react-stars';
+
+import Loading from './Loading';
 import { Poster } from './Movie';
 
 
@@ -16,6 +18,7 @@ class MovieDetail extends Component {
   state = {
     movie: {},
     credits: {},
+    loading: true,
   }
 
   static contextTypes = {
@@ -38,6 +41,7 @@ class MovieDetail extends Component {
       this.setState({
         movie,
         credits,
+        loading: false,
       });
     } catch (e) {
       console.log(e); // eslint-disable-line no-console
@@ -45,119 +49,124 @@ class MovieDetail extends Component {
   }
 
   render() {
-    const { movie } = this.state;
-    const { credits } = this.state;
-    console.log(this.props.match);
+    const { movie, credits, loading } = this.state;
     return (
       <MovieWrapper>
-        <Background backdrop={Object.keys(movie).length && `${BACKDROP_PATH}${movie.backdrop_path}`} />
-        <MovieInfo>
-          <SidePanel>
-            <Overdrive id={String(movie.id)}>
-              <Poster src={Object.keys(movie).length && `${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
-            </Overdrive>
-            <Votes>
-              <ReactStars
-                count={5}
-                value={movie.vote_average / 2}
-                size={24}
-                color2="#4e9a46"
-                edit={false}
-              />
-              <div>
-                {movie.vote_average}
-                /10
-                <span style={{ marginLeft: '1rem' }}>
-                  (
-                  {movie.vote_count}
-                  {' '}
-                  votes)
-                </span>
-              </div>
-            </Votes>
-            <div>
-              {movie.genres && movie.genres.map(genre => (
-                <GenreTab key={genre.name}>{genre.name}</GenreTab>
-              ))}
-            </div>
-            <SideStat>
-              <span>Released:</span>
-              <h3>
-                {movie.release_date}
-              </h3>
-            </SideStat>
-
-            <SideStat>
-              <span>Runtime:</span>
-              <h3>
-                {movie.runtime}
-                min
-              </h3>
-            </SideStat>
-
-            {movie.budget !== 0
-            && (
-            <SideStat>
-              <span>Budget:</span>
-              <h3>
-                $
-                {(commaNumber(movie.budget))}
-              </h3>
-            </SideStat>
-            )}
-
-            {movie.revenue !== 0
-            && (
-            <SideStat>
-              <span>Revenue:</span>
-              <h3>
-                $
-                {(commaNumber(movie.revenue))}
-              </h3>
-            </SideStat>
-            )}
-
-            {movie.belongs_to_collection
-              && (
-                <RelatedFilms>
-                  <h4>part of</h4>
-                  <h3>{movie.belongs_to_collection.name}</h3>
-                  <img src={Object.keys(movie).length && `${POSTER_PATH_SMALL}${movie.belongs_to_collection.poster_path}`} alt={movie.belongs_to_collection.name} />
-                </RelatedFilms>
-              )
-            }
-          </SidePanel>
-          <MainContent>
-            <Title>
-              <h1 style={{ display: 'inline' }}>{movie.title}</h1>
-              <h4>
-                {movie.tagline}
-              </h4>
-            </Title>
-
-            {/* CAST */}
-            <Cast>
-              {credits.cast && (
-                credits.cast.map(cast => (
-                  <div key={cast.name}>
-                    <h3>{cast.name}</h3>
-                    <img src={Object.keys(cast).length && `${CAST_PATH}${cast.profile_path}`} alt={cast.name} />
-                    <h4>{cast.character}</h4>
+        {loading
+          ? <Loading />
+          : (
+            <Fragment>
+              <Background backdrop={Object.keys(movie).length && `${BACKDROP_PATH}${movie.backdrop_path}`} />
+              <MovieInfo>
+                <SidePanel>
+                  <Overdrive id={String(movie.id)}>
+                    <Poster src={Object.keys(movie).length && `${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
+                  </Overdrive>
+                  <Votes>
+                    <ReactStars
+                      count={5}
+                      value={movie.vote_average / 2}
+                      size={24}
+                      color2="#4e9a46"
+                      edit={false}
+                    />
+                    <div>
+                      {movie.vote_average}
+                      /10
+                      <span style={{ marginLeft: '1rem' }}>
+                        (
+                        {movie.vote_count}
+                        {' '}
+                        votes)
+                      </span>
+                    </div>
+                  </Votes>
+                  <div>
+                    {movie.genres && movie.genres.map(genre => (
+                      <GenreTab key={genre.name}>{genre.name}</GenreTab>
+                    ))}
                   </div>
-                )))}
-            </Cast>
+                  <SideStat>
+                    <span>Released:</span>
+                    <h3>
+                      {movie.release_date}
+                    </h3>
+                  </SideStat>
 
-            <Overview>{movie.overview}</Overview>
+                  <SideStat>
+                    <span>Runtime:</span>
+                    <h3>
+                      {movie.runtime}
+                      min
+                    </h3>
+                  </SideStat>
 
-            <h3>Images</h3>
-            <h3>Videos</h3>
-            <h3>Recommendations</h3>
+                  {movie.budget !== 0
+                  && (
+                  <SideStat>
+                    <span>Budget:</span>
+                    <h3>
+                      $
+                      {(commaNumber(movie.budget))}
+                    </h3>
+                  </SideStat>
+                  )}
 
-            {/* These should really be somewhere else... */}
-            <BackButton onClick={this.props.history.goBack}>Go back!</BackButton>
+                  {movie.revenue !== 0
+                  && (
+                  <SideStat>
+                    <span>Revenue:</span>
+                    <h3>
+                      $
+                      {(commaNumber(movie.revenue))}
+                    </h3>
+                  </SideStat>
+                  )}
 
-          </MainContent>
-        </MovieInfo>
+                  {movie.belongs_to_collection
+                    && (
+                      <RelatedFilms>
+                        <h4>part of</h4>
+                        <h3>{movie.belongs_to_collection.name}</h3>
+                        <img src={Object.keys(movie).length && `${POSTER_PATH_SMALL}${movie.belongs_to_collection.poster_path}`} alt={movie.belongs_to_collection.name} />
+                      </RelatedFilms>
+                    )
+                  }
+                </SidePanel>
+                <MainContent>
+                  <Title>
+                    <h1 style={{ display: 'inline' }}>{movie.title}</h1>
+                    <h4>
+                      {movie.tagline}
+                    </h4>
+                  </Title>
+
+                  {/* CAST */}
+                  <Cast>
+                    {credits.cast && (
+                      credits.cast.map(cast => (
+                        <div key={cast.name}>
+                          <h3>{cast.name}</h3>
+                          <img src={Object.keys(cast).length && `${CAST_PATH}${cast.profile_path}`} alt={cast.name} />
+                          <h4>{cast.character}</h4>
+                        </div>
+                      )))}
+                  </Cast>
+
+                  <Overview>{movie.overview}</Overview>
+
+                  <h3>Images</h3>
+                  <h3>Videos</h3>
+                  <h3>Recommendations</h3>
+
+                  {/* These should really be somewhere else... */}
+                  <BackButton onClick={this.props.history.goBack}>Go back!</BackButton>
+
+                </MainContent>
+              </MovieInfo>
+            </Fragment>
+          )
+        }
       </MovieWrapper>
     );
   }
