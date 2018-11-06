@@ -127,7 +127,7 @@ export default class MoviesList extends PureComponent {
 }
 
 const MovieGrid = styled.div`
-  text-align: center;
+  margin: 0 auto;
   display: grid;
   padding: 4rem 1rem;
   grid-template-columns: repeat(5, 1fr);
