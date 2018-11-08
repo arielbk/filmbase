@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Overdrive from 'react-overdrive';
+import blankPoster from './blank.png';
 
 const POSTER_PATH = 'https://image.tmdb.org/t/p/w185';
 
@@ -12,7 +13,14 @@ const Movie = (props) => {
     <StyledMovie>
       <Link to={`/${movie.id}`}>
         <Overdrive id={String(movie.id)}>
-          <Poster src={Object.keys(movie).length && `${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
+          <Poster
+            src={
+            movie.poster_path
+              ? `${POSTER_PATH}${movie.poster_path}`
+              : blankPoster
+            }
+            alt={movie.title}
+          />
         </Overdrive>
         <Overlay>
           {children}
@@ -27,6 +35,8 @@ export default Movie;
 Movie.propTypes = {
   movie: PropTypes.shape({
     title: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    poster_path: PropTypes.string,
     desc: PropTypes.string,
   }).isRequired,
   children: PropTypes.node.isRequired,
@@ -50,6 +60,13 @@ const StyledMovie = styled.div`
   a {
     text-decoration: none;
     color: #fff;
+  }
+  h3 {
+    margin: 0;
+  }
+  h5 {
+    margin: 0.5rem 0 0.7rem;
+    font-weight: 400;
   }
 `;
 

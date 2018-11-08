@@ -167,8 +167,7 @@ class MovieDetail extends Component {
                   <h3>Videos</h3>
                   <h3>Recommendations</h3>
 
-                  {/* These should really be somewhere else... */}
-                  <BackButton onClick={history.goBack}>Go back!</BackButton>
+                  <BackButton onClick={history.goBack}>&lt;</BackButton>
 
                 </MainContent>
               </MovieInfo>
@@ -207,7 +206,7 @@ const Background = styled.div`
 const MovieInfo = styled.div`
   background-image: linear-gradient(rgba(0,0,0,0.8), rgba(10,10,10,1));
   text-align: left;
-  padding: 6rem 10%;
+  padding: 6rem 5%;
   display: flex;
   justify-content: center;
 
@@ -289,7 +288,7 @@ const SideStat = styled.div`
   h3 {
     margin: 0.4rem;
     font-size: 1.4rem;
-    text-align: center;
+    // text-align: center;
     font-weight: 400;
   }
 `;
@@ -357,20 +356,22 @@ const Cast = styled.div`
 `;
 
 const Button = styled.button`
-  padding: 1rem;
-  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3.125rem;
+  width: 3.125rem;
   border-radius: 22px;
-  font-size: 1rem;
+  font-size: 1.5rem;
+  font-weight: 400;
   transition: 0.3s;
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  background: #4e9a46;
+  background: #111;
   color: #eee;
-  border: 1px solid rgba(0,0,0,0);
+  border: 1px solid #4e9a46;
   :hover {
     cursor: pointer;
-    background: #111;
-    border: 1px solid #4e9a46;
-    color: #ccc;
+    background: #4e9a46;
   }
 `;
 

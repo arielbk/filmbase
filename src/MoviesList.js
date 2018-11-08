@@ -41,8 +41,7 @@ export default class MoviesList extends PureComponent {
 
       const { sortBy, searchQuery } = this.state;
       const { match } = this.props;
-      const { params } = match;
-      const { page } = params;
+      const { page } = match.params;
 
       let res;
       if (!searchQuery) {
@@ -62,41 +61,48 @@ export default class MoviesList extends PureComponent {
 
   render() {
     const {
-      movies, genres, sortBy, loading,
+      movies, genres, sortBy, loading, searchQuery,
     } = this.state;
     const { match } = this.props;
     let page = parseInt(match.params.page, 10);
-    if (Number.isNaN(page)) {
-      page = 1;
-    }
+    if (Number.isNaN(page)) page = 1;
 
     return (
       <Fragment>
 
-        <SortOptions>
-          <h4>Sort by:</h4>
-          <button
-            style={sortBy === 'popularity.desc' ? { color: '#5eb94e' } : {}}
-            onClick={() => this.setState({ sortBy: 'popularity.desc' }, this.fetchMovies)}
-            type="button"
-          >
-            most popular
-          </button>
-          <button
-            style={sortBy === 'release_date.desc' ? { color: '#5eb94e' } : {}}
-            onClick={() => this.setState({ sortBy: 'release_date.desc' }, this.fetchMovies)}
-            type="button"
-          >
-            newest
-          </button>
-          <button
-            style={sortBy === 'vote_average.desc' ? { color: '#5eb94e' } : {}}
-            onClick={() => this.setState({ sortBy: 'vote_average.desc' }, this.fetchMovies)}
-            type="button"
-          >
-            best rated
-          </button>
-        </SortOptions>
+        {!searchQuery
+          ? (
+            <SortOptions>
+              <h4>Sort by:</h4>
+              <button
+                style={sortBy === 'popularity.desc' ? { color: '#5eb94e' } : {}}
+                onClick={() => this.setState({ sortBy: 'popularity.desc' }, this.fetchMovies)}
+                type="button"
+              >
+                most popular
+              </button>
+              <button
+                style={sortBy === 'release_date.desc' ? { color: '#5eb94e' } : {}}
+                onClick={() => this.setState({ sortBy: 'release_date.desc' }, this.fetchMovies)}
+                type="button"
+              >
+                newest
+              </button>
+              <button
+                style={sortBy === 'vote_average.desc' ? { color: '#5eb94e' } : {}}
+                onClick={() => this.setState({ sortBy: 'vote_average.desc' }, this.fetchMovies)}
+                type="button"
+              >
+                best rated
+              </button>
+            </SortOptions>
+          )
+          : (
+            <Fragment>
+              <h3>Search term:</h3>
+              {searchQuery}
+            </Fragment>
+          )}
 
         {loading
           ? <Loading />
@@ -105,6 +111,7 @@ export default class MoviesList extends PureComponent {
               {movies.map(movie => (
                 <Movie key={movie.id} movie={movie}>
                   <h3>{movie.title}</h3>
+                  <h5>{movie.release_date.split('-')[0]}</h5>
                   <ReactStars
                     count={5}
                     value={movie.vote_average / 2}
@@ -124,16 +131,18 @@ export default class MoviesList extends PureComponent {
               ))}
             </MovieGrid>
           )}
-        <PageControls page={page} />
+        <PageControls page={page} search={searchQuery} />
       </Fragment>
     );
   }
 }
 
+// Default props for multi level nested props like this?? Still returning NaN
 MoviesList.defaultProps = {
   match: {
     params: {
       page: '1',
+      searchQuery: null,
     },
   },
 };
@@ -142,6 +151,7 @@ MoviesList.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       page: PropTypes.string,
+      searchQuery: PropTypes.string,
     }),
   }),
 };

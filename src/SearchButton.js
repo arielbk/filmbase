@@ -17,7 +17,7 @@ class SearchButton extends Component {
     const { history } = this.props;
     const { input } = this.state;
     if (input === '') return;
-    history.push(`/search/${input}`);
+    history.push(`/search=${input}`);
 
     // this is not the greatest solution but it works
     // reload the page so that the movielist component will refetch api data

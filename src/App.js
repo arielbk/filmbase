@@ -25,8 +25,9 @@ const App = () => (
       </Header>
       <Switch>
         <Route exact path="/" component={MoviesList} />
-        <Route path="/page:page" component={MoviesList} />
-        <Route path="/search/:query" component={MoviesList} />
+        <Route exact path="/p=:page" component={MoviesList} />
+        <Route exact path="/search=:query" component={MoviesList} />
+        <Route path="/search=:query/p=:page" component={MoviesList} />
         <Route path="/:id" component={MovieDetail} />
       </Switch>
     </StyledApp>

@@ -3,12 +3,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const PageControls = (props) => {
-  const { page } = props;
+  const { page, search } = props;
   return (
     <StyledPageControls>
       {page > 1
         ? (
-          <a href={`page${page - 1}`}>
+          <a href={search
+            ? `/search=${search}/p=${page - 1}`
+            : `/p=${page - 1}`}
+          >
             <div>
               &lt;
             </div>
@@ -20,7 +23,10 @@ const PageControls = (props) => {
         {' '}
         { page }
       </span>
-      <a href={`page${page + 1}`}>
+      <a href={search
+        ? `/search=${search}/p=${page + 1}`
+        : `/p=${page + 1}`}
+      >
         <div>
           &gt;
         </div>
@@ -33,6 +39,10 @@ export default PageControls;
 
 PageControls.propTypes = {
   page: PropTypes.number.isRequired,
+  search: PropTypes.string,
+};
+PageControls.defaultProps = {
+  search: null,
 };
 
 const StyledPageControls = styled.div`

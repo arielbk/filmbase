@@ -2,7 +2,6 @@
   "name": "movies",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://arielbk.com/filmbase/",
   "dependencies": {
     "comma-number": "^2.0.0",
     "number-to-words": "^1.2.4",
