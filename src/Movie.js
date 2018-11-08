@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -6,33 +6,30 @@ import Overdrive from 'react-overdrive';
 
 const POSTER_PATH = 'https://image.tmdb.org/t/p/w185';
 
-export default class Movie extends Component {
-  render() {
-    const { movie } = this.props;
-    const { children } = this.props;
-    return (
-      <StyledMovie
-        onMouseEnter={() => this.setState({ showOverlay: true })}
-        onMouseLeave={() => this.setState({ showOverlay: false })}
-      >
-        <Link to={`/${movie.id}`}>
-          <Overdrive id={String(movie.id)}>
-            <Poster src={Object.keys(movie).length && `${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
-          </Overdrive>
-          <Overlay>
-            {children}
-          </Overlay>
-        </Link>
-      </StyledMovie>
-    );
-  }
-}
+const Movie = (props) => {
+  const { movie, children } = props;
+  return (
+    <StyledMovie>
+      <Link to={`/${movie.id}`}>
+        <Overdrive id={String(movie.id)}>
+          <Poster src={Object.keys(movie).length && `${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
+        </Overdrive>
+        <Overlay>
+          {children}
+        </Overlay>
+      </Link>
+    </StyledMovie>
+  );
+};
+
+export default Movie;
 
 Movie.propTypes = {
   movie: PropTypes.shape({
     title: PropTypes.string.isRequired,
     desc: PropTypes.string,
   }).isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export const Poster = styled.img`

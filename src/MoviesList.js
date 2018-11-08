@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React, { PureComponent, Fragment } from 'react';
 import ReactStars from 'react-stars';
+import PropTypes from 'prop-types';
 
 import Loading from './Loading';
 import PageControls from './PageControls';
@@ -19,7 +20,8 @@ export default class MoviesList extends PureComponent {
   }
 
   async componentDidMount() {
-    const searchQuery = this.props.match.params.query;
+    const { match } = this.props;
+    const searchQuery = match.params.query;
     await this.setState({ searchQuery });
     this.fetchMovies();
     try {
@@ -36,11 +38,12 @@ export default class MoviesList extends PureComponent {
   fetchMovies = async () => {
     try {
       await this.setState({ loading: true });
-      let page = 1;
+
       const { sortBy, searchQuery } = this.state;
       const { match } = this.props;
-      // if there are no params, user must be on homepage (page 1)
-      if (match.params && match.params.page) { page = match.params.page; }
+      const { params } = match;
+      const { page } = params;
+
       let res;
       if (!searchQuery) {
         res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}`);
@@ -61,8 +64,9 @@ export default class MoviesList extends PureComponent {
     const {
       movies, genres, sortBy, loading,
     } = this.state;
-    let page = parseInt(this.props.match.params.page, 10);
-    if (isNaN(page)) {
+    const { match } = this.props;
+    let page = parseInt(match.params.page, 10);
+    if (Number.isNaN(page)) {
       page = 1;
     }
 
@@ -125,6 +129,22 @@ export default class MoviesList extends PureComponent {
     );
   }
 }
+
+MoviesList.defaultProps = {
+  match: {
+    params: {
+      page: '1',
+    },
+  },
+};
+
+MoviesList.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      page: PropTypes.string,
+    }),
+  }),
+};
 
 const MovieGrid = styled.div`
   margin: 0 auto;

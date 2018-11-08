@@ -4,6 +4,7 @@ import Overdrive from 'react-overdrive';
 import React, { Component, Fragment } from 'react';
 import commaNumber from 'comma-number';
 import ReactStars from 'react-stars';
+import PropTypes from 'prop-types';
 
 import Loading from './Loading';
 import { Poster } from './Movie';
@@ -50,6 +51,7 @@ class MovieDetail extends Component {
 
   render() {
     const { movie, credits, loading } = this.state;
+    const { history } = this.props;
     return (
       <MovieWrapper>
         {loading
@@ -166,7 +168,7 @@ class MovieDetail extends Component {
                   <h3>Recommendations</h3>
 
                   {/* These should really be somewhere else... */}
-                  <BackButton onClick={this.props.history.goBack}>Go back!</BackButton>
+                  <BackButton onClick={history.goBack}>Go back!</BackButton>
 
                 </MainContent>
               </MovieInfo>
@@ -177,6 +179,12 @@ class MovieDetail extends Component {
     );
   }
 }
+
+MovieDetail.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default withRouter(MovieDetail);
 

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 class SearchButton extends Component {
   state = {
@@ -39,6 +40,12 @@ class SearchButton extends Component {
     );
   }
 }
+
+SearchButton.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default withRouter(SearchButton);
 
