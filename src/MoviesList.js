@@ -131,6 +131,10 @@ export default class MoviesList extends PureComponent {
               ))}
             </MovieGrid>
           )}
+
+        {!loading && !movies.length && (
+          <h2 style={{ position: 'relative', top: '-4rem' }}>No films found!</h2>
+        )}
         <PageControls page={page} search={searchQuery} />
       </Fragment>
     );
