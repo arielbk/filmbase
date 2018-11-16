@@ -16,6 +16,8 @@ Presets for Create-React-App
 
 `npm build` to build.
 
+`npm run test` to test.
+
 ## Demo
 [Check it out at https://movies-eyqgndvdgr.now.sh/](https://movies-eyqgndvdgr.now.sh/). 
 This is currently hosted on the Zeit Now free plan so it may take some time to start up initially.

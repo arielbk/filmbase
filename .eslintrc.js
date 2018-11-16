@@ -23,5 +23,12 @@ module.exports = {
   "extends": "airbnb",
   "rules": {
     "react/jsx-filename-extension": 0
+  },
+  "globals": {
+    // these are for the benefit of react-testing-library
+    "test": true,
+    "expect": true,
+    "afterEach": true,
+    "jest": true,
   }
 };

@@ -5,15 +5,17 @@ import styled from 'styled-components';
 import Overdrive from 'react-overdrive';
 import blankPoster from './blank.png';
 
-const POSTER_PATH = 'https://image.tmdb.org/t/p/w185';
+export const POSTER_PATH = 'https://image.tmdb.org/t/p/w185';
 
 const Movie = (props) => {
   const { movie, children } = props;
+  if (!movie) return null;
   return (
     <StyledMovie>
-      <Link to={`/${movie.id}`}>
-        <Overdrive id={String(movie.id)}>
+      <Link data-testid="movie-link" to={`/${movie.id}`}>
+        <Overdrive data-testid="movie-overdrive" id={String(movie.id)}>
           <Poster
+            data-testid="movie-poster"
             src={
             movie.poster_path
               ? `${POSTER_PATH}${movie.poster_path}`
