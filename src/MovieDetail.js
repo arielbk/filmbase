@@ -52,128 +52,135 @@ class MovieDetail extends Component {
   render() {
     const { movie, credits, loading } = this.state;
     const { history } = this.props;
+    console.log('movie:', movie);
+    console.log('credits:', credits);
+    console.log(this.props);
     return (
       <MovieWrapper>
-        {loading
-          ? <Loading />
-          : (
-            <Fragment>
-              <Background backdrop={Object.keys(movie).length && `${BACKDROP_PATH}${movie.backdrop_path}`} />
-              <MovieInfo>
-                <SidePanel>
-                  <SideTitle>
-                    <h1 style={{ display: 'inline' }}>{movie.title}</h1>
-                    <h4>
-                      {movie.tagline}
-                    </h4>
-                  </SideTitle>
-                  <Overdrive id={String(movie.id)}>
-                    <Poster src={Object.keys(movie).length && `${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
-                  </Overdrive>
-                  <Votes>
-                    <ReactStars
-                      count={5}
-                      value={movie.vote_average / 2}
-                      size={24}
-                      color2="#4e9a46"
-                      edit={false}
-                    />
-                    <div>
-                      {movie.vote_average}
-                      /10
-                      <span style={{ marginLeft: '1rem' }}>
-                        (
-                        {movie.vote_count}
-                        {' '}
-                        votes)
-                      </span>
-                    </div>
-                  </Votes>
+        {loading && <Loading />}
+        {!loading && movie && !movie.status_code && (
+          <Fragment>
+            <Background backdrop={Object.keys(movie).length && `${BACKDROP_PATH}${movie.backdrop_path}`} />
+            <MovieInfo>
+              <SidePanel>
+                <SideTitle>
+                  <h1 style={{ display: 'inline' }}>{movie.title}</h1>
+                  <h4>
+                    {movie.tagline}
+                  </h4>
+                </SideTitle>
+                <Overdrive id={String(movie.id)}>
+                  <Poster src={Object.keys(movie).length && `${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
+                </Overdrive>
+                <Votes>
+                  <ReactStars
+                    count={5}
+                    value={movie.vote_average / 2}
+                    size={24}
+                    color2="#4e9a46"
+                    edit={false}
+                  />
                   <div>
-                    {movie.genres && movie.genres.map(genre => (
-                      <GenreTab key={genre.name}>{genre.name}</GenreTab>
-                    ))}
+                    {movie.vote_average}
+                    /10
+                    <span style={{ marginLeft: '1rem' }}>
+                      (
+                      {movie.vote_count}
+                      {' '}
+                      votes)
+                    </span>
                   </div>
-                  <SideStat>
-                    <span>Released:</span>
-                    <h3>
-                      {movie.release_date}
-                    </h3>
-                  </SideStat>
+                </Votes>
+                <div>
+                  {movie.genres && movie.genres.map(genre => (
+                    <GenreTab key={genre.name}>{genre.name}</GenreTab>
+                  ))}
+                </div>
+                <SideStat>
+                  <span>Released:</span>
+                  <h3>
+                    {movie.release_date}
+                  </h3>
+                </SideStat>
 
-                  <SideStat>
-                    <span>Runtime:</span>
-                    <h3>
-                      {movie.runtime}
-                      min
-                    </h3>
-                  </SideStat>
+                <SideStat>
+                  <span>Runtime:</span>
+                  <h3>
+                    {movie.runtime}
+                    min
+                  </h3>
+                </SideStat>
 
-                  {movie.budget !== 0
+                {movie.budget !== 0
+                && (
+                <SideStat>
+                  <span>Budget:</span>
+                  <h3>
+                    $
+                    {(commaNumber(movie.budget))}
+                  </h3>
+                </SideStat>
+                )}
+
+                {movie.revenue !== 0
+                && (
+                <SideStat>
+                  <span>Revenue:</span>
+                  <h3>
+                    $
+                    {(commaNumber(movie.revenue))}
+                  </h3>
+                </SideStat>
+                )}
+
+                {movie.belongs_to_collection
                   && (
-                  <SideStat>
-                    <span>Budget:</span>
-                    <h3>
-                      $
-                      {(commaNumber(movie.budget))}
-                    </h3>
-                  </SideStat>
-                  )}
+                    <RelatedFilms>
+                      <h4>part of</h4>
+                      <h3>{movie.belongs_to_collection.name}</h3>
+                      <img src={Object.keys(movie).length && `${POSTER_PATH_SMALL}${movie.belongs_to_collection.poster_path}`} alt={movie.belongs_to_collection.name} />
+                    </RelatedFilms>
+                  )
+                }
+              </SidePanel>
+              <MainContent>
+                <MainTitle>
+                  <h1 style={{ display: 'inline' }}>{movie.title}</h1>
+                  <h4>
+                    {movie.tagline}
+                  </h4>
+                </MainTitle>
 
-                  {movie.revenue !== 0
-                  && (
-                  <SideStat>
-                    <span>Revenue:</span>
-                    <h3>
-                      $
-                      {(commaNumber(movie.revenue))}
-                    </h3>
-                  </SideStat>
-                  )}
+                {/* CAST */}
+                <Cast>
+                  {credits.cast && (
+                    credits.cast.map(credit => (
+                      <div key={credit.credit_id}>
+                        <h3>{credit.name}</h3>
+                        <img src={Object.keys(credit).length && `${CAST_PATH}${credit.profile_path}`} alt={credit.name} />
+                        <h4>{credit.character}</h4>
+                      </div>
+                    )))}
+                </Cast>
 
-                  {movie.belongs_to_collection
-                    && (
-                      <RelatedFilms>
-                        <h4>part of</h4>
-                        <h3>{movie.belongs_to_collection.name}</h3>
-                        <img src={Object.keys(movie).length && `${POSTER_PATH_SMALL}${movie.belongs_to_collection.poster_path}`} alt={movie.belongs_to_collection.name} />
-                      </RelatedFilms>
-                    )
-                  }
-                </SidePanel>
-                <MainContent>
-                  <MainTitle>
-                    <h1 style={{ display: 'inline' }}>{movie.title}</h1>
-                    <h4>
-                      {movie.tagline}
-                    </h4>
-                  </MainTitle>
+                <Overview>{movie.overview}</Overview>
 
-                  {/* CAST */}
-                  <Cast>
-                    {credits.cast && (
-                      credits.cast.map(cast => (
-                        <div key={cast.name}>
-                          <h3>{cast.name}</h3>
-                          <img src={Object.keys(cast).length && `${CAST_PATH}${cast.profile_path}`} alt={cast.name} />
-                          <h4>{cast.character}</h4>
-                        </div>
-                      )))}
-                  </Cast>
+                <h3>Images</h3>
+                <h3>Videos</h3>
+                <h3>Recommendations</h3>
 
-                  <Overview>{movie.overview}</Overview>
+                <BackButton onClick={history.goBack}>&lt;</BackButton>
 
-                  <h3>Images</h3>
-                  <h3>Videos</h3>
-                  <h3>Recommendations</h3>
-
-                  <BackButton onClick={history.goBack}>&lt;</BackButton>
-
-                </MainContent>
-              </MovieInfo>
-            </Fragment>
-          )
-        }
+              </MainContent>
+            </MovieInfo>
+          </Fragment>
+        )}
+        {!loading && movie && movie.status_code === 34 && (
+          <Fragment>
+            <h2 style={{ marginTop: '6rem' }}>Film not found!</h2>
+            <BackButton onClick={history.goBack}>&lt;</BackButton>
+          </Fragment>
+        )}
       </MovieWrapper>
     );
   }
@@ -182,6 +189,11 @@ class MovieDetail extends Component {
 MovieDetail.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
   }).isRequired,
 };
 
@@ -220,7 +232,7 @@ const MovieInfo = styled.div`
 `;
 
 const MainContent = styled.div`
-  padding: 0 2rem;
+  padding: 0 0 0 2rem;
   max-width: 850px;
   overflow: auto;
   h1 {

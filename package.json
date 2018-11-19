@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "comma-number": "^2.0.0",
+    "jest-fetch-mock": "^1.7.4",
     "number-to-words": "^1.2.4",
     "prop-types": "^15.6.2",
     "react": "latest",
