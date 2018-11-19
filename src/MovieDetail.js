@@ -10,10 +10,10 @@ import Loading from './Loading';
 import { Poster } from './Movie';
 
 
-const POSTER_PATH = 'https://image.tmdb.org/t/p/w185';
+export const POSTER_PATH = 'https://image.tmdb.org/t/p/w185';
 const POSTER_PATH_SMALL = 'https://image.tmdb.org/t/p/w154';
 const BACKDROP_PATH = 'https://image.tmdb.org/t/p/w1280';
-const CAST_PATH = 'https://image.tmdb.org/t/p/w185';
+export const CAST_PATH = 'https://image.tmdb.org/t/p/w185';
 
 class MovieDetail extends Component {
   state = {
@@ -52,9 +52,6 @@ class MovieDetail extends Component {
   render() {
     const { movie, credits, loading } = this.state;
     const { history } = this.props;
-    console.log('movie:', movie);
-    console.log('credits:', credits);
-    console.log(this.props);
     return (
       <MovieWrapper>
         {loading && <Loading />}
@@ -64,13 +61,13 @@ class MovieDetail extends Component {
             <MovieInfo>
               <SidePanel>
                 <SideTitle>
-                  <h1 style={{ display: 'inline' }}>{movie.title}</h1>
-                  <h4>
+                  <h1 data-testid="movie-title" style={{ display: 'inline' }}>{movie.title}</h1>
+                  <h4 data-testid="movie-tagline">
                     {movie.tagline}
                   </h4>
                 </SideTitle>
                 <Overdrive id={String(movie.id)}>
-                  <Poster src={Object.keys(movie).length && `${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
+                  <Poster data-testid="movie-poster" src={Object.keys(movie).length && `${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
                 </Overdrive>
                 <Votes>
                   <ReactStars
@@ -81,11 +78,15 @@ class MovieDetail extends Component {
                     edit={false}
                   />
                   <div>
-                    {movie.vote_average}
+                    <span data-testid="vote-average">
+                      {movie.vote_average}
+                    </span>
                     /10
                     <span style={{ marginLeft: '1rem' }}>
                       (
-                      {movie.vote_count}
+                      <span data-testid="vote-count">
+                        {movie.vote_count}
+                      </span>
                       {' '}
                       votes)
                     </span>
@@ -93,19 +94,19 @@ class MovieDetail extends Component {
                 </Votes>
                 <div>
                   {movie.genres && movie.genres.map(genre => (
-                    <GenreTab key={genre.name}>{genre.name}</GenreTab>
+                    <GenreTab data-testid="movie-genre" key={genre.name}>{genre.name}</GenreTab>
                   ))}
                 </div>
                 <SideStat>
                   <span>Released:</span>
-                  <h3>
+                  <h3 data-testid="movie-release-date">
                     {movie.release_date}
                   </h3>
                 </SideStat>
 
                 <SideStat>
                   <span>Runtime:</span>
-                  <h3>
+                  <h3 data-testid="movie-runtime">
                     {movie.runtime}
                     min
                   </h3>
@@ -115,7 +116,7 @@ class MovieDetail extends Component {
                 && (
                 <SideStat>
                   <span>Budget:</span>
-                  <h3>
+                  <h3 data-testid="movie-budget">
                     $
                     {(commaNumber(movie.budget))}
                   </h3>
@@ -126,7 +127,7 @@ class MovieDetail extends Component {
                 && (
                 <SideStat>
                   <span>Revenue:</span>
-                  <h3>
+                  <h3 data-testid="movie-revenue">
                     $
                     {(commaNumber(movie.revenue))}
                   </h3>
@@ -145,8 +146,8 @@ class MovieDetail extends Component {
               </SidePanel>
               <MainContent>
                 <MainTitle>
-                  <h1 style={{ display: 'inline' }}>{movie.title}</h1>
-                  <h4>
+                  <h1 data-testid="movie-title" style={{ display: 'inline' }}>{movie.title}</h1>
+                  <h4 data-testid="movie-tagline">
                     {movie.tagline}
                   </h4>
                 </MainTitle>
@@ -155,15 +156,15 @@ class MovieDetail extends Component {
                 <Cast>
                   {credits.cast && (
                     credits.cast.map(credit => (
-                      <div key={credit.credit_id}>
-                        <h3>{credit.name}</h3>
-                        <img src={Object.keys(credit).length && `${CAST_PATH}${credit.profile_path}`} alt={credit.name} />
-                        <h4>{credit.character}</h4>
+                      <div data-testid="movie-credit" key={credit.credit_id}>
+                        <h3 data-testid="credit-name">{credit.name}</h3>
+                        <img data-testid="credit-photo" src={Object.keys(credit).length && `${CAST_PATH}${credit.profile_path}`} alt={credit.name} />
+                        <h4 data-testid="credit-character">{credit.character}</h4>
                       </div>
                     )))}
                 </Cast>
 
-                <Overview>{movie.overview}</Overview>
+                <Overview data-testid="movie-overview">{movie.overview}</Overview>
 
                 <h3>Images</h3>
                 <h3>Videos</h3>
@@ -177,7 +178,7 @@ class MovieDetail extends Component {
         )}
         {!loading && movie && movie.status_code === 34 && (
           <Fragment>
-            <h2 style={{ marginTop: '6rem' }}>Film not found!</h2>
+            <h2 data-testid="movie-title" style={{ marginTop: '6rem' }}>Film not found!</h2>
             <BackButton onClick={history.goBack}>&lt;</BackButton>
           </Fragment>
         )}

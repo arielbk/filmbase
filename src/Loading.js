@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const Loading = () => (
-  <StyledLoader>
+  <StyledLoader data-testid="loading">
     <Container>
       <SquareOne />
       <SquareTwo />
