@@ -82,7 +82,7 @@ class MovieDetail extends Component {
                       {movie.vote_average}
                     </span>
                     /10
-                    <span style={{ marginLeft: '1rem' }}>
+                    <span style={{ marginLeft: '1rem', fontSize: '0.8rem', color: '#aaa' }}>
                       (
                       <span data-testid="vote-count">
                         {movie.vote_count}
@@ -283,11 +283,6 @@ const Votes = styled.div`
   border-radius: 22px;
   div {
     margin-top: 0.5rem;
-
-    span {
-      font-size: 0.8rem; 
-      color: #aaa;
-    }
   }
 `;
 

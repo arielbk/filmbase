@@ -66,7 +66,6 @@ export default class MoviesList extends PureComponent {
     const { match } = this.props;
     let page = parseInt(match.params.page, 10);
     if (Number.isNaN(page)) page = 1;
-
     return (
       <Fragment>
 
@@ -107,11 +106,11 @@ export default class MoviesList extends PureComponent {
         {loading
           ? <Loading />
           : (
-            <MovieGrid>
+            <MovieGrid data-testid="movie-results">
               {movies.map(movie => (
                 <Movie key={movie.id} movie={movie}>
-                  <h3>{movie.title}</h3>
-                  <h5>{movie.release_date.split('-')[0]}</h5>
+                  <h3 data-testid="movieposter-title">{movie.title}</h3>
+                  <h5 data-testid="movieposter-year">{movie.release_date.split('-')[0]}</h5>
                   <ReactStars
                     count={5}
                     value={movie.vote_average / 2}
@@ -123,7 +122,7 @@ export default class MoviesList extends PureComponent {
                     {movie.genre_ids.length && movie.genre_ids.map(genreID => (
                       <span key={genreID}>
                         {genres.map(genre => genreID === genre.id
-                          && <Genre key={genre.name}>{genre.name}</Genre>)}
+                          && <Genre data-testid="movieposter-genre" key={genre.name}>{genre.name}</Genre>)}
                       </span>
                     ))}
                   </div>
@@ -133,7 +132,7 @@ export default class MoviesList extends PureComponent {
           )}
 
         {!loading && !movies.length && (
-          <h2 style={{ position: 'relative', top: '-4rem' }}>No films found!</h2>
+          <h2 data-testid="movie-results" style={{ position: 'relative', top: '-4rem' }}>No films found!</h2>
         )}
         <PageControls page={page} search={searchQuery} />
       </Fragment>

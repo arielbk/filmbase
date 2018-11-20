@@ -39,7 +39,7 @@ test('<MovieDetail /> receives failed api response', async () => {
     .mockResponseOnce(JSON.stringify(credits));
 
   const {
-    debug, getByTestId, queryByTestId,
+    getByTestId, queryByTestId,
   } = render(
     <MemoryRouter>
       <MovieDetail match={match} />
@@ -51,8 +51,6 @@ test('<MovieDetail /> receives failed api response', async () => {
   expect(queryByTestId('loading')).toBeFalsy();
 
   expect(getByTestId('movie-title').innerHTML).toBe('Film not found!');
-
-  debug();
 });
 
 test('<MovieDetail /> receives valid api response', async () => {
