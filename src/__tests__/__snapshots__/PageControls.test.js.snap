@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PageControls /> page 1 with search query 1`] = `
+<div
+  class="sc-bdVaJa kOPzHN"
+>
+  <div>
+     
+  </div>
+  <span
+    data-testid="pagecontrols-current"
+  >
+    page
+     
+    1
+  </span>
+  <a
+    data-testid="pagecontrols-forward"
+    href="/search=lord/p=2"
+  >
+    <div>
+      &gt;
+    </div>
+  </a>
+</div>
+`;
+
+exports[`<PageControls /> page 3 with no search query 1`] = `
+<div
+  class="sc-bdVaJa kOPzHN"
+>
+  <a
+    data-testid="pagecontrols-back"
+    href="/p=2"
+  >
+    <div>
+      &lt;
+    </div>
+  </a>
+  <span
+    data-testid="pagecontrols-current"
+  >
+    page
+     
+    3
+  </span>
+  <a
+    data-testid="pagecontrols-forward"
+    href="/p=4"
+  >
+    <div>
+      &gt;
+    </div>
+  </a>
+</div>
+`;

@@ -8,9 +8,11 @@ const PageControls = (props) => {
     <StyledPageControls>
       {page > 1
         ? (
-          <a href={search
-            ? `/search=${search}/p=${page - 1}`
-            : `/p=${page - 1}`}
+          <a
+            data-testid="pagecontrols-back"
+            href={search
+              ? `/search=${search}/p=${page - 1}`
+              : `/p=${page - 1}`}
           >
             <div>
               &lt;
@@ -18,14 +20,16 @@ const PageControls = (props) => {
           </a>
         )
         : <div>&nbsp;</div>}
-      <span>
+      <span data-testid="pagecontrols-current">
         page
         {' '}
         { page }
       </span>
-      <a href={search
-        ? `/search=${search}/p=${page + 1}`
-        : `/p=${page + 1}`}
+      <a
+        data-testid="pagecontrols-forward"
+        href={search
+          ? `/search=${search}/p=${page + 1}`
+          : `/p=${page + 1}`}
       >
         <div>
           &gt;
