@@ -3,6 +3,17 @@ import { withRouter } from 'react-router-dom';
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
+// passed as a default prop so it's easy to pass a mock function during testing
+const handleSubmit = (e, input, history) => {
+  e.preventDefault();
+  if (input === '') return;
+  history.push(`/search=${input}`);
+
+  // this is not the greatest solution but it works for now, dig into React router more
+  // reload the page so that the movielist component will refetch api data
+  window.location.reload(true);
+};
+
 class SearchButton extends Component {
   state = {
     input: '',
@@ -12,24 +23,14 @@ class SearchButton extends Component {
     this.setState({ input: e.target.value });
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const { history } = this.props;
-    const { input } = this.state;
-    if (input === '') return;
-    history.push(`/search=${input}`);
-
-    // this is not the greatest solution but it works
-    // reload the page so that the movielist component will refetch api data
-    window.location.reload(true);
-  }
-
   render() {
     const { input } = this.state;
+    const { onSubmit, history } = this.props;
     return (
       <Fragment>
-        <form onSubmit={this.handleSubmit}>
+        <form data-testid="searchbutton-form" onSubmit={e => onSubmit(e, input, history)}>
           <StyledSearchButton
+            data-testid="searchbutton-field"
             placeholder="search"
             type="text"
             value={input}
@@ -45,6 +46,10 @@ SearchButton.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  onSubmit: PropTypes.func,
+};
+SearchButton.defaultProps = {
+  onSubmit: handleSubmit,
 };
 
 export default withRouter(SearchButton);
