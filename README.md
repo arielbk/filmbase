@@ -17,4 +17,4 @@ Presets for Create-React-App
 - `npm run test` to test.
 
 ## Demo
-[Check it out at https://movies-eyqgndvdgr.now.sh/](https://movies-ueunjtlhun.now.sh/).
+[Check it out at https://movies-ueunjtlhun.now.sh/](https://movies-ueunjtlhun.now.sh/).
