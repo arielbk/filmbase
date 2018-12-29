@@ -1,7 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 require('dotenv').config({ path: '.env.local' });
+
+const authRoutes = require('./routes/auth');
+// const listRoutes = require('./routes/list');
 
 // Use native promises
 mongoose.Promise = global.Promise;
@@ -23,7 +27,12 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Routes will go here
+// HTTP request logger
+app.use(morgan('dev'));
+
+// Routes
+app.use('/api/auth', authRoutes);
+// app.use('/lists', listRoutes);
 
 app.get('/', (req, res) => {
 	res.send('Express server is working!');
