@@ -2,10 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const passport = require('passport');
 require('dotenv').config({ path: '.env.local' });
 
 const authRoutes = require('./routes/auth');
-// const listRoutes = require('./routes/list');
+const listRoutes = require('./routes/list');
 
 // Use native promises
 mongoose.Promise = global.Promise;
@@ -23,6 +24,11 @@ mongoose
 // Create Express app
 const app = express();
 
+// Passport middleware
+app.use(passport.initialize());
+// Passport config
+require('./config/passport')(passport);
+
 // Connect body parser to app
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -32,7 +38,7 @@ app.use(morgan('dev'));
 
 // Routes
 app.use('/api/auth', authRoutes);
-// app.use('/lists', listRoutes);
+app.use('/api/list', listRoutes);
 
 app.get('/', (req, res) => {
 	res.send('Express server is working!');

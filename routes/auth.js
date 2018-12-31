@@ -82,7 +82,7 @@ router.post('/login', (req, res) => {
 				};
 
 				// Sign JWT token
-				return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
+				return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '24h' }, (err, token) => {
 					if (err) throw err;
 					res.json({
 						success: true,
