@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
@@ -8,11 +8,11 @@ import { setCurrentUser, logoutUser } from './actions/authActions';
 
 import { Provider } from 'react-redux';
 import store from './store';
-
-import logo from './logo.svg';
 import MoviesList from './MoviesList';
 import MovieDetail from './MovieDetail';
-import SearchButton from './SearchButton';
+import Navbar from './Navbar';
+import Register from './Register';
+import Login from './Login';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -39,17 +39,13 @@ const App = () => (
 		<Router>
 			<StyledApp>
 				<GlobalStyle />
-				<Header>
-					{/* force the movieslist component to refetch data... */}
-					<Link to="/" onClick={() => setTimeout(window.location.reload(true))}>
-						<Logo src={logo} alt="logo" />
-					</Link>
-					<SearchButton />
-				</Header>
+				<Navbar />
 				<Switch>
 					<Route exact path="/" component={MoviesList} />
 					<Route exact path="/p=:page" component={MoviesList} />
 					<Route exact path="/search=:query" component={MoviesList} />
+					<Route exact path="/login" component={Login} />
+					<Route exact path="/register" component={Register} />
 					<Route path="/search=:query/p=:page" component={MoviesList} />
 					<Route path="/:id" component={MovieDetail} />
 				</Switch>
@@ -60,22 +56,8 @@ const App = () => (
 
 export default App;
 
-const Header = styled.div`
-	background-color: #111;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	font-size: calc(10px + 2vmin);
-	color: #111;
-`;
-
 const StyledApp = styled.div`
 	text-align: center;
-`;
-
-const Logo = styled.img`
-	margin: 2rem;
 `;
 
 const GlobalStyle = createGlobalStyle`
