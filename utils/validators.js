@@ -41,12 +41,12 @@ module.exports.login = ({ email, password }) => {
 
 // this is quite superfluous for now, but later on it may prove handy
 // (if movie info is stored in the user's list itself)
-module.exports.addFilm = ({ id }) => {
+module.exports.addFilm = id => {
 	const errors = {};
 	id = isEmpty(id) ? '' : id;
 
 	// TODO: Make TMDB api call to ensure the film exists
-	if (!validator.isEmpty(id)) errors.id = 'Film ID is required as a parameter';
+	if (validator.isEmpty(id)) errors.id = 'Film ID is required as a parameter';
 
 	return { errors, isValid: isEmpty(errors) };
 };

@@ -1,18 +1,21 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-
+import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import { Provider } from 'react-redux';
+
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
+import { setFavouriteFilms } from './actions/listActions';
 
-import { Provider } from 'react-redux';
 import store from './store';
 import MoviesList from './MoviesList';
 import MovieDetail from './MovieDetail';
 import Navbar from './Navbar';
 import Register from './Register';
 import Login from './Login';
+import Favourites from './Favourites';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -31,6 +34,7 @@ if (localStorage.jwtToken) {
 	} else {
 		// Set user and isAuthenticated
 		store.dispatch(setCurrentUser(decoded));
+		store.dispatch(setFavouriteFilms());
 	}
 }
 
@@ -46,6 +50,7 @@ const App = () => (
 					<Route exact path="/search=:query" component={MoviesList} />
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/register" component={Register} />
+					<Route exact path="/favourites" component={Favourites} />
 					<Route path="/search=:query/p=:page" component={MoviesList} />
 					<Route path="/:id" component={MovieDetail} />
 				</Switch>

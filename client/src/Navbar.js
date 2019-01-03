@@ -18,11 +18,16 @@ class Navbar extends Component {
 
 		return (
 			<StyledNavbar>
+				{/* force the movieslist component to refetch data... TODO: revise this */}
+				<Link to="/" onClick={() => setTimeout(window.location.reload(true))}>
+					<Logo src={logo} alt="logo" />
+				</Link>
 				<AuthControl>
 					{isAuthenticated ? (
 						<Fragment>
 							<span>Signed in as {user.name}</span>
 							<button onClick={this.handleLogout}>Logout</button>
+							<NavLink to="/favourites">Favourites</NavLink>
 						</Fragment>
 					) : (
 						<Fragment>
@@ -31,10 +36,6 @@ class Navbar extends Component {
 						</Fragment>
 					)}
 				</AuthControl>
-				{/* force the movieslist component to refetch data... TODO: revise this */}
-				<Link to="/" onClick={() => setTimeout(window.location.reload(true))}>
-					<Logo src={logo} alt="logo" />
-				</Link>
 				<SearchButton />
 			</StyledNavbar>
 		);
@@ -74,6 +75,7 @@ const NavLink = styled(Link)`
 
 const AuthControl = styled.div`
 	display: inline-flex;
-	justify-content: space-between;
-	align-items: center;
+	justify-content: space-around;
+	align-items: flex-start;
+	color: #ccc;
 `;

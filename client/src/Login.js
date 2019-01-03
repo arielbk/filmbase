@@ -52,9 +52,10 @@ class Login extends Component {
 					errors={errors}
 				/>
 				<FormGroup
-					name="assword"
+					name="password"
 					prettyName="Password"
 					value={password}
+					type="password"
 					onChange={this.handleChange}
 					errors={errors}
 				/>

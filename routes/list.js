@@ -1,6 +1,6 @@
 const express = require('express');
 const passport = require('passport');
-const { validateAddFilm } = require('../utils/validators').addFilm;
+const validateAddFilm = require('../utils/validators').addFilm;
 
 // User model
 const User = require('../models/User');
@@ -8,12 +8,23 @@ const User = require('../models/User');
 const router = express.Router();
 
 /**
+ * @route   GET api/list/
+ * @desc    Gets the favourites list
+ * @access  Private
+ */
+router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+	User.findById(req.user._id)
+		.then(user => res.json(user.favFilms))
+		.catch(err => res.status(400).json(err));
+});
+
+/**
  * @route   PATCH api/list/:id
- * @desc    Creates habit
+ * @desc    Adds to the favourites list
  * @access  Private
  */
 router.patch('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-	const { errors, isValid } = validateAddFilm(req.params);
+	const { errors, isValid } = validateAddFilm(req.params.id);
 	// validate request params
 	if (!isValid) return res.status(400).json(errors);
 
