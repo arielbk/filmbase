@@ -1,21 +1,21 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
-import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import { Provider } from 'react-redux';
 
-import setAuthToken from './utils/setAuthToken';
-import { setCurrentUser, logoutUser } from './actions/authActions';
-import { setFavouriteFilms } from './actions/listActions';
+import { StyledApp, GlobalStyle } from './App.styled';
 
-import store from './store';
-import MoviesList from './MoviesList';
-import MovieDetail from './MovieDetail';
-import Navbar from './Navbar';
-import Register from './Register';
-import Login from './Login';
-import Favourites from './Favourites';
+import setAuthToken from '../../utils/setAuthToken';
+import { setCurrentUser, logoutUser } from '../../actions/authActions';
+import { setFavouriteFilms } from '../../actions/listActions';
+
+import store from '../../store';
+import MoviesList from '../MoviesList';
+import MovieDetail from '../MovieDetail';
+import Navbar from '../Navbar';
+import Register from '../Register';
+import Login from '../Login';
+import Favourites from '../Favourites';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -60,31 +60,3 @@ const App = () => (
 );
 
 export default App;
-
-const StyledApp = styled.div`
-	text-align: center;
-`;
-
-const GlobalStyle = createGlobalStyle`
-  *, *:before, *:after {
-    box-sizing: border-box;
-    outline-color: #4E9A46;
-  }
-
-  body {
-    background: #222;
-    color: #ccc;
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-      monospace;
-  }
-`;

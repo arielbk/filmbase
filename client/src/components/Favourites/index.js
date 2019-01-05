@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 // The first thing I'll do with this page is just list the users favourited movie IDs
 
 class Favourites extends Component {
+	static propTypes = {
+		auth: PropTypes.object.isRequired,
+	};
+
 	render() {
 		const { isAuthenticated } = this.props.auth;
 		const { list } = this.props;
@@ -25,10 +29,6 @@ class Favourites extends Component {
 		);
 	}
 }
-
-Favourites.propTypes = {
-	auth: PropTypes.object.isRequired,
-};
 
 const mapStateToProps = state => ({
 	auth: state.auth,

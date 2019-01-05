@@ -2,15 +2,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginUser } from './actions/authActions';
-import FormGroup from './FormGroup';
-import StyledButton from './StyledButton';
 
-class Login extends Component {
+import { registerUser } from '../../actions/authActions';
+import FormGroup from '../Forms/FormGroup';
+import StyledButton from '../Forms/Button.styled.js';
+
+class Register extends Component {
 	state = {
+		name: '',
 		email: '',
 		password: '',
+		password2: '',
 		errors: {},
+	};
+
+	static propTypes = {
+		registerUser: PropTypes.func.isRequired,
+		auth: PropTypes.object.isRequired,
+		errors: PropTypes.object.isRequired,
 	};
 
 	componentDidMount() {
@@ -32,21 +41,33 @@ class Login extends Component {
 
 	handleSubmit = e => {
 		e.preventDefault();
-		const { email, password } = this.state;
+		const { name, email, password, password2 } = this.state;
 		const newUser = {
+			name,
 			email,
 			password,
+			password2,
 		};
-		this.props.loginUser(newUser, this.props.history);
+		this.props.registerUser(newUser, this.props.history);
 	};
 
 	render() {
-		const { email, password, errors } = this.state;
+		// TODO: separate repeated things into separate components
+		const { name, email, password, password2, errors } = this.state;
+
 		return (
 			<form onSubmit={this.handleSubmit}>
 				<FormGroup
+					name="name"
+					prettyName="Name"
+					value={name}
+					onChange={this.handleChange}
+					errors={errors}
+				/>
+				<FormGroup
 					name="email"
 					prettyName="Email"
+					type="email"
 					value={email}
 					onChange={this.handleChange}
 					errors={errors}
@@ -54,22 +75,24 @@ class Login extends Component {
 				<FormGroup
 					name="password"
 					prettyName="Password"
-					value={password}
 					type="password"
+					value={password}
 					onChange={this.handleChange}
 					errors={errors}
+				/>
+				<FormGroup
+					name="password2"
+					prettyName="Confirm Password"
+					type="password"
+					value={password2}
+					onChange={this.handleChange}
+					errors={password2}
 				/>
 				<StyledButton type="submit">Submit</StyledButton>
 			</form>
 		);
 	}
 }
-
-Login.propTypes = {
-	loginUser: PropTypes.func.isRequired,
-	auth: PropTypes.object.isRequired,
-	errors: PropTypes.object.isRequired,
-};
 
 const mapStateToProps = state => ({
 	auth: state.auth,
@@ -78,5 +101,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ loginUser }
-)(withRouter(Login));
+	{ registerUser }
+)(withRouter(Register));

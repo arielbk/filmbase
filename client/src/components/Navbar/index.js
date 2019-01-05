@@ -1,13 +1,18 @@
 import React, { Component, Fragment } from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { logoutUser } from './actions/authActions';
-import logo from './logo.svg';
-import SearchButton from './SearchButton';
+
+import { StyledNavbar, Logo, NavLink, AuthControl } from './Navbar.styled';
+import { logoutUser } from '../../actions/authActions';
+import logo from '../../assets/images/logo.svg';
+import SearchButton from '../SearchButton';
 
 class Navbar extends Component {
+	static propTypes = {
+		auth: PropTypes.object.isRequired,
+	};
+
 	handleLogout = e => {
 		e.preventDefault();
 		this.props.logoutUser();
@@ -42,10 +47,6 @@ class Navbar extends Component {
 	}
 }
 
-Navbar.propTypes = {
-	auth: PropTypes.object.isRequired,
-};
-
 const mapStateToProps = state => ({
 	auth: state.auth,
 });
@@ -54,28 +55,3 @@ export default connect(
 	mapStateToProps,
 	{ logoutUser }
 )(Navbar);
-
-const StyledNavbar = styled.div`
-	background-color: #111;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	font-size: calc(10px + 2vmin);
-	color: #111;
-`;
-
-const Logo = styled.img`
-	margin: 2rem;
-`;
-
-const NavLink = styled(Link)`
-	color: #fff;
-`;
-
-const AuthControl = styled.div`
-	display: inline-flex;
-	justify-content: space-around;
-	align-items: flex-start;
-	color: #ccc;
-`;
