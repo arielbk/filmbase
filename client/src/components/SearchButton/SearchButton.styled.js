@@ -1,15 +1,13 @@
 import styled from 'styled-components';
+import { $lightGrey } from '../../assets/vars.styled';
 
 export const StyledSearchButton = styled.input`
-	position: absolute;
-	z-index: 10;
 	padding: 1rem;
+	margin: 0 2rem;
 	border-radius: 22px;
 	font-size: 1rem;
 	transition: 0.3s;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-	top: 2rem;
-	right: 1rem;
 	background: #464646;
 	padding: 1rem 2rem;
 	max-width: 8rem;
@@ -25,7 +23,7 @@ export const StyledSearchButton = styled.input`
 		background: #ccc;
 
 		::placeholder {
-			color: #777;
+			color: ${$lightGrey};
 		}
 	}
 

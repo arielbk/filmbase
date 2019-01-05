@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { $lightGrey } from '../../assets/vars.styled';
 
 export const MovieGrid = styled.div`
 	margin: 0 auto;
@@ -40,7 +41,7 @@ export const SortOptions = styled.div`
 		background: transparent;
 		border: none;
 		margin: 0.5rem;
-		color: #777;
+		color: ${$lightGrey};
 		:hover {
 			cursor: pointer;
 		}

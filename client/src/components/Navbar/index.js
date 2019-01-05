@@ -7,6 +7,7 @@ import { StyledNavbar, Logo, NavLink, AuthControl } from './Navbar.styled';
 import { logoutUser } from '../../actions/authActions';
 import logo from '../../assets/images/logo.svg';
 import SearchButton from '../SearchButton';
+import StyledButton from '../Forms/Button.styled';
 
 class Navbar extends Component {
 	static propTypes = {
@@ -24,14 +25,10 @@ class Navbar extends Component {
 		return (
 			<StyledNavbar>
 				{/* force the movieslist component to refetch data... TODO: revise this */}
-				<Link to="/" onClick={() => setTimeout(window.location.reload(true))}>
-					<Logo src={logo} alt="logo" />
-				</Link>
 				<AuthControl>
 					{isAuthenticated ? (
 						<Fragment>
-							<span>Signed in as {user.name}</span>
-							<button onClick={this.handleLogout}>Logout</button>
+							<StyledButton onClick={this.handleLogout}>Logout</StyledButton>
 							<NavLink to="/favourites">Favourites</NavLink>
 						</Fragment>
 					) : (
@@ -41,6 +38,9 @@ class Navbar extends Component {
 						</Fragment>
 					)}
 				</AuthControl>
+				<Link to="/" onClick={() => setTimeout(window.location.reload(true))}>
+					<Logo src={logo} alt="logo" />
+				</Link>
 				<SearchButton />
 			</StyledNavbar>
 		);

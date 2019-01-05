@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { MovieGrid, SortOptions, Genre } from './MoviesList.styled';
 
+import { $brandGreen } from '../../assets/vars.styled';
 import Loading from '../Loading';
 import PageControls from '../PageControls';
 import Movie from '../Movie';
@@ -135,7 +136,7 @@ export default class MoviesList extends PureComponent {
 									count={5}
 									value={movie.vote_average / 2}
 									size={24}
-									color2="#4e9a46"
+									color2={$brandGreen}
 									edit={false}
 								/>
 								<div style={{ marginTop: '1rem' }}>

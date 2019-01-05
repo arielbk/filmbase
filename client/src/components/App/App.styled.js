@@ -1,5 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
+import { $brandGreen, $darkGrey } from '../../assets/vars.styled';
+
 export const StyledApp = styled.div`
 	text-align: center;
 `;
@@ -7,11 +9,11 @@ export const StyledApp = styled.div`
 export const GlobalStyle = createGlobalStyle`
   *, *:before, *:after {
     box-sizing: border-box;
-    outline-color: #4E9A46;
+    outline-color: ${$brandGreen};
   }
 
   body {
-    background: #222;
+    background: ${$darkGrey};
     color: #ccc;
     margin: 0;
     padding: 0;

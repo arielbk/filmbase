@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { $lightGrey } from '../../assets/vars.styled';
 
 export const StyledFormGroup = styled.label`
 	display: block;
@@ -9,6 +10,7 @@ export const StyledFormGroup = styled.label`
 	align-items: center;
 
 	input {
+		background: #111;
 		width: 50%;
 		padding: 0.8rem;
 		margin: 1rem;
@@ -17,6 +19,7 @@ export const StyledFormGroup = styled.label`
 		border-style: solid;
 		font-size: 1rem;
 		border: none;
+		color: #eee;
 	}
 
 	small {

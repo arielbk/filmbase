@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-	padding: 0.5rem 1rem;
+	padding: 1rem 2rem;
 	border-radius: 3px;
+	border: none;
 	font-size: 0.9rem;
+	background: #111;
+	color: #eee;
+	margin: 0 2rem;
 
 	:hover {
 		cursor: pointer;

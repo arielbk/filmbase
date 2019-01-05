@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { $brandGreen } from '../../assets/vars.styled';
 
 export const StyledPageControls = styled.div`
 	margin: 2rem auto;
@@ -26,7 +27,7 @@ export const StyledPageControls = styled.div`
 		transition: 0.3s;
 
 		:hover {
-			color: #4e9a46;
+			color: ${$brandGreen};
 		}
 	}
 

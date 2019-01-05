@@ -6,6 +6,7 @@ import ReactStars from 'react-stars';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { $brandGreen } from '../../assets/vars.styled';
 import { addFavouriteFilm } from '../../actions/listActions';
 import Loading from '../Loading';
 import { Poster } from '../Movie/Movie.styled.js';
@@ -115,7 +116,7 @@ class MovieDetail extends Component {
 										count={5}
 										value={movie.vote_average / 2}
 										size={24}
-										color2="#4e9a46"
+										color2={$brandGreen}
 										edit={false}
 									/>
 									<div>

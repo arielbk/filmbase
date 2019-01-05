@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import StyledButton from '../Forms/Button.styled';
+import { $brandGreen, $lightGrey } from '../../assets/vars.styled';
 
 export const MovieWrapper = styled.div`
 	position: relative;
@@ -59,7 +60,7 @@ export const SidePanel = styled.div`
 
 export const GenreTab = styled.div`
 	background: rgba(0, 0, 0, 0.1);
-	border: 2px solid #777;
+	border: 2px solid ${$lightGrey};
 	color: #ddd;
 	padding: 0.8rem 1rem;
 	width: 150px;
@@ -92,7 +93,7 @@ export const SideStat = styled.div`
 	margin-bottom: 2rem;
 
 	span {
-		color: #777;
+		color: ${$lightGrey};
 	}
 	h3 {
 		margin: 0.4rem;
@@ -113,7 +114,7 @@ export const Title = styled.div`
 	width: auto;
 
 	h4 {
-		color: #777;
+		color: ${$lightGrey};
 		font-weight: 400;
 		margin: 0.3rem 0;
 	}
@@ -177,10 +178,10 @@ export const Button = styled.button`
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 	background: #111;
 	color: #eee;
-	border: 1px solid #4e9a46;
+	border: 1px solid ${$brandGreen};
 	:hover {
 		cursor: pointer;
-		background: #4e9a46;
+		background: ${$brandGreen};
 	}
 `;
 
@@ -207,7 +208,7 @@ export const RelatedFilms = styled.div`
 	text-align: center;
 
 	h4 {
-		color: #777;
+		color: ${$lightGrey};
 		margin: 0;
 	}
 	h3 {
@@ -220,7 +221,7 @@ export const RelatedFilms = styled.div`
 
 export const FavButton = styled(StyledButton)`
 	margin: 0 2rem 3rem;
-	background: #4e9a46;
+	background: ${$brandGreen};
 	border: none;
 	width: auto;
 `;
