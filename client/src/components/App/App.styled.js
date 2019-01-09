@@ -4,6 +4,7 @@ import { $brandGreen, $darkGrey } from '../../assets/vars.styled';
 
 export const StyledApp = styled.div`
 	text-align: center;
+	padding-top: 88px;
 `;
 
 export const GlobalStyle = createGlobalStyle`

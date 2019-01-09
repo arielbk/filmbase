@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { $medGrey, $lightGrey } from '../../assets/vars.styled';
 
@@ -10,6 +10,22 @@ export const StyledNavbar = styled.div`
 	align-items: center;
 	font-size: calc(10px + 2vmin);
 	color: #111;
+	width: 100%;
+	transition: 0.3s;
+	z-index: 999;
+
+	${props =>
+		props.sticky
+			? `
+		transform: translateY(0);
+		top: 0;
+		position: fixed;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+		`
+			: `
+		position: absolute;
+		transform: translateY(-88px);
+		`}
 `;
 
 export const Logo = styled.img`
