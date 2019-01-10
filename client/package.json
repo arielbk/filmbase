@@ -5,6 +5,7 @@
 	"dependencies": {
 		"axios": "^0.18.0",
 		"comma-number": "^2.0.0",
+		"dotenv": "^6.2.0",
 		"jwt-decode": "^2.2.0",
 		"prop-types": "^15.6.2",
 		"react": "latest",

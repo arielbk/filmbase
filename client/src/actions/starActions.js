@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SET_STARRED, ADD_STARRED, DELETE_STARRED, GET_ERRORS } from './types';
+import { SET_STARRED, ADD_STARRED, DELETE_STARRED, SET_ERRORS } from './types';
 
 // Fetch films from user
 export const setStarred = () => dispatch =>
@@ -13,7 +13,7 @@ export const setStarred = () => dispatch =>
 		})
 		.catch(err =>
 			dispatch({
-				type: GET_ERRORS,
+				type: SET_ERRORS,
 				payload: err.response.data,
 			})
 		);
@@ -30,7 +30,7 @@ export const starFilm = filmID => dispatch =>
 		)
 		.catch(err =>
 			dispatch({
-				type: GET_ERRORS,
+				type: SET_ERRORS,
 				payload: err.response.data,
 			})
 		);
@@ -47,7 +47,7 @@ export const unstarFilm = filmID => dispatch =>
 		)
 		.catch(err =>
 			dispatch({
-				type: GET_ERRORS,
+				type: SET_ERRORS,
 				payload: err.response.data,
 			})
 		);

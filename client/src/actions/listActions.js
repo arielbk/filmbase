@@ -1,1 +1,47 @@
-// TODO
+import axios from 'axios';
+import { SET_FILM_LIST, SET_LIST_PAGE, SET_LIST_SEARCH, LIST_LOADING, SET_ERRORS } from './types';
+
+const apiKey = process.env.REACT_APP_TMDB_KEY;
+
+// Set the film list to loading
+export const setListLoading = () => ({
+	type: LIST_LOADING,
+});
+
+// Update the current film list
+export const updateFilmList = (page = 1, searchQuery = null, sort = 'popular') => dispatch => {
+	dispatch(setListLoading);
+	let apiURL;
+	// need to hide these api keys...
+	searchQuery
+		? (apiURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}`)
+		: (apiURL = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${searchQuery}&page=${page}&include_adult=false`);
+	axios
+		.get(apiURL)
+		.then(res =>
+			dispatch({
+				type: SET_FILM_LIST,
+				payload: res.data,
+			})
+		)
+		.catch(err =>
+			dispatch({
+				type: SET_ERRORS,
+				payload: err.response.data,
+			})
+		);
+};
+
+// Set the current list page
+export const setListPage = page => dispatch =>
+	dispatch({
+		type: SET_LIST_PAGE,
+		payload: page,
+	});
+
+// Set the current search query
+export const setSearchQuery = query => dispatch =>
+	dispatch({
+		SET_LIST_SEARCH,
+		payload: query,
+	});

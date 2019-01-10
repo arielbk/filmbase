@@ -22,6 +22,7 @@ export default function(state = initialState, action) {
 				starred: [
 					...state.starred.map(filmID => {
 						if (!filmID === action.payload) return filmID;
+						return null;
 					}),
 				],
 			};
