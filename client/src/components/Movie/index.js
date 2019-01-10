@@ -17,7 +17,11 @@ const Movie = props => {
 				<Overdrive data-testid="movie-overdrive" id={String(movie.id)}>
 					<Poster
 						data-testid="movie-poster"
-						src={movie.poster_path ? `${POSTER_PATH}${movie.poster_path}` : blankPoster}
+						src={
+							movie.poster_path !== null || 'null'
+								? `${POSTER_PATH}${movie.poster_path}`
+								: blankPoster
+						}
 						alt={movie.title}
 					/>
 				</Overdrive>

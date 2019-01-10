@@ -9,4 +9,5 @@ export const DELETE_STARRED = 'DELETE_STARRED';
 export const SET_FILM_LIST = 'SET_FILM_LIST';
 export const SET_LIST_PAGE = 'SET_LIST_PAGE';
 export const SET_LIST_SEARCH = 'SET_LIST_SEARCH';
+export const SET_LIST_SORT = 'SET_LIST_SORT';
 export const LIST_LOADING = 'LIST_LOADING';

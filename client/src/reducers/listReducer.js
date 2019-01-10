@@ -1,10 +1,17 @@
-import { LIST_LOADING, SET_FILM_LIST, SET_LIST_PAGE, SET_LIST_SEARCH } from '../actions/types';
+import {
+	LIST_LOADING,
+	SET_FILM_LIST,
+	SET_LIST_PAGE,
+	SET_LIST_SEARCH,
+	SET_LIST_SORT,
+} from '../actions/types';
 
 const initialState = {
-	list: [],
+	films: [],
 	page: 1,
 	searchQuery: '',
 	loading: false,
+	sortby: '',
 };
 
 export default (state = initialState, action) => {
@@ -17,7 +24,8 @@ export default (state = initialState, action) => {
 		case SET_FILM_LIST:
 			return {
 				...state,
-				list: action.payload,
+				films: action.payload.results,
+				totalPages: action.payload.total_pages,
 				loading: false,
 			};
 		case SET_LIST_PAGE:
@@ -29,6 +37,11 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				searchQuery: action.payload,
+			};
+		case SET_LIST_SORT:
+			return {
+				...state,
+				sortBy: action.payload,
 			};
 		default:
 			return state;

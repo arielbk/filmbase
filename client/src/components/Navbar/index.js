@@ -10,8 +10,6 @@ import logo from '../../assets/images/logo.svg';
 import SearchButton from '../SearchButton';
 import StyledButton from '../Forms/Button.styled';
 
-// TODO: The navbar scrolls away normally, but when the user scrolls up ( wherever they are on the page ) it comes into view
-
 class Navbar extends Component {
 	constructor(props) {
 		super(props);
@@ -58,7 +56,6 @@ class Navbar extends Component {
 
 		return (
 			<StyledNavbar ref={this.navRef} sticky={sticky}>
-				{/* force the movieslist component to refetch data... TODO: revise this */}
 				<AuthControl>
 					{isAuthenticated ? (
 						<Fragment>
@@ -72,7 +69,7 @@ class Navbar extends Component {
 						</Fragment>
 					)}
 				</AuthControl>
-				<Link to="/" onClick={() => setTimeout(window.location.reload(true))}>
+				<Link to="/">
 					<Logo src={logo} alt="logo" />
 				</Link>
 				<SearchButton />

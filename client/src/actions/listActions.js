@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { SET_FILM_LIST, SET_LIST_PAGE, SET_LIST_SEARCH, LIST_LOADING, SET_ERRORS } from './types';
+import {
+	SET_FILM_LIST,
+	SET_LIST_PAGE,
+	SET_LIST_SEARCH,
+	SET_LIST_SORT,
+	LIST_LOADING,
+	SET_ERRORS,
+} from './types';
 
 const apiKey = process.env.REACT_APP_TMDB_KEY;
 
@@ -9,13 +16,17 @@ export const setListLoading = () => ({
 });
 
 // Update the current film list
-export const updateFilmList = (page = 1, searchQuery = null, sort = 'popular') => dispatch => {
+export const updateFilmList = (
+	page = 1,
+	searchQuery = '',
+	sort = 'popularity.desc'
+) => dispatch => {
 	dispatch(setListLoading);
 	let apiURL;
 	// need to hide these api keys...
 	searchQuery
-		? (apiURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}`)
-		: (apiURL = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${searchQuery}&page=${page}&include_adult=false`);
+		? (apiURL = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${searchQuery}&page=${page}&include_adult=false`)
+		: (apiURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}`);
 	axios
 		.get(apiURL)
 		.then(res =>
@@ -42,6 +53,13 @@ export const setListPage = page => dispatch =>
 // Set the current search query
 export const setSearchQuery = query => dispatch =>
 	dispatch({
-		SET_LIST_SEARCH,
+		type: SET_LIST_SEARCH,
 		payload: query,
+	});
+
+// Set the list sorting order
+export const setSortBy = sortBy => dispatch =>
+	dispatch({
+		SET_LIST_SORT,
+		payload: sortBy,
 	});

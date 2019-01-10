@@ -46,8 +46,10 @@ app.get('/', (req, res) => {
 
 const port = process.env.PORT || 8080;
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
 	console.info(`Listening on port ${port}`);
 });
+
+process.on('uncaughtException', () => server.close());
 
 module.exports = { app };

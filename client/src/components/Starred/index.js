@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { setStarred } from '../../actions/starActions';
 
 class Starred extends Component {
 	static propTypes = {
 		auth: PropTypes.object.isRequired,
+		setStarred: PropTypes.func.isRequired,
 	};
+
+	componentDidMount() {
+		this.props.setStarred();
+	}
 
 	render() {
 		const { isAuthenticated } = this.props.auth;
@@ -16,7 +22,7 @@ class Starred extends Component {
 				{isAuthenticated ? (
 					<div>
 						<h2>This will be a list of the favourited movies</h2>
-						<ul>{starred && starred.starred.map(film => <li index={film}>{film}</li>)}</ul>
+						<ul>{starred && starred.starred.map(film => <li key={film}>{film}</li>)}</ul>
 					</div>
 				) : (
 					<div>
@@ -33,4 +39,7 @@ const mapStateToProps = state => ({
 	starred: state.starred,
 });
 
-export default connect(mapStateToProps)(Starred);
+export default connect(
+	mapStateToProps,
+	{ setStarred }
+)(Starred);
