@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { $lightGrey } from '../../assets/vars.styled';
+import { $medGrey } from '../../assets/vars.styled';
 
 export const StyledFormGroup = styled.label`
 	display: block;
-	margin: 2rem 0;
+	margin: 1rem 0;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -11,7 +11,8 @@ export const StyledFormGroup = styled.label`
 
 	input {
 		background: #111;
-		width: 50%;
+		width: 90%;
+		max-width: 430px;
 		padding: 0.8rem;
 		margin: 1rem;
 		border-radius: 3px;
@@ -20,6 +21,11 @@ export const StyledFormGroup = styled.label`
 		font-size: 1rem;
 		border: none;
 		color: #eee;
+
+		&:focus,
+		&:hover {
+			background: ${$medGrey};
+		}
 	}
 
 	small {

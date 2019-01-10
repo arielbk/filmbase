@@ -71,7 +71,7 @@ router.post('/login', (req, res) => {
 	return User.findOne({ email })
 		.then(user =>
 			bcrypt.compare(password, user.password).then(result => {
-				if (!result) return res.status(400).json({ message: 'Incorrect password' });
+				if (!result) return res.status(400).json({ password: 'Incorrect password' });
 
 				// Create JWT payload
 				const payload = {
@@ -91,7 +91,7 @@ router.post('/login', (req, res) => {
 				});
 			})
 		)
-		.catch(() => res.status(404).json({ message: 'User not found ' }));
+		.catch(() => res.status(404).json({ user: 'User not found ' }));
 });
 
 // Export router for use in server

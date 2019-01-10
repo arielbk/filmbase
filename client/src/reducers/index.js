@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import authReducer from './authReducer';
 import errorReducer from './errorReducer';
-import listReducer from './listReducer';
+import starReducer from './starReducer';
 
 export default combineReducers({
 	auth: authReducer,
-	list: listReducer,
+	starred: starReducer,
 	errors: errorReducer,
 });

@@ -6,12 +6,13 @@ const StyledButton = styled.button`
 	border-radius: 3px;
 	border: none;
 	font-size: 0.9rem;
-	background: ${$medGrey};
+	background: #111;
 	color: ${$brandGreen};
 	margin: 0 2rem;
 
 	:hover {
 		cursor: pointer;
+		background: ${$medGrey};
 	}
 `;
 

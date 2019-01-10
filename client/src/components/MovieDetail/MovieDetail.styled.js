@@ -21,7 +21,7 @@ export const Background = styled.div`
 export const MovieInfo = styled.div`
 	background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(10, 10, 10, 1));
 	text-align: left;
-	padding: 6rem 5%;
+	padding: 3rem 5%;
 	display: flex;
 	justify-content: center;
 

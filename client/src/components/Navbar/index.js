@@ -37,7 +37,7 @@ class Navbar extends Component {
 	onScroll = () => {
 		const { sticky, prevScrollPosition } = this.state;
 
-		if (!sticky && window.scrollY > 176 && window.scrollY < prevScrollPosition) {
+		if (!sticky && window.scrollY > 176 && window.scrollY < prevScrollPosition - 5) {
 			this.setState({ sticky: true });
 		}
 		if (sticky && (window.scrollY < 176 || window.scrollY > prevScrollPosition)) {
