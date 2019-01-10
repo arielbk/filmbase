@@ -7,7 +7,7 @@ import { StyledApp, GlobalStyle } from './App.styled';
 
 import setAuthToken from '../../utils/setAuthToken';
 import { setCurrentUser, logoutUser } from '../../actions/authActions';
-import { setFavouriteFilms } from '../../actions/listActions';
+import { setStarred } from '../../actions/starActions';
 
 import store from '../../store';
 import MoviesList from '../MoviesList';
@@ -15,7 +15,7 @@ import MovieDetail from '../MovieDetail';
 import Navbar from '../Navbar';
 import Register from '../Register';
 import Login from '../Login';
-import Favourites from '../Favourites';
+import Starred from '../Starred';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -32,9 +32,9 @@ if (localStorage.jwtToken) {
 		// Redirect to login
 		window.location.href = '/login';
 	} else {
-		// Set user and isAuthenticated
+		// Set user, isAuthenticated and starred films
 		store.dispatch(setCurrentUser(decoded));
-		store.dispatch(setFavouriteFilms());
+		store.dispatch(setStarred());
 	}
 }
 
@@ -50,7 +50,7 @@ const App = () => (
 					<Route exact path="/search=:query" component={MoviesList} />
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/register" component={Register} />
-					<Route exact path="/favourites" component={Favourites} />
+					<Route exact path="/starred" component={Starred} />
 					<Route path="/search=:query/p=:page" component={MoviesList} />
 					<Route path="/:id" component={MovieDetail} />
 				</Switch>

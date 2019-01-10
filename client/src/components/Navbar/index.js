@@ -37,7 +37,7 @@ class Navbar extends Component {
 	onScroll = () => {
 		const { sticky, prevScrollPosition } = this.state;
 
-		if (!sticky && window.scrollY > 176 && window.scrollY < prevScrollPosition - 5) {
+		if (!sticky && window.scrollY > 176 && window.scrollY < prevScrollPosition) {
 			this.setState({ sticky: true });
 		}
 		if (sticky && (window.scrollY < 176 || window.scrollY > prevScrollPosition)) {
@@ -63,7 +63,7 @@ class Navbar extends Component {
 					{isAuthenticated ? (
 						<Fragment>
 							<StyledButton onClick={this.handleLogout}>Logout</StyledButton>
-							<NavLink to="/favourites">Favourites</NavLink>
+							<NavLink to="/starred">Starred</NavLink>
 						</Fragment>
 					) : (
 						<Fragment>

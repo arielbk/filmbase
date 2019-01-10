@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { $brandGreen } from '../../assets/vars.styled';
-import { addFavouriteFilm } from '../../actions/listActions';
+import { starFilm, unstarFilm } from '../../actions/starActions';
 import Loading from '../Loading';
 import { Poster } from '../Movie/Movie.styled.js';
 import {
@@ -25,7 +25,7 @@ import {
 	Cast,
 	BackButton,
 	RelatedFilms,
-	FavButton,
+	StarButton,
 } from './MovieDetail.styled';
 
 export const POSTER_PATH = 'https://image.tmdb.org/t/p/w185';
@@ -51,7 +51,8 @@ class MovieDetail extends Component {
 		}).isRequired,
 		auth: PropTypes.object.isRequired,
 		errors: PropTypes.object.isRequired,
-		addFavouriteFilm: PropTypes.func.isRequired,
+		starFilm: PropTypes.func.isRequired,
+		unstarFilm: PropTypes.func.isRequired,
 	};
 
 	static contextTypes = {
@@ -136,13 +137,14 @@ class MovieDetail extends Component {
 										))}
 								</div>
 								<div>
-									<FavButton
+									{/* TODO: add logic to check whether film is already starred */}
+									<StarButton
 										onClick={() => {
-											this.props.addFavouriteFilm(movie.id);
+											this.props.starFilm(movie.id);
 										}}
 									>
-										Add to Favourites
-									</FavButton>
+										★ Star
+									</StarButton>
 								</div>
 								<SideStat>
 									<span>Released:</span>
@@ -240,5 +242,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ addFavouriteFilm }
+	{ starFilm, unstarFilm }
 )(withRouter(MovieDetail));

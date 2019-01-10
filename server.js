@@ -6,7 +6,7 @@ const passport = require('passport');
 require('dotenv').config({ path: '.env.local' });
 
 const authRoutes = require('./routes/auth');
-const listRoutes = require('./routes/list');
+const starRoutes = require('./routes/stars');
 
 // Use native promises
 mongoose.Promise = global.Promise;
@@ -38,7 +38,7 @@ app.use(morgan('dev'));
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/list', listRoutes);
+app.use('/api/stars', starRoutes);
 
 app.get('/', (req, res) => {
 	res.send('Express server is working!');

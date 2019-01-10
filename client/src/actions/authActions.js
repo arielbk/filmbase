@@ -16,7 +16,7 @@ export const registerUser = (userData, history) => dispatch =>
 		);
 
 // Login - get user token
-export const loginUser = userData => dispatch =>
+export const loginUser = (userData, history) => dispatch =>
 	axios
 		.post('api/auth/login', userData)
 		.then(res => {
@@ -29,6 +29,8 @@ export const loginUser = userData => dispatch =>
 			const decoded = jwt_decode(token);
 			// Set current user
 			dispatch(setCurrentUser(decoded));
+			// Redirect to starred movies list
+			history.push('/starred');
 		})
 		.catch(err =>
 			dispatch({

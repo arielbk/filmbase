@@ -24,8 +24,8 @@ const userSchema = new Schema({
 		type: Date,
 		default: Date.now,
 	},
-	// Favourite films associated with the user
-	favFilms: {
+	// Starred films associated with the user
+	starred: {
 		type: [String],
 	},
 });

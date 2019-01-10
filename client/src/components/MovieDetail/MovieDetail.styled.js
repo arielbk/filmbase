@@ -219,9 +219,8 @@ export const RelatedFilms = styled.div`
 	}
 `;
 
-export const FavButton = styled(StyledButton)`
+export const StarButton = styled(StyledButton)`
 	margin: 0 2rem 3rem;
-	background: ${$brandGreen};
 	border: none;
 	width: auto;
 `;

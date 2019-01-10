@@ -22,7 +22,7 @@ class Login extends Component {
 
 	componentDidMount() {
 		if (this.props.auth.isAuthenticated) {
-			this.props.history.push('/favourites');
+			this.props.history.push('/starred');
 		}
 	}
 
