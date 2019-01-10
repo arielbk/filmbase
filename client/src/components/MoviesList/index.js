@@ -8,7 +8,7 @@ import { MovieGrid, SortOptions, Genre } from './MoviesList.styled';
 
 import { $brandGreen } from '../../assets/vars.styled';
 import Loading from '../Loading';
-// import PageControls from '../PageControls';
+import PageControls from '../PageControls';
 import Movie from '../Movie';
 const apiKey = process.env.REACT_APP_TMDB_KEY;
 
@@ -60,15 +60,14 @@ class MoviesList extends PureComponent {
 
 		const { match } = this.props;
 		const { page, query } = match.params;
-		this.props.setListPage(page);
+		this.props.setListPage(page || 1);
 		this.props.setSearchQuery(query);
-		this.props.updateFilmList(page, null, query);
+		this.props.updateFilmList(page, query);
 	}
 
 	render() {
 		const { films, page, searchQuery, loading, sortBy } = this.props.list;
-		const { genres } = this.state;
-		console.log(genres);
+		// const { genres } = this.state;
 		return (
 			<Fragment>
 				{!searchQuery ? (
@@ -143,7 +142,7 @@ class MoviesList extends PureComponent {
 						No films found!
 					</h2>
 				)}
-				{/* <PageControls page={page} search={searchQuery} /> */}
+				<PageControls />
 			</Fragment>
 		);
 	}
