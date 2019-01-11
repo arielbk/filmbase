@@ -37,11 +37,12 @@ const PageControls = props => {
 };
 
 PageControls.propTypes = {
-	page: PropTypes.number.isRequired,
+	page: PropTypes.number,
 	search: PropTypes.string,
 };
 PageControls.defaultProps = {
 	search: null,
+	page: 1,
 };
 
 const mapStateToProps = state => ({

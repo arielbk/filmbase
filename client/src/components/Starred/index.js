@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { setStarred } from '../../actions/starActions';
 
@@ -10,6 +11,8 @@ class Starred extends Component {
 	};
 
 	componentDidMount() {
+		const { history, auth } = this.props;
+		if (!auth.isAuthenticated) history.push('/');
 		this.props.setStarred();
 	}
 
@@ -42,4 +45,4 @@ const mapStateToProps = state => ({
 export default connect(
 	mapStateToProps,
 	{ setStarred }
-)(Starred);
+)(withRouter(Starred));

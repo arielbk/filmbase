@@ -28,12 +28,6 @@ export const StyledNavbar = styled.div`
 		`}
 `;
 
-export const Logo = styled.img`
-	position: absolute;
-	left: 50%;
-	transform: translate(-50%, -1rem);
-`;
-
 export const NavLink = styled(Link)`
 	color: #fff;
 	margin: 0 2rem;

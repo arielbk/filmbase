@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { StyledNavbar, Logo, NavLink, AuthControl } from './Navbar.styled';
+import { StyledNavbar, NavLink, AuthControl } from './Navbar.styled';
 import { logoutUser } from '../../actions/authActions';
-import logo from '../../assets/images/logo.svg';
+import Logo from '../Logo/Logo';
 import SearchButton from '../SearchButton';
 import StyledButton from '../Forms/Button.styled';
 
@@ -70,7 +70,7 @@ class Navbar extends Component {
 					)}
 				</AuthControl>
 				<Link to="/">
-					<Logo src={logo} alt="logo" />
+					<Logo />
 				</Link>
 				<SearchButton />
 			</StyledNavbar>
