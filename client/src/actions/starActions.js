@@ -19,9 +19,9 @@ export const setStarred = () => dispatch =>
 		);
 
 // Add a film to the user's starred list
-export const starFilm = filmID => dispatch =>
+export const starFilm = film => dispatch =>
 	axios
-		.patch(`/api/stars/add/${filmID}`)
+		.patch(`/api/stars/add`, film)
 		.then(res =>
 			dispatch({
 				type: ADD_STARRED,

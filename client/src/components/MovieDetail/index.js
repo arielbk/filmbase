@@ -141,9 +141,11 @@ class MovieDetail extends Component {
 									{/* TODO: add logic to check whether film is already starred */}
 									<StarButton
 										onClick={() => {
-											if (this.props.starred.starred.indexOf(String(movie.id)) === -1) {
-												this.props.starFilm(movie.id);
-											}
+											let addFilm = true;
+											this.props.starred.starred.forEach(film => {
+												if (film.id === movie.id) addFilm = false;
+											});
+											if (addFilm) this.props.starFilm(movie);
 										}}
 									>
 										★ Star

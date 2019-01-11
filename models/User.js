@@ -26,7 +26,7 @@ const userSchema = new Schema({
 	},
 	// Starred films associated with the user
 	starred: {
-		type: [String],
+		type: [Object],
 	},
 });
 
