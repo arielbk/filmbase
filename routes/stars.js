@@ -31,7 +31,7 @@ router.patch('/add/:id', passport.authenticate('jwt', { session: false }), (req,
 	return User.updateOne(
 		// Add film to top of starred array, only if it is unique
 		{ $and: [{ _id: req.user._id }, { starred: { $ne: req.params.id } }] },
-		{ $push: { starred: { $each: [req.params.id] } } }
+		{ $push: { starred: { $each: [req.params.id], $position: 0 } } }
 	)
 		.then(() => res.json(req.params.id))
 		.catch(err => res.status(400).json(err));

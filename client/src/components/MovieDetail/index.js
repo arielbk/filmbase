@@ -50,6 +50,7 @@ class MovieDetail extends Component {
 			}),
 		}).isRequired,
 		auth: PropTypes.object.isRequired,
+		starred: PropTypes.object.isRequired,
 		errors: PropTypes.object.isRequired,
 		starFilm: PropTypes.func.isRequired,
 		unstarFilm: PropTypes.func.isRequired,
@@ -140,7 +141,9 @@ class MovieDetail extends Component {
 									{/* TODO: add logic to check whether film is already starred */}
 									<StarButton
 										onClick={() => {
-											this.props.starFilm(movie.id);
+											if (this.props.starred.starred.indexOf(String(movie.id)) === -1) {
+												this.props.starFilm(movie.id);
+											}
 										}}
 									>
 										★ Star
@@ -237,6 +240,7 @@ class MovieDetail extends Component {
 
 const mapStateToProps = state => ({
 	auth: state.auth,
+	starred: state.starred,
 	errors: state.errors,
 });
 
