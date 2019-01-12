@@ -25,7 +25,7 @@ class Starred extends Component {
 				{isAuthenticated ? (
 					<div>
 						<h2>This will be a list of the favourited movies</h2>
-						<ul>{starred && starred.starred.map(film => <li key={film}>{film}</li>)}</ul>
+						<ul>{starred && starred.starred.map(film => <li key={film.id}>{film.name}</li>)}</ul>
 					</div>
 				) : (
 					<div>

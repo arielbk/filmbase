@@ -45,15 +45,16 @@ router.patch('/add', passport.authenticate('jwt', { session: false }), (req, res
 router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
 	User.findById(req.user._id)
 		.then(user => {
+			const id = parseInt(req.params.id, 10);
 			let filmFound = false;
 			user.starred.forEach(film => {
-				if (film.id) filmFound = true;
+				if (film.id === id) filmFound = true;
 			});
-			if (!filmFound)
+			if (filmFound !== true)
 				return res.status(404).json({ message: 'That film id was not found in the list' });
 			// eslint-disable-next-line no-param-reassign
-			user.starred = user.starred.filter(film => film.id !== req.params.id);
-			return user.save().then(() => res.json(req.params.id));
+			user.starred = user.starred.filter(film => film.id !== id);
+			return user.save().then(() => res.json(id));
 		})
 		.catch(err => res.status(400).json(err));
 });

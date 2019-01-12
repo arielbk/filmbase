@@ -19,12 +19,7 @@ export default function(state = initialState, action) {
 		case DELETE_STARRED:
 			return {
 				...state,
-				starred: [
-					...state.starred.map(filmID => {
-						if (!filmID === action.payload) return filmID;
-						return null;
-					}),
-				],
+				starred: [...state.starred.filter(film => film.id !== action.payload)],
 			};
 		default:
 			return state;

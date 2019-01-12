@@ -26,6 +26,7 @@ import {
 	BackButton,
 	RelatedFilms,
 	StarButton,
+	UnstarButton,
 } from './MovieDetail.styled';
 
 export const POSTER_PATH = 'https://image.tmdb.org/t/p/w185';
@@ -89,7 +90,14 @@ class MovieDetail extends Component {
 
 	render() {
 		const { movie, credits, loading } = this.state;
-		const { history } = this.props;
+		const { history, starred } = this.props;
+
+		// Marker for whether this film has already been starred or not
+		let filmStarred = false;
+		starred.starred.forEach(film => {
+			if (film.id === movie.id) filmStarred = true;
+		});
+
 		return (
 			<MovieWrapper>
 				{loading && <Loading />}
@@ -138,18 +146,29 @@ class MovieDetail extends Component {
 										))}
 								</div>
 								<div>
-									{/* TODO: add logic to check whether film is already starred */}
-									<StarButton
-										onClick={() => {
-											let addFilm = true;
-											this.props.starred.starred.forEach(film => {
-												if (film.id === movie.id) addFilm = false;
-											});
-											if (addFilm) this.props.starFilm(movie);
-										}}
-									>
-										★ Star
-									</StarButton>
+									{filmStarred === true ? (
+										<UnstarButton
+											onClick={() => {
+												this.props.unstarFilm(movie.id);
+											}}
+										>
+											Unstar
+										</UnstarButton>
+									) : (
+										<StarButton
+											onClick={() => {
+												// // This shouldn't really by necessary...
+												// let addFilm = true;
+												// this.props.starred.starred.forEach(film => {
+												// 	if (film.id === movie.id) addFilm = false;
+												// });
+												// if (addFilm) this.props.starFilm(movie);
+												this.props.starFilm(movie);
+											}}
+										>
+											Star
+										</StarButton>
+									)}
 								</div>
 								<SideStat>
 									<span>Released:</span>

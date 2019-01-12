@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import StyledButton from '../Forms/Button.styled';
-import { $brandGreen, $lightGrey } from '../../assets/vars.styled';
+import { $brandGreen, $darkGreen, $lightGrey, $medGrey, $darkGrey } from '../../assets/vars.styled';
 
 export const MovieWrapper = styled.div`
 	position: relative;
@@ -220,7 +220,24 @@ export const RelatedFilms = styled.div`
 `;
 
 export const StarButton = styled(StyledButton)`
-	margin: 0 2rem 3rem;
+	margin: 0 0 3rem;
 	border: none;
-	width: auto;
+	width: 100%;
+
+	&:before {
+		content: '★';
+		position: relative;
+		left: -1rem;
+		font-size: 1.2rem;
+	}
+`;
+
+export const UnstarButton = styled(StarButton)`
+	background: ${$brandGreen};
+	color: ${$darkGrey};
+
+	&:hover {
+		background: ${$darkGreen};
+		color: ${$medGrey};
+	}
 `;
