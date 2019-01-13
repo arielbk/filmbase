@@ -1,20 +1,22 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import ReactStars from 'react-stars';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateFilmList, setListPage, setSearchQuery, setSortBy } from '../../actions/listActions';
 
-import { MovieGrid, SortOptions, Genre } from './MoviesList.styled';
+import { MovieGrid, Genre } from './MoviesList.styled';
 
 import { $brandGreen } from '../../assets/vars.styled';
 import Loading from '../Loading';
+import SortOptions from '../SortOptions';
 import PageControls from '../PageControls';
 import Movie from '../Movie';
 const apiKey = process.env.REACT_APP_TMDB_KEY;
 
-class MoviesList extends PureComponent {
+class MoviesList extends Component {
 	state = {
 		// populated by API request, genre codes corresponding to a genre name
+		// this is a waste of an api request though really... and holds up the whole app
 		genres: [],
 	};
 
@@ -32,6 +34,7 @@ class MoviesList extends PureComponent {
 			searchQuery: PropTypes.string,
 			sortBy: PropTypes.string,
 		}).isRequired,
+		showStarred: PropTypes.bool,
 	};
 	static defaultProps = {
 		match: {
@@ -45,6 +48,8 @@ class MoviesList extends PureComponent {
 			searchQuery: null,
 			sortBy: 'popular.desc',
 		},
+		starred: PropTypes.object.isRequired,
+		showStarred: false,
 	};
 
 	async componentDidMount() {
@@ -66,41 +71,28 @@ class MoviesList extends PureComponent {
 	}
 
 	render() {
-		const { films, page, searchQuery, loading, sortBy } = this.props.list;
+		const { showStarred } = this.props;
+		const { searchQuery, loading, sortBy } = this.props.list;
+		let films;
+		if (showStarred) {
+			const { starred } = this.props.starred;
+			films = starred;
+		} else {
+			films = this.props.list.films;
+		}
 		// const { genres } = this.state;
 		return (
 			<Fragment>
 				{!searchQuery ? (
-					<SortOptions>
-						<h4>Sort by:</h4>
-						<button
-							style={sortBy === 'popularity.desc' ? { color: '#5eb94e' } : {}}
-							onClick={() => this.setState({ sortBy: 'popularity.desc' }, this.fetchMovies)}
-							type="button"
-						>
-							most popular
-						</button>
-						<button
-							style={sortBy === 'release_date.desc' ? { color: '#5eb94e' } : {}}
-							onClick={() => this.setState({ sortBy: 'release_date.desc' }, this.fetchMovies)}
-							type="button"
-						>
-							newest
-						</button>
-						<button
-							style={sortBy === 'vote_average.desc' ? { color: '#5eb94e' } : {}}
-							onClick={() => this.setState({ sortBy: 'vote_average.desc' }, this.fetchMovies)}
-							type="button"
-						>
-							best rated
-						</button>
-					</SortOptions>
+					<SortOptions />
 				) : (
 					<Fragment>
 						<h3>Search term:</h3>
 						{searchQuery}
 					</Fragment>
 				)}
+
+				<PageControls />
 
 				{loading ? (
 					<Loading />
@@ -150,6 +142,7 @@ class MoviesList extends PureComponent {
 
 const mapStateToProps = state => ({
 	list: state.list,
+	starred: state.starred,
 });
 
 export default connect(

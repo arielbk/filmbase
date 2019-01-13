@@ -138,6 +138,25 @@ class MovieDetail extends Component {
 									</div>
 								</Votes>
 								<div>
+									{filmStarred === true ? (
+										<UnstarButton
+											onClick={() => {
+												this.props.unstarFilm(movie.id);
+											}}
+										>
+											Unheart
+										</UnstarButton>
+									) : (
+										<StarButton
+											onClick={() => {
+												this.props.starFilm(movie);
+											}}
+										>
+											Heart
+										</StarButton>
+									)}
+								</div>
+								<div>
 									{movie.genres &&
 										movie.genres.map(genre => (
 											<GenreTab data-testid="movie-genre" key={genre.name}>
@@ -145,31 +164,7 @@ class MovieDetail extends Component {
 											</GenreTab>
 										))}
 								</div>
-								<div>
-									{filmStarred === true ? (
-										<UnstarButton
-											onClick={() => {
-												this.props.unstarFilm(movie.id);
-											}}
-										>
-											Unstar
-										</UnstarButton>
-									) : (
-										<StarButton
-											onClick={() => {
-												// // This shouldn't really by necessary...
-												// let addFilm = true;
-												// this.props.starred.starred.forEach(film => {
-												// 	if (film.id === movie.id) addFilm = false;
-												// });
-												// if (addFilm) this.props.starFilm(movie);
-												this.props.starFilm(movie);
-											}}
-										>
-											Star
-										</StarButton>
-									)}
-								</div>
+
 								<SideStat>
 									<span>Released:</span>
 									<h3 data-testid="movie-release-date">{movie.release_date}</h3>

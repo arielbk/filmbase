@@ -24,6 +24,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
  * @access  Private
  */
 router.patch('/add', passport.authenticate('jwt', { session: false }), (req, res) => {
+	// TODO: add an appropriate validator
 	// const { errors, isValid } = validateAddFilm(req.body);
 	// validate request params
 	// if (!isValid) return res.status(400).json(errors);

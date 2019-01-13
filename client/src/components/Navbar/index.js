@@ -60,7 +60,7 @@ class Navbar extends Component {
 					{isAuthenticated ? (
 						<Fragment>
 							<StyledButton onClick={this.handleLogout}>Logout</StyledButton>
-							<NavLink to="/starred">Starred</NavLink>
+							<NavLink to="/starred">Hearted</NavLink>
 						</Fragment>
 					) : (
 						<Fragment>

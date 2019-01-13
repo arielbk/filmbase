@@ -21,7 +21,7 @@ export const updateFilmList = (
 	searchQuery = '',
 	sort = 'popularity.desc'
 ) => dispatch => {
-	dispatch(setListLoading);
+	dispatch(setListLoading());
 	let apiURL;
 	// need to hide these api keys...
 	searchQuery
@@ -58,8 +58,9 @@ export const setSearchQuery = query => dispatch =>
 	});
 
 // Set the list sorting order
-export const setSortBy = sortBy => dispatch =>
+export const setSortBy = sortBy => dispatch => {
 	dispatch({
-		SET_LIST_SORT,
+		type: SET_LIST_SORT,
 		payload: sortBy,
 	});
+};

@@ -50,7 +50,8 @@ const App = () => (
 					<Route exact path="/search=:query" component={MoviesList} />
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/register" component={Register} />
-					<Route exact path="/starred" component={Starred} />
+					{/* <Route exact path="/starred" component={Starred} /> */}
+					<Route exact path="/starred" render={() => <MoviesList showStarred={true} />} />
 					<Route path="/search=:query/p=:page" component={MoviesList} />
 					<Route path="/:id" component={MovieDetail} />
 				</Switch>

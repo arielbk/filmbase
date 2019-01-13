@@ -59,15 +59,13 @@ export const SidePanel = styled.div`
 `;
 
 export const GenreTab = styled.div`
-	background: rgba(0, 0, 0, 0.1);
-	border: 2px solid ${$lightGrey};
+	display: inline-block;
+	background: rgba(0, 0, 0, 0.3);
+	border-radius: 3px;
 	color: #ddd;
-	padding: 0.8rem 1rem;
-	width: 150px;
-	margin: 0.8rem auto;
-	border-radius: 22px;
+	padding: 0.2rem 0.4rem;
+	margin: 0.2rem;
 	text-align: center;
-	text-shadow: 0 2px 6px #000;
 
 	:last-child {
 		margin-bottom: 2rem;
@@ -79,7 +77,7 @@ export const Votes = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	margin: 0 auto 1.5rem;
+	margin: 0 auto 1rem;
 	padding: 0.4rem 0.9rem 1rem 0.2rem;
 	text-align: center;
 	border-radius: 22px;
@@ -222,22 +220,29 @@ export const RelatedFilms = styled.div`
 export const StarButton = styled(StyledButton)`
 	margin: 0 0 3rem;
 	border: none;
-	width: 100%;
+	width: 90%;
+	position: relative;
+	transition: 0.2s;
 
 	&:before {
-		content: '★';
-		position: relative;
-		left: -1rem;
-		font-size: 1.2rem;
+		content: '♥';
+		position: absolute;
+		left: 1.5rem;
+		top: 0.6rem;
+		font-size: 1.4rem;
 	}
 `;
 
 export const UnstarButton = styled(StarButton)`
-	background: ${$brandGreen};
+	background: ${$darkGreen};
 	color: ${$darkGrey};
 
 	&:hover {
-		background: ${$darkGreen};
+		background: ${$brandGreen};
 		color: ${$medGrey};
+	}
+
+	&:before {
+		opacity: 0.3;
 	}
 `;
