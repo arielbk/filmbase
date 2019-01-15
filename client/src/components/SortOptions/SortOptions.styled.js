@@ -1,11 +1,12 @@
 import styled from 'styled-components';
-import { $lightGrey } from '../../assets/vars.styled';
+import { $lightGrey, $brandGreen } from '../../assets/vars.styled';
 
 export const StyledSortOptions = styled.div`
 	h4 {
 		margin: 0;
 		margin-bottom: 1rem;
 	}
+	width: 100%;
 	margin-top: 2rem;
 	background: #111;
 	border-radius: 12px;

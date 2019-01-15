@@ -22,21 +22,21 @@ class SortOptions extends Component {
 				<h4>Sort by:</h4>
 				<button
 					style={sortBy === 'popularity.desc' ? { color: '#5eb94e' } : {}}
-					onClick={this.handleChangeSort}
+					onClick={() => this.handleChangeSort('popularity.desc')}
 					type="button"
 				>
 					most popular
 				</button>
 				<button
 					style={sortBy === 'release_date.desc' ? { color: '#5eb94e' } : {}}
-					onClick={this.handleChangeSort}
+					onClick={() => this.handleChangeSort('release_date.desc')}
 					type="button"
 				>
 					newest
 				</button>
 				<button
 					style={sortBy === 'vote_average.desc' ? { color: '#5eb94e' } : {}}
-					onClick={this.handleChangeSort}
+					onClick={() => this.handleChangeSort('vote_average.desc')}
 					type="button"
 				>
 					best rated

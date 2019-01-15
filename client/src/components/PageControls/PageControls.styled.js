@@ -1,11 +1,12 @@
 import styled from 'styled-components';
-import { $brandGreen } from '../../assets/vars.styled';
+import { $brandGreen, $lightGrey } from '../../assets/vars.styled';
 
 export const StyledPageControls = styled.div`
 	margin: 2rem auto;
 	width: 300px;
-	border-radius: 12px;
+	border-radius: 24px;
 	background: #111;
+	color: ${$lightGrey};
 
 	display: flex;
 	justify-content: space-between;
@@ -13,11 +14,14 @@ export const StyledPageControls = styled.div`
 
 	div {
 		padding: 0.5rem;
-		width: 100px;
+		width: 50px;
+		height: 50px;
+		border-radius: 100%;
+		background: #111;
 	}
 
 	a {
-		color: #ccc;
+		color: ${$lightGrey};
 		text-decoration: none;
 		font-size: 1.5rem;
 		display: flex;
