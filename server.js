@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const passport = require('passport');
 require('dotenv').config({ path: '.env.local' });
+const path = require('path');
 
 const authRoutes = require('./routes/auth');
 const starRoutes = require('./routes/stars');
@@ -40,9 +41,15 @@ app.use(morgan('dev'));
 app.use('/api/auth', authRoutes);
 app.use('/api/stars', starRoutes);
 
-app.get('/', (req, res) => {
-	res.send('Express server is working!');
-});
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+	// Set static folder
+	app.use(express.static('client/build'));
+
+	app.get('*', (req, res) => {
+		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+	});
+}
 
 const port = process.env.PORT || 8080;
 
