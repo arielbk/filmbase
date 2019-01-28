@@ -11,7 +11,6 @@ import Loading from '../Loading';
 import SortOptions from '../SortOptions';
 import PageControls from '../PageControls';
 import Movie from '../Movie';
-const apiKey = process.env.REACT_APP_TMDB_KEY;
 
 class MoviesList extends Component {
 	state = {
@@ -55,7 +54,7 @@ class MoviesList extends Component {
 	async componentDidMount() {
 		try {
 			const genresRes = await fetch(
-				`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
+				`https://api.themoviedb.org/3/genre/movie/list?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US`
 			);
 			const genres = await genresRes.json();
 			this.setState({ genres });
