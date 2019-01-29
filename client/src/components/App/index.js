@@ -15,7 +15,6 @@ import MovieDetail from '../MovieDetail';
 import Navbar from '../Navbar';
 import Register from '../Register';
 import Login from '../Login';
-import Hearted from '../Hearted';
 
 // Check for token
 if (localStorage.jwtToken) {

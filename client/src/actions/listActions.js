@@ -21,7 +21,7 @@ export const updateFilmList = (
 ) => dispatch => {
 	dispatch(setListLoading());
 	let apiURL;
-	// need to hide these api keys...
+	// would hide this api key in production
 	searchQuery
 		? (apiURL = `https://api.themoviedb.org/3/search/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&query=${searchQuery}&page=${page}&include_adult=false`)
 		: (apiURL = `https://api.themoviedb.org/3/discover/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}`);

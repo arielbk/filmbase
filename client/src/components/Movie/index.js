@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Overdrive from 'react-overdrive';
 
 import blankPoster from '../../assets/images/blank.png';
 import { StyledMovie, Overlay, Poster } from './Movie.styled';
@@ -14,17 +13,15 @@ const Movie = props => {
 	return (
 		<StyledMovie>
 			<Link data-testid="movie-link" to={`/${movie.id}`}>
-				<Overdrive data-testid="movie-overdrive" id={String(movie.id)}>
-					<Poster
-						data-testid="movie-poster"
-						src={
-							movie.poster_path !== null || 'null'
-								? `${POSTER_PATH}${movie.poster_path}`
-								: blankPoster
-						}
-						alt={movie.title}
-					/>
-				</Overdrive>
+				<Poster
+					data-testid="movie-poster"
+					src={
+						movie.poster_path !== null
+							? `${POSTER_PATH}${movie.poster_path}`
+							: blankPoster
+					}
+					alt={movie.title}
+				/>
 				<Overlay>{children}</Overlay>
 			</Link>
 		</StyledMovie>

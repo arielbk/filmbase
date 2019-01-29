@@ -12,14 +12,16 @@ export const StyledSortOptions = styled.div`
 	border-radius: 12px;
 	display: inline-block;
 	padding: 1rem;
-	button {
-		font-size: 1rem;
-		background: transparent;
-		border: none;
-		margin: 0.5rem;
-		color: ${$lightGrey};
-		:hover {
-			cursor: pointer;
-		}
+`;
+
+export const SortButton = styled.button`
+	font-size: 1rem;
+	background: transparent;
+	border: none;
+	margin: 0.5rem;
+	color: ${$lightGrey};
+	:hover {
+		cursor: pointer;
 	}
+	${({ active }) => active && `color: ${$brandGreen}`};
 `;

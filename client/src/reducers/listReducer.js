@@ -11,7 +11,7 @@ const initialState = {
 	page: 1,
 	searchQuery: '',
 	loading: false,
-	sortby: '',
+	sortBy: 'popularity.desc',
 };
 
 export default (state = initialState, action) => {

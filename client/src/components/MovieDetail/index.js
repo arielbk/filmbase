@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
-import Overdrive from 'react-overdrive';
 import commaNumber from 'comma-number';
 import ReactStars from 'react-stars';
 import PropTypes from 'prop-types';
@@ -117,16 +116,14 @@ class MovieDetail extends Component {
 									</h1>
 									<h4 data-testid="movie-tagline">{movie.tagline}</h4>
 								</SideTitle>
-								<Overdrive id={String(movie.id)}>
-									<Poster
-										data-testid="movie-poster"
-										src={
-											Object.keys(movie).length &&
-											`${POSTER_PATH}${movie.poster_path}`
-										}
-										alt={movie.title}
-									/>
-								</Overdrive>
+								<Poster
+									data-testid="movie-poster"
+									src={
+										Object.keys(movie).length &&
+										`${POSTER_PATH}${movie.poster_path}`
+									}
+									alt={movie.title}
+								/>
 								<Votes>
 									<ReactStars
 										count={5}

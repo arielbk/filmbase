@@ -55,10 +55,10 @@ class MoviesList extends Component {
 	}
 
 	render() {
-		const { showHearted } = this.props;
+		const { showingHearted } = this.props;
 		const { searchQuery, loading, sortBy } = this.props.list;
 		let films;
-		if (showHearted) {
+		if (showingHearted) {
 			const { hearted } = this.props.hearted;
 			films = hearted;
 		} else {

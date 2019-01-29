@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { $lightGrey } from '../../assets/vars.styled';
 
 export const MovieGrid = styled.div`
 	margin: 0 auto;
