@@ -58,8 +58,8 @@ class Register extends Component {
 
 		return (
 			<form onSubmit={this.handleSubmit}>
+				<h1>Register</h1>
 				<Subtitle>
-					<h1>Register</h1>
 					<Link to="/login">Already registered?</Link>
 				</Subtitle>
 				<FormGroup

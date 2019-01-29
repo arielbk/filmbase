@@ -6,10 +6,10 @@ export const StyledSortOptions = styled.div`
 		margin: 0;
 		margin-bottom: 1rem;
 	}
-	width: 100%;
+	border-radius: 3px;
+	width: 50%;
 	margin-top: 2rem;
 	background: #111;
-	border-radius: 12px;
 	display: inline-block;
 	padding: 1rem;
 `;

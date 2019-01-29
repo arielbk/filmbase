@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {
+	StyledDropdown,
 	Top,
 	ProfPic,
 	TopArrow,
@@ -24,7 +25,7 @@ export default class AuthDropdown extends Component {
 		const { open } = this.state;
 		const { user, onLogout } = this.props;
 		return (
-			<div>
+			<StyledDropdown>
 				<Top onClick={this.onToggle}>
 					<ProfPic />
 					<TopArrow />
@@ -48,7 +49,7 @@ export default class AuthDropdown extends Component {
 						<BottomArrow />
 					</Bottom>
 				)}
-			</div>
+			</StyledDropdown>
 		);
 	}
 }

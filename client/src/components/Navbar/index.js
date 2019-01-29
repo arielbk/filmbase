@@ -66,7 +66,9 @@ class Navbar extends Component {
 				<Link to="/" onClick={resetMoviesList}>
 					<Logo />
 				</Link>
-				<SearchButton />
+				<AuthControl>
+					<SearchButton />
+				</AuthControl>
 			</StyledNavbar>
 		);
 	}

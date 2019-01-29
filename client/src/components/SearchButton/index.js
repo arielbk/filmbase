@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { StyledSearchButton } from './SearchButton.styled';
+import { SearchInput } from './SearchButton.styled';
 
 // passed as a default prop so it's easy to pass a mock function during testing
 const handleSubmit = (e, input, history) => {
@@ -41,7 +41,7 @@ class SearchButton extends Component {
 		return (
 			<Fragment>
 				<form data-testid="searchbutton-form" onSubmit={e => onSubmit(e, input, history)}>
-					<StyledSearchButton
+					<SearchInput
 						data-testid="searchbutton-field"
 						placeholder="search"
 						type="text"

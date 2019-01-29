@@ -52,8 +52,8 @@ class Login extends Component {
 		const { email, password, errors } = this.state;
 		return (
 			<form onSubmit={this.handleSubmit}>
+				<h1>Login</h1>
 				<Subtitle>
-					<h1>Login</h1>
 					<Link to="/register">Not registered?</Link>
 				</Subtitle>
 				<FormGroup

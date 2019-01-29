@@ -29,4 +29,8 @@ export const GlobalStyle = createGlobalStyle`
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
       monospace;
   }
+
+  h1 {
+    margin-top: 3rem;
+  }
 `;

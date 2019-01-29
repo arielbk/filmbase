@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { $lightGrey, $medGrey, $brandGreen } from '../../assets/vars.styled';
 
+export const StyledDropdown = styled.div`
+	position: relative;
+`;
+
 export const Top = styled.div`
 	padding: 0 2rem;
 	width: 60px;
@@ -55,6 +59,7 @@ export const AuthLink = styled.div`
 	font-weight: 600;
 	padding: 1rem;
 	cursor: pointer;
+	color: ${$lightGrey};
 	&:hover,
 	&:hover a {
 		background: ${$medGrey};

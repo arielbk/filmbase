@@ -30,6 +30,7 @@ class MoviesList extends Component {
 		}).isRequired,
 		showHearted: PropTypes.bool,
 	};
+
 	static defaultProps = {
 		match: {
 			params: {
@@ -124,11 +125,15 @@ class MoviesList extends Component {
 				)}
 
 				{!loading && !films.length && (
-					<h2 data-testid="movie-results" style={{ position: 'relative', top: '-4rem' }}>
+					<h2
+						data-testid="movie-results"
+						style={{ position: 'relative', top: '-4rem', fontWeight: 200 }}
+					>
 						No films found!
 					</h2>
 				)}
-				<PageControls />
+
+				{!showHearted && <PageControls />}
 			</Fragment>
 		);
 	}
