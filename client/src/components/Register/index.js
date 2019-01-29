@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { registerUser } from '../../actions/authActions';
 import FormGroup from '../Forms/FormGroup';
 import StyledButton from '../Forms/Button.styled.js';
+import { Subtitle } from '../Forms/Forms.styled';
 
 class Register extends Component {
 	state = {
@@ -57,6 +58,9 @@ class Register extends Component {
 
 		return (
 			<form onSubmit={this.handleSubmit}>
+				<Subtitle>
+					<Link to="/register">Already registered?</Link>
+				</Subtitle>
 				<FormGroup
 					name="name"
 					prettyName="Name"

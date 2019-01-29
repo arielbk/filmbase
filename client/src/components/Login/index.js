@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { loginUser } from '../../actions/authActions';
 import FormGroup from '../Forms/FormGroup';
 import StyledButton from '../Forms/Button.styled';
+import { Subtitle } from '../Forms/Forms.styled';
 
 class Login extends Component {
 	static propTypes = {
@@ -51,6 +52,9 @@ class Login extends Component {
 		const { email, password, errors } = this.state;
 		return (
 			<form onSubmit={this.handleSubmit}>
+				<Subtitle>
+					<Link to="/register">Not registered?</Link>
+				</Subtitle>
 				<FormGroup
 					name="email"
 					prettyName="Email"

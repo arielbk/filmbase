@@ -90,7 +90,7 @@ class MovieDetail extends Component {
 
 	render() {
 		const { movie, credits, loading } = this.state;
-		const { history, hearted } = this.props;
+		const { history, hearted, auth } = this.props;
 
 		// Marker for whether this film has already been hearted or not
 		let filmHearted = false;
@@ -163,7 +163,9 @@ class MovieDetail extends Component {
 									) : (
 										<HeartButton
 											onClick={() => {
-												this.props.heartFilm(movie);
+												auth.isAuthenticated
+													? this.props.heartFilm(movie)
+													: history.push('/login');
 											}}
 										>
 											Heart
