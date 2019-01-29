@@ -29,9 +29,11 @@ export const loginUser = (userData, history) => dispatch =>
 			const decoded = jwt_decode(token);
 			// Set current user
 			dispatch(setCurrentUser(decoded));
-			// Redirect to starred movies list
-			history.push('/starred');
 		})
+		.then(() =>
+			// Redirect to hearted movies list
+			history.push('/starred')
+		)
 		.catch(err =>
 			dispatch({
 				type: SET_ERRORS,
@@ -48,11 +50,13 @@ export const setCurrentUser = decoded => {
 };
 
 // Log the user out
-export const logoutUser = () => dispatch => {
+export const logoutUser = history => dispatch => {
 	// Remove token from localStorage
 	localStorage.removeItem('jwtToken');
 	// Remove auth header for future requests
 	setAuthToken(false);
 	// Set current user to {}; sets isAuthenticated to false
 	dispatch(setCurrentUser({}));
+	// Redirect to the main page
+	history.push('/');
 };

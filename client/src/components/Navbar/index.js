@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -45,13 +45,9 @@ class Navbar extends Component {
 		this.setState({ prevScrollPosition: window.scrollY });
 	};
 
-	handleLogout = e => {
-		e.preventDefault();
-		this.props.logoutUser();
-	};
-
 	render() {
 		const { isAuthenticated, user } = this.props.auth;
+		const { logoutUser, history } = this.props;
 		const { sticky } = this.state;
 
 		return (
@@ -59,7 +55,7 @@ class Navbar extends Component {
 				<AuthControl>
 					{isAuthenticated ? (
 						<Fragment>
-							<StyledButton onClick={this.handleLogout}>Logout</StyledButton>
+							<StyledButton onClick={() => logoutUser(history)}>Logout</StyledButton>
 							<NavLink to="/starred">Hearted</NavLink>
 						</Fragment>
 					) : (
@@ -85,4 +81,4 @@ const mapStateToProps = state => ({
 export default connect(
 	mapStateToProps,
 	{ logoutUser }
-)(Navbar);
+)(withRouter(Navbar));

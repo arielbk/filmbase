@@ -91,7 +91,7 @@ router.post('/login', (req, res) => {
 				});
 			})
 		)
-		.catch(() => res.status(404).json({ user: 'User not found ' }));
+		.catch(() => res.status(404).json({ email: 'User not found ' }));
 });
 
 // Export router for use in server

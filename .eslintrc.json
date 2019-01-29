@@ -5,12 +5,14 @@
 		"es6": true
 	},
 	"extends": ["airbnb-base", "plugin:prettier/recommended"],
+	"plugins": ["pretter"],
 	"parserOptions": {
 		"ecmaVersion": 2017,
 		"sourceType": "module"
 	},
 	"rules": {
-		"no-underscore-dangle": 0
+		"no-underscore-dangle": 0,
+		"prettier/prettier": ["error"]
 	},
 	"globals": {
 		"expect": true,

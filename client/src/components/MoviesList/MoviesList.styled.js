@@ -26,19 +26,16 @@ export const MovieGrid = styled.div`
 	}
 `;
 
-export const Genre = styled.div`
+export const GenreTab = styled.div`
 	display: inline-block;
-	padding: 0.4rem;
-	margin-right: 0.5rem;
+	background: rgba(0, 0, 0, 0.3);
 	border-radius: 3px;
-	background: rgba(0, 0, 0, 0.8);
-	color: #ccc;
-	&::after {
-		content: ' / ';
-	}
-	&:last-child {
-		:after {
-			content: '';
-		}
-	}
+	color: #ddd;
+	padding: 0.2rem 0.4rem;
+	margin: 0.1rem;
+	text-align: center;
+`;
+
+export const GenreList = styled.div`
+	margin-top: 0.2rem;
 `;

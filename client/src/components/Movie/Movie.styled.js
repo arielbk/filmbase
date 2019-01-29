@@ -4,10 +4,6 @@ export const Poster = styled.img`
 	box-shadow: 0 0 35px black;
 	transition: transform 0.3s;
 	border-radius: 3px;
-
-	:hover {
-		transform: scale(1.1);
-	}
 `;
 
 export const StyledMovie = styled.div`
@@ -15,6 +11,7 @@ export const StyledMovie = styled.div`
 	height: 278px;
 	position: relative;
 	margin: 0 auto;
+	transition: 0.3s;
 	a {
 		text-decoration: none;
 		color: #fff;
@@ -25,6 +22,10 @@ export const StyledMovie = styled.div`
 	h5 {
 		margin: 0.5rem 0 0.7rem;
 		font-weight: 400;
+	}
+
+	:hover {
+		transform: scale(1.05);
 	}
 `;
 
