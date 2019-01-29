@@ -32,7 +32,7 @@ export const loginUser = (userData, history) => dispatch =>
 		})
 		.then(() =>
 			// Redirect to hearted movies list
-			history.push('/starred')
+			history.push('/hearted')
 		)
 		.catch(err =>
 			dispatch({

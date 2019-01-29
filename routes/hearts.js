@@ -8,19 +8,19 @@ const User = require('../models/User');
 const router = express.Router();
 
 /**
- * @route   GET api/stars
- * @desc    Gets the user's starred films
+ * @route   GET api/hearts
+ * @desc    Gets the user's hearted films
  * @access  Private
  */
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
 	User.findById(req.user._id)
-		.then(user => res.json(user.starred))
+		.then(user => res.json(user.hearted))
 		.catch(err => res.status(400).json(err));
 });
 
 /**
- * @route   PATCH api/stars/add/:id
- * @desc    Adds to the user's starred list
+ * @route   PATCH api/hearts/add/:id
+ * @desc    Adds to the user's hearted list
  * @access  Private
  */
 router.patch('/add', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -30,16 +30,16 @@ router.patch('/add', passport.authenticate('jwt', { session: false }), (req, res
 	// if (!isValid) return res.status(400).json(errors);
 
 	User.updateOne(
-		// Add film to top of starred array, only if it is unique
-		{ $and: [{ _id: req.user._id }, { starred: { $ne: req.body } }] },
-		{ $push: { starred: { $each: [req.body], $position: 0 } } }
+		// Add film to top of hearted array, only if it is unique
+		{ $and: [{ _id: req.user._id }, { hearted: { $ne: req.body } }] },
+		{ $push: { hearted: { $each: [req.body], $position: 0 } } }
 	)
 		.then(() => res.json(req.body))
 		.catch(err => res.status(400).json(err));
 });
 
 /**
- * @route   DELETE api/stars/:id
+ * @route   DELETE api/hearts/:id
  * @desc    Creates habit
  * @access  Private
  */
@@ -48,13 +48,13 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
 		.then(user => {
 			const id = parseInt(req.params.id, 10);
 			let filmFound = false;
-			user.starred.forEach(film => {
+			user.hearted.forEach(film => {
 				if (film.id === id) filmFound = true;
 			});
 			if (filmFound !== true)
 				return res.status(404).json({ message: 'That film id was not found in the list' });
 			// eslint-disable-next-line no-param-reassign
-			user.starred = user.starred.filter(film => film.id !== id);
+			user.hearted = user.hearted.filter(film => film.id !== id);
 			return user.save().then(() => res.json(id));
 		})
 		.catch(err => res.status(400).json(err));

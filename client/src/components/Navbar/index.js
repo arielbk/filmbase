@@ -56,7 +56,7 @@ class Navbar extends Component {
 					{isAuthenticated ? (
 						<Fragment>
 							<StyledButton onClick={() => logoutUser(history)}>Logout</StyledButton>
-							<NavLink to="/starred">Hearted</NavLink>
+							<NavLink to="/hearted">Hearted</NavLink>
 						</Fragment>
 					) : (
 						<Fragment>

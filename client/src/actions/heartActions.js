@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { SET_STARRED, ADD_STARRED, DELETE_STARRED, SET_ERRORS } from './types';
+import { SET_HEARTED, ADD_HEARTED, DELETE_HEARTED, SET_ERRORS } from './types';
 
 // Fetch films from user
-export const setStarred = () => dispatch =>
+export const setHearted = () => dispatch =>
 	axios
-		.get('/api/stars')
+		.get('/api/hearts')
 		.then(res => {
 			dispatch({
-				type: SET_STARRED,
+				type: SET_HEARTED,
 				payload: res.data,
 			});
 		})
@@ -18,13 +18,13 @@ export const setStarred = () => dispatch =>
 			})
 		);
 
-// Add a film to the user's starred list
-export const starFilm = film => dispatch =>
+// Add a film to the user's hearted list
+export const heartFilm = film => dispatch =>
 	axios
-		.patch(`/api/stars/add`, film)
+		.patch(`/api/hearts/add`, film)
 		.then(res =>
 			dispatch({
-				type: ADD_STARRED,
+				type: ADD_HEARTED,
 				payload: res.data,
 			})
 		)
@@ -35,13 +35,13 @@ export const starFilm = film => dispatch =>
 			})
 		);
 
-// Remove a film from the user's starred list
-export const unstarFilm = filmID => dispatch =>
+// Remove a film from the user's hearted list
+export const unheartFilm = filmID => dispatch =>
 	axios
-		.delete(`/api/stars/${filmID}`)
+		.delete(`/api/hearts/${filmID}`)
 		.then(res =>
 			dispatch({
-				type: DELETE_STARRED,
+				type: DELETE_HEARTED,
 				payload: res.data,
 			})
 		)

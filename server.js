@@ -7,7 +7,7 @@ require('dotenv').config({ path: '.env.local' });
 const path = require('path');
 
 const authRoutes = require('./routes/auth');
-const starRoutes = require('./routes/stars');
+const heartRoutes = require('./routes/hearts');
 
 // Use native promises
 mongoose.Promise = global.Promise;
@@ -39,7 +39,7 @@ app.use(morgan('dev'));
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/stars', starRoutes);
+app.use('/api/hearts', heartRoutes);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { $brandGreen } from '../../assets/vars.styled';
-import { starFilm, unstarFilm } from '../../actions/starActions';
+import { heartFilm, unheartFilm } from '../../actions/heartActions';
 import Loading from '../Loading';
 import { Poster } from '../Movie/Movie.styled.js';
 import {
@@ -25,8 +25,8 @@ import {
 	Cast,
 	BackButton,
 	RelatedFilms,
-	StarButton,
-	UnstarButton,
+	HeartButton,
+	UnheartButton,
 } from './MovieDetail.styled';
 
 export const POSTER_PATH = 'https://image.tmdb.org/t/p/w185';
@@ -51,10 +51,10 @@ class MovieDetail extends Component {
 			}),
 		}).isRequired,
 		auth: PropTypes.object.isRequired,
-		starred: PropTypes.object.isRequired,
+		hearted: PropTypes.object.isRequired,
 		errors: PropTypes.object.isRequired,
-		starFilm: PropTypes.func.isRequired,
-		unstarFilm: PropTypes.func.isRequired,
+		heartFilm: PropTypes.func.isRequired,
+		unheartFilm: PropTypes.func.isRequired,
 	};
 
 	static contextTypes = {
@@ -90,12 +90,12 @@ class MovieDetail extends Component {
 
 	render() {
 		const { movie, credits, loading } = this.state;
-		const { history, starred } = this.props;
+		const { history, hearted } = this.props;
 
-		// Marker for whether this film has already been starred or not
-		let filmStarred = false;
-		starred.starred.forEach(film => {
-			if (film.id === movie.id) filmStarred = true;
+		// Marker for whether this film has already been hearted or not
+		let filmHearted = false;
+		hearted.hearted.forEach(film => {
+			if (film.id === movie.id) filmHearted = true;
 		});
 
 		return (
@@ -104,7 +104,10 @@ class MovieDetail extends Component {
 				{!loading && movie && !movie.status_code && (
 					<Fragment>
 						<Background
-							backdrop={Object.keys(movie).length && `${BACKDROP_PATH}${movie.backdrop_path}`}
+							backdrop={
+								Object.keys(movie).length &&
+								`${BACKDROP_PATH}${movie.backdrop_path}`
+							}
 						/>
 						<MovieInfo>
 							<SidePanel>
@@ -117,7 +120,10 @@ class MovieDetail extends Component {
 								<Overdrive id={String(movie.id)}>
 									<Poster
 										data-testid="movie-poster"
-										src={Object.keys(movie).length && `${POSTER_PATH}${movie.poster_path}`}
+										src={
+											Object.keys(movie).length &&
+											`${POSTER_PATH}${movie.poster_path}`
+										}
 										alt={movie.title}
 									/>
 								</Overdrive>
@@ -132,28 +138,36 @@ class MovieDetail extends Component {
 									<div>
 										<span data-testid="vote-average">{movie.vote_average}</span>
 										/10
-										<span style={{ marginLeft: '1rem', fontSize: '0.8rem', color: '#aaa' }}>
-											(<span data-testid="vote-count">{movie.vote_count}</span> votes)
+										<span
+											style={{
+												marginLeft: '1rem',
+												fontSize: '0.8rem',
+												color: '#aaa',
+											}}
+										>
+											(
+											<span data-testid="vote-count">{movie.vote_count}</span>{' '}
+											votes)
 										</span>
 									</div>
 								</Votes>
 								<div>
-									{filmStarred === true ? (
-										<UnstarButton
+									{filmHearted === true ? (
+										<UnheartButton
 											onClick={() => {
-												this.props.unstarFilm(movie.id);
+												this.props.unheartFilm(movie.id);
 											}}
 										>
 											Unheart
-										</UnstarButton>
+										</UnheartButton>
 									) : (
-										<StarButton
+										<HeartButton
 											onClick={() => {
-												this.props.starFilm(movie);
+												this.props.heartFilm(movie);
 											}}
 										>
 											Heart
-										</StarButton>
+										</HeartButton>
 									)}
 								</div>
 								<div>
@@ -181,14 +195,18 @@ class MovieDetail extends Component {
 								{movie.budget !== 0 && (
 									<SideStat>
 										<span>Budget:</span>
-										<h3 data-testid="movie-budget">${commaNumber(movie.budget)}</h3>
+										<h3 data-testid="movie-budget">
+											${commaNumber(movie.budget)}
+										</h3>
 									</SideStat>
 								)}
 
 								{movie.revenue !== 0 && (
 									<SideStat>
 										<span>Revenue:</span>
-										<h3 data-testid="movie-revenue">${commaNumber(movie.revenue)}</h3>
+										<h3 data-testid="movie-revenue">
+											${commaNumber(movie.revenue)}
+										</h3>
 									</SideStat>
 								)}
 
@@ -199,7 +217,9 @@ class MovieDetail extends Component {
 										<img
 											src={
 												Object.keys(movie).length &&
-												`${POSTER_PATH_SMALL}${movie.belongs_to_collection.poster_path}`
+												`${POSTER_PATH_SMALL}${
+													movie.belongs_to_collection.poster_path
+												}`
 											}
 											alt={movie.belongs_to_collection.name}
 										/>
@@ -222,10 +242,15 @@ class MovieDetail extends Component {
 												<h3 data-testid="credit-name">{credit.name}</h3>
 												<img
 													data-testid="credit-photo"
-													src={Object.keys(credit).length && `${CAST_PATH}${credit.profile_path}`}
+													src={
+														Object.keys(credit).length &&
+														`${CAST_PATH}${credit.profile_path}`
+													}
 													alt={credit.name}
 												/>
-												<h4 data-testid="credit-character">{credit.character}</h4>
+												<h4 data-testid="credit-character">
+													{credit.character}
+												</h4>
 											</div>
 										))}
 								</Cast>
@@ -256,11 +281,11 @@ class MovieDetail extends Component {
 
 const mapStateToProps = state => ({
 	auth: state.auth,
-	starred: state.starred,
+	hearted: state.hearted,
 	errors: state.errors,
 });
 
 export default connect(
 	mapStateToProps,
-	{ starFilm, unstarFilm }
+	{ heartFilm, unheartFilm }
 )(withRouter(MovieDetail));

@@ -2,29 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { setStarred } from '../../actions/starActions';
+import { setHearted } from '../../actions/heartActions';
 
-class Starred extends Component {
+class Hearted extends Component {
 	static propTypes = {
 		auth: PropTypes.object.isRequired,
-		setStarred: PropTypes.func.isRequired,
+		setHearted: PropTypes.func.isRequired,
 	};
 
 	componentDidMount() {
 		const { history, auth } = this.props;
 		if (!auth.isAuthenticated) history.push('/');
-		this.props.setStarred();
+		this.props.setHearted();
 	}
 
 	render() {
 		const { isAuthenticated } = this.props.auth;
-		const { starred } = this.props;
+		const { hearted } = this.props;
 		return (
 			<div>
-				<h1>Starred Films</h1>
+				<h1>Hearted Films</h1>
 				{isAuthenticated ? (
 					<div>
-						<ul>{starred && starred.starred.map(film => <li key={film.id}>{film.title}</li>)}</ul>
+						<ul>
+							{hearted &&
+								hearted.hearted.map(film => <li key={film.id}>{film.title}</li>)}
+						</ul>
 					</div>
 				) : (
 					<div>
@@ -38,10 +41,10 @@ class Starred extends Component {
 
 const mapStateToProps = state => ({
 	auth: state.auth,
-	starred: state.starred,
+	hearted: state.hearted,
 });
 
 export default connect(
 	mapStateToProps,
-	{ setStarred }
-)(withRouter(Starred));
+	{ setHearted }
+)(withRouter(Hearted));

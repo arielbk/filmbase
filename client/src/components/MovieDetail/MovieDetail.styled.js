@@ -217,7 +217,7 @@ export const RelatedFilms = styled.div`
 	}
 `;
 
-export const StarButton = styled(StyledButton)`
+export const HeartButton = styled(StyledButton)`
 	margin: 0 0 3rem;
 	border: none;
 	width: 90%;
@@ -233,7 +233,7 @@ export const StarButton = styled(StyledButton)`
 	}
 `;
 
-export const UnstarButton = styled(StarButton)`
+export const UnheartButton = styled(HeartButton)`
 	background: ${$darkGreen};
 	color: ${$darkGrey};
 

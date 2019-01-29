@@ -28,7 +28,7 @@ class MoviesList extends Component {
 			searchQuery: PropTypes.string,
 			sortBy: PropTypes.string,
 		}).isRequired,
-		showStarred: PropTypes.bool,
+		showHearted: PropTypes.bool,
 	};
 	static defaultProps = {
 		match: {
@@ -42,8 +42,8 @@ class MoviesList extends Component {
 			searchQuery: null,
 			sortBy: 'popular.desc',
 		},
-		starred: PropTypes.object.isRequired,
-		showStarred: false,
+		hearted: PropTypes.object.isRequired,
+		showHearted: false,
 	};
 
 	async componentDidMount() {
@@ -55,12 +55,12 @@ class MoviesList extends Component {
 	}
 
 	render() {
-		const { showStarred } = this.props;
+		const { showHearted } = this.props;
 		const { searchQuery, loading, sortBy } = this.props.list;
 		let films;
-		if (showStarred) {
-			const { starred } = this.props.starred;
-			films = starred;
+		if (showHearted) {
+			const { hearted } = this.props.hearted;
+			films = hearted;
 		} else {
 			films = this.props.list.films;
 		}
@@ -93,7 +93,8 @@ class MoviesList extends Component {
 									edit={false}
 								/>
 								<GenreList>
-									{movie.genre_ids.length &&
+									{movie.genre_ids &&
+										movie.genre_ids.length &&
 										movie.genre_ids.map(genreID => (
 											<span key={genreID}>
 												{genres.map(
@@ -128,7 +129,7 @@ class MoviesList extends Component {
 
 const mapStateToProps = state => ({
 	list: state.list,
-	starred: state.starred,
+	hearted: state.hearted,
 });
 
 export default connect(
