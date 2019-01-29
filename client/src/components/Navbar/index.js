@@ -3,8 +3,9 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import AuthDropdown from '../AuthDropdown';
 
-import { StyledNavbar, NavLink, AuthControl, LogoutLink } from './Navbar.styled';
+import { StyledNavbar, NavLink, AuthControl } from './Navbar.styled';
 import { logoutUser } from '../../actions/authActions';
 import { resetMoviesList } from '../../actions/listActions';
 import Logo from '../Logo/Logo';
@@ -54,11 +55,7 @@ class Navbar extends Component {
 			<StyledNavbar ref={this.navRef} sticky={sticky}>
 				<AuthControl>
 					{isAuthenticated ? (
-						<Fragment>
-							Logged in as {user.name}, (
-							<LogoutLink onClick={() => logoutUser(history)}>logout</LogoutLink> )
-							<NavLink to="/hearted">Hearted</NavLink>
-						</Fragment>
+						<AuthDropdown user={user} onLogout={() => logoutUser(history)} />
 					) : (
 						<Fragment>
 							<NavLink to="/login">Login</NavLink>

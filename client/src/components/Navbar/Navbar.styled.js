@@ -29,9 +29,13 @@ export const StyledNavbar = styled.div`
 `;
 
 export const NavLink = styled(Link)`
-	color: #fff;
-	margin: 0 2rem;
-	padding: 1rem 2rem;
+	color: ${$lightGrey};
+	text-decoration: none;
+	font-weight: 600;
+	padding: 1rem;
+	@media (max-width: 650px) {
+		padding: 0.5rem;
+	}
 `;
 
 export const AuthControl = styled.div`
@@ -39,11 +43,11 @@ export const AuthControl = styled.div`
 	justify-content: space-around;
 	align-items: center;
 	font-size: 1rem;
-	color: ${$lightGrey};
-`;
+	padding: 0 1rem;
+	width: 25%;
 
-export const LogoutLink = styled.span`
-	cursor: pointer;
-	color: ${$brandGreen};
-	padding: 0.2rem;
+	@media (max-width: 650px) {
+		flex-direction: column;
+		justify-conent: center;
+	}
 `;

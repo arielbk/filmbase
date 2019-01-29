@@ -53,6 +53,7 @@ class Login extends Component {
 		return (
 			<form onSubmit={this.handleSubmit}>
 				<Subtitle>
+					<h1>Login</h1>
 					<Link to="/register">Not registered?</Link>
 				</Subtitle>
 				<FormGroup

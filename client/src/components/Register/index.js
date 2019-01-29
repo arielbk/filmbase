@@ -59,7 +59,8 @@ class Register extends Component {
 		return (
 			<form onSubmit={this.handleSubmit}>
 				<Subtitle>
-					<Link to="/register">Already registered?</Link>
+					<h1>Register</h1>
+					<Link to="/login">Already registered?</Link>
 				</Subtitle>
 				<FormGroup
 					name="name"
