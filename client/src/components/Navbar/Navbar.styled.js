@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { $medGrey, $lightGrey } from '../../assets/vars.styled';
+import { $medGrey, $lightGrey, $brandGreen } from '../../assets/vars.styled';
 
 export const StyledNavbar = styled.div`
 	background-color: ${$medGrey};
@@ -25,7 +25,7 @@ export const StyledNavbar = styled.div`
 			: `
 		position: absolute;
 		transform: translateY(-88px);
-		`}
+		`};
 `;
 
 export const NavLink = styled(Link)`
@@ -37,7 +37,13 @@ export const NavLink = styled(Link)`
 export const AuthControl = styled.div`
 	display: flex;
 	justify-content: space-around;
-	align-items: flex-start;
+	align-items: center;
 	font-size: 1rem;
 	color: ${$lightGrey};
+`;
+
+export const LogoutLink = styled.span`
+	cursor: pointer;
+	color: ${$brandGreen};
+	padding: 0.2rem;
 `;

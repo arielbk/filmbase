@@ -62,3 +62,11 @@ export const setSortBy = sortBy => dispatch => {
 		payload: sortBy,
 	});
 };
+
+// Reset the movie list to all default values
+export const resetMoviesList = async () => async dispatch => {
+	await setListPage(1);
+	await setSearchQuery('');
+	await setSortBy('popularity.desc');
+	updateFilmList();
+};

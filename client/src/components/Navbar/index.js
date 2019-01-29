@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { StyledNavbar, NavLink, AuthControl } from './Navbar.styled';
+import { StyledNavbar, NavLink, AuthControl, LogoutLink } from './Navbar.styled';
 import { logoutUser } from '../../actions/authActions';
+import { resetMoviesList } from '../../actions/listActions';
 import Logo from '../Logo/Logo';
 import SearchButton from '../SearchButton';
-import StyledButton from '../Forms/Button.styled';
 
 class Navbar extends Component {
 	constructor(props) {
@@ -34,20 +34,20 @@ class Navbar extends Component {
 
 	onScroll = () => {
 		const { sticky, prevScrollPosition } = this.state;
-
 		if (!sticky && window.scrollY > 176 && window.scrollY < prevScrollPosition) {
 			this.setState({ sticky: true });
 		}
 		if (sticky && (window.scrollY < 176 || window.scrollY > prevScrollPosition)) {
 			this.setState({ sticky: false });
 		}
-
 		this.setState({ prevScrollPosition: window.scrollY });
 	};
 
+	resetList = () => {};
+
 	render() {
 		const { isAuthenticated, user } = this.props.auth;
-		const { logoutUser, history } = this.props;
+		const { logoutUser, resetMoviesList, history } = this.props;
 		const { sticky } = this.state;
 
 		return (
@@ -55,7 +55,8 @@ class Navbar extends Component {
 				<AuthControl>
 					{isAuthenticated ? (
 						<Fragment>
-							<StyledButton onClick={() => logoutUser(history)}>Logout</StyledButton>
+							Logged in as {user.name}, (
+							<LogoutLink onClick={() => logoutUser(history)}>logout</LogoutLink> )
 							<NavLink to="/hearted">Hearted</NavLink>
 						</Fragment>
 					) : (
@@ -65,7 +66,7 @@ class Navbar extends Component {
 						</Fragment>
 					)}
 				</AuthControl>
-				<Link to="/">
+				<Link to="/" onClick={resetMoviesList}>
 					<Logo />
 				</Link>
 				<SearchButton />
@@ -80,5 +81,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ logoutUser }
+	{ logoutUser, resetMoviesList }
 )(withRouter(Navbar));

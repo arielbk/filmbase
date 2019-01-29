@@ -55,25 +55,32 @@ class MoviesList extends Component {
 	}
 
 	render() {
-		const { showingHearted } = this.props;
+		const { showHearted } = this.props;
+		const { user } = this.props.auth;
 		const { searchQuery, loading, sortBy } = this.props.list;
 		let films;
-		if (showingHearted) {
+		if (showHearted) {
 			const { hearted } = this.props.hearted;
 			films = hearted;
 		} else {
 			films = this.props.list.films;
 		}
+		let topComponent;
+		if (!showHearted) {
+			!searchQuery
+				? (topComponent = <SortOptions sortBy={sortBy} />)
+				: (topComponent = (
+						<Fragment>
+							<h3>Search term:</h3>
+							{searchQuery}
+						</Fragment>
+				  ));
+		} else {
+			topComponent = <h1>Hearted Films for {user.name}</h1>;
+		}
 		return (
 			<Fragment>
-				{!searchQuery ? (
-					<SortOptions sortBy={sortBy} />
-				) : (
-					<Fragment>
-						<h3>Search term:</h3>
-						{searchQuery}
-					</Fragment>
-				)}
+				{topComponent}
 
 				{loading ? (
 					<Loading />
@@ -129,6 +136,7 @@ class MoviesList extends Component {
 
 const mapStateToProps = state => ({
 	list: state.list,
+	auth: state.auth,
 	hearted: state.hearted,
 });
 

@@ -28,10 +28,16 @@ const PageControls = props => {
 			) : (
 				<div>&nbsp;</div>
 			)}
-			<span data-testid="pagecontrols-current">page {page}</span>
-			<a data-testid="pagecontrols-forward" href={forwardLink}>
-				<div>&gt;</div>
-			</a>
+			<span data-testid="pagecontrols-current">
+				page {page} of {totalPages}
+			</span>
+			{page < totalPages ? (
+				<a data-testid="pagecontrols-forward" href={forwardLink}>
+					<div>&gt;</div>
+				</a>
+			) : (
+				<div>&nbsp;</div>
+			)}
 		</StyledPageControls>
 	);
 };
