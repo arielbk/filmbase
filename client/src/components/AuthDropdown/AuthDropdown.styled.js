@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { $lightGrey, $medGrey, $brandGreen } from '../../assets/vars.styled';
+import ProfPlaceholder from '../../assets/images/profile.png';
 
 export const StyledDropdown = styled.div`
 	position: relative;
@@ -18,7 +19,7 @@ export const ProfPic = styled.div`
 	border-radius: 50%;
 	width: 50px;
 	height: 50px;
-	background: ${$lightGrey};
+	background: ${$lightGrey} url(${ProfPlaceholder}) no-repeat center;
 `;
 
 export const TopArrow = styled.div`

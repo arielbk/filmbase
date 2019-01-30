@@ -5,7 +5,9 @@ import ReactStars from 'react-stars';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import Recommendations from '../Recommendations';
 import { $brandGreen } from '../../assets/vars.styled';
+import Trailer from '../Trailer';
 import { heartFilm, unheartFilm } from '../../actions/heartActions';
 import Loading from '../Loading';
 import { Poster } from '../Movie/Movie.styled.js';
@@ -34,9 +36,16 @@ const BACKDROP_PATH = 'https://image.tmdb.org/t/p/w1280';
 export const CAST_PATH = 'https://image.tmdb.org/t/p/w185';
 
 class MovieDetail extends Component {
+	constructor(props) {
+		super(props);
+		this.mainContentRef = React.createRef();
+	}
 	state = {
 		movie: {},
 		credits: {},
+		videos: [],
+		trailer: {},
+		recommendations: [],
 		loading: true,
 	};
 
@@ -77,9 +86,25 @@ class MovieDetail extends Component {
 			);
 			const credits = await creditsRes.json();
 
+			const videosRes = await fetch(
+				`https://api.themoviedb.org/3/movie/${id}/videos?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US`
+			);
+			const videos = await videosRes.json();
+			const trailer = videos.results.filter(
+				video => video.site === 'YouTube' && video.type === 'Trailer'
+			)[0];
+
+			const recommendationsRes = await fetch(
+				`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&page=1`
+			);
+			const recommendations = await recommendationsRes.json();
+
 			this.setState({
 				movie,
 				credits,
+				videos: videos.results,
+				trailer,
+				recommendations: recommendations.results,
 				loading: false,
 			});
 		} catch (e) {
@@ -88,7 +113,7 @@ class MovieDetail extends Component {
 	}
 
 	render() {
-		const { movie, credits, loading } = this.state;
+		const { movie, credits, loading, trailer, recommendations } = this.state;
 		const { history, hearted, auth } = this.props;
 
 		// Marker for whether this film has already been hearted or not
@@ -96,6 +121,9 @@ class MovieDetail extends Component {
 		hearted.hearted.forEach(film => {
 			if (film.id === movie.id) filmHearted = true;
 		});
+
+		let mainContentWidth;
+		if (this.mainContentRef.current) mainContentWidth = this.mainContentRef.current.offsetWidth;
 
 		return (
 			<MovieWrapper>
@@ -225,7 +253,7 @@ class MovieDetail extends Component {
 									</RelatedFilms>
 								)}
 							</SidePanel>
-							<MainContent>
+							<MainContent ref={this.mainContentRef}>
 								<MainTitle>
 									<h1 data-testid="movie-title" style={{ display: 'inline' }}>
 										{movie.title}
@@ -256,11 +284,23 @@ class MovieDetail extends Component {
 
 								<Overview data-testid="movie-overview">{movie.overview}</Overview>
 
-								<h3>Images</h3>
-								<h3>Videos</h3>
-								<h3>Recommendations</h3>
+								{trailer && <Trailer id={trailer.key} width={mainContentWidth} />}
 
-								<BackButton onClick={history.goBack}>&lt;</BackButton>
+								{recommendations.length && (
+									<Recommendations recommendations={recommendations} />
+								)}
+
+								<BackButton onClick={history.goBack}>
+									<svg
+										width="27"
+										height="152"
+										viewBox="0 0 27 152"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path d="M24 1L3.22649 75.1911C3.07834 75.7202 3.07835 76.2798 3.22649 76.8089L24 151" />
+									</svg>
+								</BackButton>
 							</MainContent>
 						</MovieInfo>
 					</Fragment>

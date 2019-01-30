@@ -20,6 +20,7 @@ export const Background = styled.div`
 
 export const MovieInfo = styled.div`
 	background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(10, 10, 10, 1));
+	min-height: 100vh;
 	text-align: left;
 	padding: 3rem 5%;
 	display: flex;
@@ -183,13 +184,25 @@ export const Button = styled.button`
 	}
 `;
 
-export const BackButton = styled(Button)`
+export const BackButton = styled.div`
 	position: fixed;
-	top: 2rem;
-	left: 1rem;
+	top: 9.5rem;
+	left: 0;
+	cursor: pointer;
+	transition: 0.3s;
+	opacity: 0.5;
+	padding: 1rem;
 
-	@media (max-width: 760px) {
-		display: none;
+	svg {
+		stroke: ${$lightGrey};
+		stroke-width: 3;
+	}
+
+	&:hover {
+		opacity: 1;
+		svg {
+			stroke: ${$brandGreen};
+		}
 	}
 `;
 
