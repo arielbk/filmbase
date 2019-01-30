@@ -3,13 +3,14 @@ import ReactStars from 'react-stars';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateFilmList, setListPage, setSearchQuery, setSortBy } from '../../actions/listActions';
+import { Redirect } from 'react-router-dom';
 
 import { MovieGrid, GenreTab, GenreList } from './MoviesList.styled';
 
 import { $brandGreen } from '../../assets/vars.styled';
 import Loading from '../Loading';
 import SortOptions from '../SortOptions';
-import PageControls from '../PageControls';
+import LoadMore from '../LoadMore';
 import Movie from '../Movie';
 import genres from '../../assets/genres';
 
@@ -57,8 +58,8 @@ class MoviesList extends Component {
 
 	render() {
 		const { showHearted } = this.props;
-		const { user } = this.props.auth;
-		const { searchQuery, loading, sortBy } = this.props.list;
+		const { user, isAuthenticated } = this.props.auth;
+		const { searchQuery, loading, sortBy, page, totalPages } = this.props.list;
 		let films;
 		if (showHearted) {
 			const { hearted } = this.props.hearted;
@@ -81,6 +82,8 @@ class MoviesList extends Component {
 		}
 		return (
 			<Fragment>
+				{showHearted && !isAuthenticated && <Redirect to="/login" />}
+
 				{topComponent}
 
 				{loading ? (
@@ -133,7 +136,7 @@ class MoviesList extends Component {
 					</h2>
 				)}
 
-				{!showHearted && <PageControls />}
+				{!showHearted && page < totalPages && <LoadMore />}
 			</Fragment>
 		);
 	}

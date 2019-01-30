@@ -5,7 +5,9 @@ import {
 	SET_LIST_SEARCH,
 	SET_LIST_SORT,
 	LIST_LOADING,
+	MORE_LOADING,
 	SET_ERRORS,
+	ADD_TO_LIST,
 } from './types';
 
 // Set the film list to loading
@@ -13,18 +15,23 @@ export const setListLoading = () => ({
 	type: LIST_LOADING,
 });
 
+// Set more loading
+export const setMoreLoading = () => ({
+	type: MORE_LOADING,
+});
+
 // Update the current film list
 export const updateFilmList = (
 	page = 1,
 	searchQuery = '',
-	sort = 'popularity.desc'
+	sortBy = 'popularity.desc'
 ) => dispatch => {
 	dispatch(setListLoading());
 	let apiURL;
 	// would hide this api key in production
 	searchQuery
 		? (apiURL = `https://api.themoviedb.org/3/search/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&query=${searchQuery}&page=${page}&include_adult=false`)
-		: (apiURL = `https://api.themoviedb.org/3/discover/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}`);
+		: (apiURL = `https://api.themoviedb.org/3/discover/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}`);
 	axios
 		.get(apiURL)
 		.then(res =>
@@ -69,4 +76,28 @@ export const resetMoviesList = async () => async dispatch => {
 	await setSearchQuery('');
 	await setSortBy('popularity.desc');
 	updateFilmList();
+};
+
+// Load more films
+export const loadMore = (newPage, searchQuery = '', sortBy) => dispatch => {
+	dispatch(setMoreLoading());
+	let apiURL;
+	// would hide this api key in production
+	searchQuery
+		? (apiURL = `https://api.themoviedb.org/3/search/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&query=${searchQuery}&page=${newPage}&include_adult=false`)
+		: (apiURL = `https://api.themoviedb.org/3/discover/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${newPage}`);
+	axios
+		.get(apiURL)
+		.then(res =>
+			dispatch({
+				type: ADD_TO_LIST,
+				payload: res.data,
+			})
+		)
+		.catch(err =>
+			dispatch({
+				type: SET_ERRORS,
+				payload: err.response.data,
+			})
+		);
 };
