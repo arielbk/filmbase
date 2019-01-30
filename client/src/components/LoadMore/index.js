@@ -17,7 +17,7 @@ const LoadMore = props => {
 			}}
 			loading={moreLoading}
 		>
-			{moreLoading ? 'Loading' : 'Load More'}
+			{moreLoading ? 'Loading...' : 'Load More...'}
 		</StyledLoadMore>
 	);
 };
