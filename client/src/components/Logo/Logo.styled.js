@@ -6,7 +6,7 @@ export const StyledLogo = styled.span`
 	left: 50%;
 	top: 1rem;
 	transform: translate(-50%, 0);
-	font-size: 2.5rem;
+	font-size: 2.3rem;
 `;
 
 export const StyledFilm = styled.span`

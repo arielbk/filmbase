@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { $lightGrey, $brandGreen } from '../../assets/vars.styled';
+import { $medGrey, $lightGrey, $brandGreen } from '../../assets/vars.styled';
 
 export const StyledSortOptions = styled.div`
 	h4 {

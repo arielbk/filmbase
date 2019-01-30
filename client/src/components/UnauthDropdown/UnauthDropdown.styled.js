@@ -3,33 +3,29 @@ import { $lightGrey, $medGrey, $brandGreen } from '../../assets/vars.styled';
 
 export const StyledDropdown = styled.div`
 	position: relative;
+	@media (min-width: 800px) {
+		display: none;
+	}
 `;
 
 export const Top = styled.div`
 	padding: 0 2rem;
-	width: 60px;
+	width: 30px;
+	height: 20px;
 	position: relative;
 	box-sizing: content-box;
 	cursor: pointer;
-`;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
 
-export const ProfPic = styled.div`
-	display: inline-block;
-	border-radius: 50%;
-	width: 50px;
-	height: 50px;
-	background: ${$lightGrey};
-`;
-
-export const TopArrow = styled.div`
-	position: absolute;
-	right: 15px;
-	top: 25px;
-	width: 10px;
-	height: 10px;
-	background: ${$lightGrey};
-	font-weight: 800;
-	clip-path: polygon(0% 0%, 100% 0%, 50% 50%);
+	div {
+		width: 100%;
+		height: 4px;
+		background: ${$lightGrey};
+		border-radius: 3px;
+	}
 `;
 
 export const Bottom = styled.div`
@@ -38,10 +34,10 @@ export const Bottom = styled.div`
 	justify-content: center;
 	align-items: space-around;
 	width: 200px;
-	height: 140px;
+	height: 100px;
 	position: absolute;
-	bottom: -155px;
-	left: 2rem;
+	bottom: -133px;
+	left: 1rem;
 	background: #fff;
 	border-radius: 3px;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
@@ -49,13 +45,7 @@ export const Bottom = styled.div`
 
 export const BottomContent = styled.div``;
 
-export const CurrentUser = styled.div`
-	padding: 0.5rem;
-	margin: 0.5rem;
-	border-bottom: 1px solid #eee;
-`;
-
-export const AuthLink = styled.div`
+export const StyledLink = styled.div`
 	font-weight: 600;
 	padding: 0.5rem;
 	font-size: 0.9rem;
@@ -81,6 +71,6 @@ export const BottomArrow = styled.div`
 	height: 20px;
 	position: absolute;
 	top: -18px;
-	left: 20px;
+	left: 22px;
 	clip-path: polygon(50% 40%, 0% 100%, 100% 100%);
 `;

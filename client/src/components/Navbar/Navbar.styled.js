@@ -4,7 +4,7 @@ import { $medGrey, $lightGrey, $brandGreen } from '../../assets/vars.styled';
 
 export const StyledNavbar = styled.div`
 	background-color: ${$medGrey};
-	height: 5.5rem;
+	height: 4.8rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -24,7 +24,7 @@ export const StyledNavbar = styled.div`
 		`
 			: `
 		position: absolute;
-		transform: translateY(-88px);
+		transform: translateY(-4.8rem);
 		`};
 `;
 
@@ -33,8 +33,15 @@ export const NavLink = styled(Link)`
 	text-decoration: none;
 	font-weight: 600;
 	padding: 1rem;
+	transition: 0.3s;
+	:hover {
+		color: ${$brandGreen};
+	}
 	@media (max-width: 650px) {
 		padding: 0.5rem;
+	}
+	@media (max-width: 800px) {
+		display: none;
 	}
 `;
 

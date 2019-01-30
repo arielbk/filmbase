@@ -3,13 +3,14 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import AuthDropdown from '../AuthDropdown';
 
 import { StyledNavbar, NavLink, AuthControl } from './Navbar.styled';
 import { logoutUser } from '../../actions/authActions';
 import { resetMoviesList } from '../../actions/listActions';
-import Logo from '../Logo/Logo';
+import Logo from '../Logo';
 import SearchButton from '../SearchButton';
+import UnauthDropdown from '../UnauthDropdown';
+import AuthDropdown from '../AuthDropdown';
 
 class Navbar extends Component {
 	constructor(props) {
@@ -60,11 +61,12 @@ class Navbar extends Component {
 						<Fragment>
 							<NavLink to="/login">Login</NavLink>
 							<NavLink to="/register">Register</NavLink>
+							<UnauthDropdown />
 						</Fragment>
 					)}
 				</AuthControl>
-				<Link to="/" onClick={resetMoviesList}>
-					<Logo />
+				<Link to="/">
+					<Logo onClick={resetMoviesList} />
 				</Link>
 				<AuthControl>
 					<SearchButton />

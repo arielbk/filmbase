@@ -12,7 +12,7 @@ export const SearchInput = styled.input`
 	border: none;
 	transition: 0.3s;
 	max-width: 80px;
-	height: 60px;
+	// height: 60px;
 	font-size: 1rem;
 
 	::placeholder {
