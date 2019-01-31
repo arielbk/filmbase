@@ -36,9 +36,6 @@ const BACKDROP_PATH = 'https://image.tmdb.org/t/p/w1280';
 export const CAST_PATH = 'https://image.tmdb.org/t/p/w185';
 
 class MovieDetail extends Component {
-	constructor(props) {
-		super(props);
-	}
 	state = {
 		id: '',
 		movie: {},
@@ -88,42 +85,28 @@ class MovieDetail extends Component {
 
 	setFilm = async () => {
 		const { id } = this.state;
-		// film details
+		// load film details
 		try {
 			const movieRes = await fetch(
-				`https://api.themoviedb.org/3/movie/${id}?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US`
+				`https://api.themoviedb.org/3/movie/${id}?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&append_to_response=credits,videos,recommendations`
 			);
 			const movie = await movieRes.json();
 
-			const creditsRes = await fetch(
-				`https://api.themoviedb.org/3/movie/${id}/credits?api_key=5f65a05aa95f0f49a243118f362a4d69`
-			);
-			const credits = await creditsRes.json();
-
-			const videosRes = await fetch(
-				`https://api.themoviedb.org/3/movie/${id}/videos?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US`
-			);
-			const videos = await videosRes.json();
-			const trailer = videos.results.filter(
+			const trailer = movie.videos.results.filter(
 				video => video.site === 'YouTube' && video.type === 'Trailer'
 			)[0];
 
-			const recommendationsRes = await fetch(
-				`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&page=1`
-			);
-			const recommendations = await recommendationsRes.json();
-
 			this.setState({
 				movie,
-				credits,
-				videos: videos.results,
+				credits: movie.credits,
+				videos: movie.videos.results,
 				trailer,
-				recommendations: recommendations.results,
+				recommendations: movie.recommendations.results,
 				showRecommendationsCount: 5,
 				loading: false,
 			});
 
-			// Load everything and start at the top of the new page
+			// Start at the top of the new page
 			window.scrollTo(0, 0);
 		} catch (e) {
 			console.log(e); // eslint-disable-line no-console
