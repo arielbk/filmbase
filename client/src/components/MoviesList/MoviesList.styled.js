@@ -37,4 +37,5 @@ export const GenreTab = styled.div`
 
 export const GenreList = styled.div`
 	margin-top: 0.2rem;
+	text-align: center;
 `;

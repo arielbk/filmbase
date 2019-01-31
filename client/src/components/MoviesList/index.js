@@ -53,14 +53,29 @@ class MoviesList extends Component {
 	};
 
 	async componentDidMount() {
-		const { match } = this.props;
-		const { query } = match.params;
-		const { sortBy } = this.props.list;
-		this.props.setListPage(page || 1);
-		this.props.setSearchQuery(query);
-		this.props.updateFilmList(page, query, sortBy);
-		this.setState({ searchQuery: query });
+		this.newList();
 	}
+
+	static getDerivedStateFromProps(nextProps, prevState) {
+		if (nextProps.match.params.query !== prevState.searchQuery)
+			return { searchQuery: nextProps.match.params.query };
+		return null;
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps.match.params.query !== this.props.match.params.query) {
+			this.newList();
+		}
+	}
+
+	newList = () => {
+		const { query } = this.props.match.params;
+		const { sortBy } = this.props.list;
+		this.props.setListPage(1);
+		this.props.setSearchQuery(query);
+		this.props.updateFilmList(1, query, sortBy);
+		this.setState({ searchQuery: query });
+	};
 
 	render() {
 		const { showHearted } = this.props;
