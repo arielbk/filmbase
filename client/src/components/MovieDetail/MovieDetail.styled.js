@@ -36,7 +36,7 @@ export const MovieInfo = styled.div`
 `;
 
 export const MainContent = styled.div`
-	padding: 0 0 0 2rem;
+	padding: 0 0 2rem 2rem;
 	max-width: 850px;
 	overflow: auto;
 	h1 {

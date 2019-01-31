@@ -46,6 +46,7 @@ class MovieDetail extends Component {
 		videos: [],
 		trailer: {},
 		recommendations: [],
+		showRecommendationsCount: 5,
 		loading: true,
 	};
 
@@ -86,9 +87,7 @@ class MovieDetail extends Component {
 	}
 
 	setFilm = async () => {
-		window.scrollTo(0, 0);
 		const { id } = this.state;
-
 		// film details
 		try {
 			const movieRes = await fetch(
@@ -120,15 +119,36 @@ class MovieDetail extends Component {
 				videos: videos.results,
 				trailer,
 				recommendations: recommendations.results,
+				showRecommendationsCount: 5,
 				loading: false,
 			});
+
+			// Load everything and start at the top of the new page
+			window.scrollTo(0, 0);
 		} catch (e) {
 			console.log(e); // eslint-disable-line no-console
 		}
 	};
 
+	onSeeMoreRecommendations = () => {
+		console.log('see mooore!');
+		const { recommendations } = this.state;
+		this.setState(prevState => {
+			if (prevState.showRecommendationsCount + 5 <= recommendations.length)
+				return { showRecommendationsCount: prevState.showRecommendationsCount + 5 };
+			return { showRecommendationsCount: recommendations.length };
+		});
+	};
+
 	render() {
-		const { movie, credits, loading, trailer, recommendations } = this.state;
+		const {
+			movie,
+			credits,
+			loading,
+			trailer,
+			recommendations,
+			showRecommendationsCount,
+		} = this.state;
 		const { history, hearted, auth } = this.props;
 
 		// Marker for whether this film has already been hearted or not
@@ -301,7 +321,9 @@ class MovieDetail extends Component {
 								{recommendations.length && (
 									<Recommendations
 										recommendations={recommendations}
+										count={showRecommendationsCount}
 										setFilm={this.setFilm}
+										onSeeMore={this.onSeeMoreRecommendations}
 									/>
 								)}
 

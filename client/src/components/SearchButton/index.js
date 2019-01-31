@@ -10,9 +10,9 @@ const handleSubmit = (e, input, history) => {
 	if (input === '') return;
 	history.push(`/search=${input}`);
 
-	// this is not the greatest solution but it works for now, dig into React router more
-	// reload the page so that the movielist component will refetch api data
-	window.location.reload(true);
+	// // this is not the greatest solution but it works for now, dig into React router more
+	// // reload the page so that the movielist component will refetch api data
+	// window.location.reload(true);
 };
 
 class SearchButton extends Component {

@@ -15,6 +15,10 @@ import Movie from '../Movie';
 import genres from '../../assets/genres';
 
 class MoviesList extends Component {
+	state = {
+		searchQuery: '',
+	};
+
 	static propTypes = {
 		match: PropTypes.shape({
 			params: PropTypes.shape({
@@ -50,10 +54,12 @@ class MoviesList extends Component {
 
 	async componentDidMount() {
 		const { match } = this.props;
-		const { page, query } = match.params;
+		const { query } = match.params;
+		const { sortBy } = this.props.list;
 		this.props.setListPage(page || 1);
 		this.props.setSearchQuery(query);
-		this.props.updateFilmList(page, query);
+		this.props.updateFilmList(page, query, sortBy);
+		this.setState({ searchQuery: query });
 	}
 
 	render() {

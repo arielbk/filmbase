@@ -18,6 +18,7 @@ export const StyledMovie = styled.div`
 	}
 	h3 {
 		margin: 0;
+		text-align: center;
 	}
 	h5 {
 		margin: 0.5rem 0 0.7rem;
