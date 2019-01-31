@@ -27,11 +27,14 @@ export const updateFilmList = (
 	sortBy = 'popularity.desc'
 ) => dispatch => {
 	dispatch(setListLoading());
+	let voteCount = 100;
+	// Require at least 500 votes for the 'top rated' category
+	if (sortBy === 'vote_average.desc') voteCount = 500;
 	let apiURL;
 	// would hide this api key in production
 	searchQuery
 		? (apiURL = `https://api.themoviedb.org/3/search/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&query=${searchQuery}&page=${page}&include_adult=false`)
-		: (apiURL = `https://api.themoviedb.org/3/discover/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}`);
+		: (apiURL = `https://api.themoviedb.org/3/discover/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}&vote_count.gte=${voteCount}`);
 	axios
 		.get(apiURL)
 		.then(res =>
@@ -81,11 +84,14 @@ export const resetMoviesList = async () => async dispatch => {
 // Load more films
 export const loadMore = (newPage, searchQuery = '', sortBy) => dispatch => {
 	dispatch(setMoreLoading());
+	let voteCount = 100;
+	// Require at least 500 votes for the 'top rated' category
+	if (sortBy === 'vote_average.desc') voteCount = 500;
 	let apiURL;
 	// would hide this api key in production
 	searchQuery
 		? (apiURL = `https://api.themoviedb.org/3/search/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&query=${searchQuery}&page=${newPage}&include_adult=false`)
-		: (apiURL = `https://api.themoviedb.org/3/discover/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${newPage}`);
+		: (apiURL = `https://api.themoviedb.org/3/discover/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${newPage}&vote_count.gte=${voteCount}`);
 	axios
 		.get(apiURL)
 		.then(res =>
