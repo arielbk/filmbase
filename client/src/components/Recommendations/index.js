@@ -51,12 +51,12 @@ export default class Recommendations extends Component {
 							</GenreList>
 						</Movie>
 					))}
-					{seeMoreButton && (
-						<SeeMoreContainer>
-							<SeeMoreButton onClick={onSeeMore}>See More</SeeMoreButton>
-						</SeeMoreContainer>
-					)}
 				</RecMovieGrid>
+				{seeMoreButton && (
+					<SeeMoreContainer>
+						<SeeMoreButton onClick={onSeeMore}>See More</SeeMoreButton>
+					</SeeMoreContainer>
+				)}
 			</Fragment>
 		);
 	}

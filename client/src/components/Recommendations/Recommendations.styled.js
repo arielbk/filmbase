@@ -33,27 +33,23 @@ export const RecMovieGrid = styled(MovieGrid)`
 
 export const SeeMoreContainer = styled.div`
 	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	padding: 2rem 0;
+	text-align: center;
 `;
 
 export const SeeMoreButton = styled.div`
-  font-size: 0.9rem;
-  padding: 1rem;
-  width: 150px;
-  height: 80px;
-  border-radius: 22px;
-  background: rgba(0,0,0,0.4);
-  transition: 0.3s;
-  color ${$brandGreen};
-  cursor: pointer;
-  margin: 3rem auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &:hover {
-    color: #fff;
-  }
+	color: ${$brandGreen};
+	display: inline-block;
+	margin: 0 auto;
+	text-align: center;
+	width: 20%;
+	background: rgba(0, 0, 0, 0.4);
+	padding: 1rem;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: 0.3s;
+
+	&:hover {
+		color: #fff;
+	}
 `;

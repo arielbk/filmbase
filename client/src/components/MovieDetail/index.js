@@ -42,7 +42,7 @@ class MovieDetail extends Component {
 		videos: [],
 		trailer: {},
 		recommendations: [],
-		showRecommendationsCount: 5,
+		showRecommendationsCount: 6,
 		loading: true,
 	};
 
@@ -101,7 +101,7 @@ class MovieDetail extends Component {
 				videos: movie.videos.results,
 				trailer,
 				recommendations: movie.recommendations.results,
-				showRecommendationsCount: 5,
+				showRecommendationsCount: 6,
 				loading: false,
 			});
 
@@ -113,11 +113,10 @@ class MovieDetail extends Component {
 	};
 
 	onSeeMoreRecommendations = () => {
-		console.log('see mooore!');
 		const { recommendations } = this.state;
 		this.setState(prevState => {
-			if (prevState.showRecommendationsCount + 5 <= recommendations.length)
-				return { showRecommendationsCount: prevState.showRecommendationsCount + 5 };
+			if (prevState.showRecommendationsCount + 6 <= recommendations.length)
+				return { showRecommendationsCount: prevState.showRecommendationsCount + 6 };
 			return { showRecommendationsCount: recommendations.length };
 		});
 	};
