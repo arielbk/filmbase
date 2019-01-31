@@ -104,12 +104,12 @@ export const SideStat = styled.div`
 
 export const Overview = styled.p`
 	line-height: 1.5;
-	margin-bottom: 1.5rem;
+	margin-bottom: 3rem;
 `;
 
 export const Title = styled.div`
 	display: inline-block;
-	margin-bottom: 2rem;
+	margin-bottom: 1rem;
 	width: auto;
 
 	h4 {
@@ -128,39 +128,6 @@ export const MainTitle = styled(Title)`
 export const SideTitle = styled(Title)`
 	@media (min-width: 760px) {
 		display: none;
-	}
-`;
-
-export const Cast = styled.div`
-	display: flex;
-	width: 100%;
-	padding: 1rem;
-	border-radius: 12px;
-	margin-bottom: 2rem;
-	background: rgba(0, 0, 0, 0.4);
-	overflow-x: auto;
-	overflow-y: hidden;
-	white-space: nowrap;
-
-	div {
-		whitespace: wrap;
-		padding: 0 1rem;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		align-items: center;
-
-		h4 {
-			font-size: 1rem;
-			color: #999;
-			font-weight: 400;
-		}
-
-		img {
-			border-radius: 3px;
-			width: 120px;
-			box-shadow: 0 0 35px black;
-		}
 	}
 `;
 

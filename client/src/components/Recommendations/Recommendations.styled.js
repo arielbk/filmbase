@@ -45,7 +45,7 @@ export const SeeMoreButton = styled.div`
   width: 150px;
   height: 80px;
   border-radius: 22px;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.4);
   transition: 0.3s;
   color ${$brandGreen};
   cursor: pointer;

@@ -11,6 +11,7 @@ import Trailer from '../Trailer';
 import { heartFilm, unheartFilm } from '../../actions/heartActions';
 import Loading from '../Loading';
 import { Poster } from '../Movie/Movie.styled.js';
+import Cast from '../Cast';
 import {
 	MovieWrapper,
 	Background,
@@ -23,7 +24,6 @@ import {
 	Overview,
 	MainTitle,
 	SideTitle,
-	Cast,
 	BackButton,
 	RelatedFilms,
 	HeartButton,
@@ -33,7 +33,6 @@ import {
 export const POSTER_PATH = 'https://image.tmdb.org/t/p/w185';
 const POSTER_PATH_SMALL = 'https://image.tmdb.org/t/p/w154';
 const BACKDROP_PATH = 'https://image.tmdb.org/t/p/w1280';
-export const CAST_PATH = 'https://image.tmdb.org/t/p/w185';
 
 class MovieDetail extends Component {
 	state = {
@@ -133,6 +132,8 @@ class MovieDetail extends Component {
 			showRecommendationsCount,
 		} = this.state;
 		const { history, hearted, auth } = this.props;
+
+		console.log(credits);
 
 		// Marker for whether this film has already been hearted or not
 		let filmHearted = false;
@@ -276,28 +277,9 @@ class MovieDetail extends Component {
 									<h4 data-testid="movie-tagline">{movie.tagline}</h4>
 								</MainTitle>
 
-								{/* CAST */}
-								<Cast>
-									{credits.cast &&
-										credits.cast.map(credit => (
-											<div data-testid="movie-credit" key={credit.credit_id}>
-												<h3 data-testid="credit-name">{credit.name}</h3>
-												<img
-													data-testid="credit-photo"
-													src={
-														Object.keys(credit).length &&
-														`${CAST_PATH}${credit.profile_path}`
-													}
-													alt={credit.name}
-												/>
-												<h4 data-testid="credit-character">
-													{credit.character}
-												</h4>
-											</div>
-										))}
-								</Cast>
-
 								<Overview data-testid="movie-overview">{movie.overview}</Overview>
+
+								<Cast credits={credits} />
 
 								{trailer && <Trailer id={trailer.key} />}
 
