@@ -5,7 +5,7 @@ export const TrailerContainer = styled.div`
 `;
 
 export const Title = styled.h2`
-	margin: 2rem 0;
+	margin: 2.5rem 0 2rem;
 `;
 
 export const YoutubeFrame = styled.iframe`

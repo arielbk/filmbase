@@ -5,7 +5,7 @@ export const MovieGrid = styled.div`
 	display: grid;
 	padding: 4rem 1rem;
 	grid-template-columns: repeat(5, 1fr);
-	grid-row-gap: 1rem;
+	grid-row-gap: 2rem;
 	max-width: 1250px;
 
 	@media (max-width: 1020px) {

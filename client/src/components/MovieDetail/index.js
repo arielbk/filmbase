@@ -38,9 +38,9 @@ export const CAST_PATH = 'https://image.tmdb.org/t/p/w185';
 class MovieDetail extends Component {
 	constructor(props) {
 		super(props);
-		this.mainContentRef = React.createRef();
 	}
 	state = {
+		id: '',
 		movie: {},
 		credits: {},
 		videos: [],
@@ -69,10 +69,25 @@ class MovieDetail extends Component {
 		router: () => null,
 	};
 
-	async componentDidMount() {
-		const { match } = this.props;
-		const { params } = match;
-		const { id } = params;
+	componentDidMount = () => {
+		this.setState({ id: this.props.match.params.id });
+		this.setFilm();
+	};
+
+	static getDerivedStateFromProps(nextProps, prevState) {
+		if (nextProps.match.params.id !== prevState.id) return { id: nextProps.match.params.id };
+		return null;
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps.match.params.id !== this.props.match.params.id) {
+			this.setFilm();
+		}
+	}
+
+	setFilm = async () => {
+		window.scrollTo(0, 0);
+		const { id } = this.state;
 
 		// film details
 		try {
@@ -110,7 +125,7 @@ class MovieDetail extends Component {
 		} catch (e) {
 			console.log(e); // eslint-disable-line no-console
 		}
-	}
+	};
 
 	render() {
 		const { movie, credits, loading, trailer, recommendations } = this.state;
@@ -121,9 +136,6 @@ class MovieDetail extends Component {
 		hearted.hearted.forEach(film => {
 			if (film.id === movie.id) filmHearted = true;
 		});
-
-		let mainContentWidth;
-		if (this.mainContentRef.current) mainContentWidth = this.mainContentRef.current.offsetWidth;
 
 		return (
 			<MovieWrapper>
@@ -253,7 +265,7 @@ class MovieDetail extends Component {
 									</RelatedFilms>
 								)}
 							</SidePanel>
-							<MainContent ref={this.mainContentRef}>
+							<MainContent>
 								<MainTitle>
 									<h1 data-testid="movie-title" style={{ display: 'inline' }}>
 										{movie.title}
@@ -284,10 +296,13 @@ class MovieDetail extends Component {
 
 								<Overview data-testid="movie-overview">{movie.overview}</Overview>
 
-								{trailer && <Trailer id={trailer.key} width={mainContentWidth} />}
+								{trailer && <Trailer id={trailer.key} />}
 
 								{recommendations.length && (
-									<Recommendations recommendations={recommendations} />
+									<Recommendations
+										recommendations={recommendations}
+										setFilm={this.setFilm}
+									/>
 								)}
 
 								<BackButton onClick={history.goBack}>
