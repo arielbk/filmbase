@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { StyledNavbar, NavLink, AuthControl } from './Navbar.styled';
+import { StyledNavbar, NavLink, OptionsContainer } from './Navbar.styled';
 import { logoutUser } from '../../actions/authActions';
 import { resetMoviesList } from '../../actions/listActions';
 import Logo from '../Logo';
@@ -54,7 +54,11 @@ class Navbar extends Component {
 
 		return (
 			<StyledNavbar ref={this.navRef} sticky={sticky}>
-				<AuthControl>
+				<Link to="/">
+					<Logo onClick={resetMoviesList} />
+				</Link>
+				<OptionsContainer>
+					<SearchButton />
 					{isAuthenticated ? (
 						<AuthDropdown user={user} onLogout={() => logoutUser(history)} />
 					) : (
@@ -64,13 +68,7 @@ class Navbar extends Component {
 							<UnauthDropdown />
 						</Fragment>
 					)}
-				</AuthControl>
-				<Link to="/">
-					<Logo onClick={resetMoviesList} />
-				</Link>
-				<AuthControl>
-					<SearchButton />
-				</AuthControl>
+				</OptionsContainer>
 			</StyledNavbar>
 		);
 	}

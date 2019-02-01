@@ -157,7 +157,7 @@ class MoviesList extends Component {
 					</h2>
 				)}
 
-				{!showHearted && page < totalPages && <LoadMore />}
+				{!showHearted && !loading && page < totalPages && <LoadMore />}
 			</Fragment>
 		);
 	}

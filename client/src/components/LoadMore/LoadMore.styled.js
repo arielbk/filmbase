@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { $brandGreen, $lightGrey, $medGrey } from '../../assets/vars.styled';
+import { $brandGreen, $medGrey } from '../../assets/vars.styled';
 
 export const StyledLoadMore = styled.div`
 	display: inline-block;

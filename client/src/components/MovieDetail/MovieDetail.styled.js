@@ -19,7 +19,7 @@ export const Background = styled.div`
 `;
 
 export const MovieInfo = styled.div`
-	background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(10, 10, 10, 1));
+	background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(10, 10, 10, 1));
 	min-height: 100vh;
 	text-align: left;
 	padding: 3rem 5%;

@@ -7,7 +7,8 @@ export const StyledDropdown = styled.div`
 `;
 
 export const Top = styled.div`
-	padding: 0 2rem;
+	padding: 0;
+	padding-right: 2rem;
 	width: 60px;
 	position: relative;
 	box-sizing: content-box;
@@ -42,7 +43,7 @@ export const Bottom = styled.div`
 	height: 140px;
 	position: absolute;
 	bottom: -155px;
-	left: 2rem;
+	right: -1rem;
 	background: #fff;
 	border-radius: 3px;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
@@ -82,6 +83,6 @@ export const BottomArrow = styled.div`
 	height: 20px;
 	position: absolute;
 	top: -18px;
-	left: 20px;
+	right: 66px;
 	clip-path: polygon(50% 40%, 0% 100%, 100% 100%);
 `;

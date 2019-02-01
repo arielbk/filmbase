@@ -37,24 +37,16 @@ export const NavLink = styled(Link)`
 	:hover {
 		color: ${$brandGreen};
 	}
-	@media (max-width: 650px) {
-		padding: 0.5rem;
-	}
 	@media (max-width: 800px) {
 		display: none;
 	}
 `;
 
-export const AuthControl = styled.div`
+export const OptionsContainer = styled.div`
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 	font-size: 1rem;
-	padding: 0 1rem;
-	width: 25%;
-
-	@media (max-width: 650px) {
-		flex-direction: column;
-		justify-conent: center;
-	}
+	margin: 0;
+	margin-right: 3rem;
 `;

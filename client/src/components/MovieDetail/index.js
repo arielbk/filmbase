@@ -5,6 +5,7 @@ import ReactStars from 'react-stars';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import blankPhoto from '../../assets/images/blank.png';
 import Recommendations from '../Recommendations';
 import { $brandGreen } from '../../assets/vars.styled';
 import Trailer from '../Trailer';
@@ -132,7 +133,8 @@ class MovieDetail extends Component {
 		} = this.state;
 		const { history, hearted, auth } = this.props;
 
-		console.log(credits);
+		let director;
+		if (credits.crew) director = credits.crew.filter(member => member.job === 'Director')[0];
 
 		// Marker for whether this film has already been hearted or not
 		let filmHearted = false;
@@ -227,6 +229,11 @@ class MovieDetail extends Component {
 								</SideStat>
 
 								<SideStat>
+									<span>Director</span>
+									<h3>{director.name}</h3>
+								</SideStat>
+
+								<SideStat>
 									<span>Runtime:</span>
 									<h3 data-testid="movie-runtime">
 										{movie.runtime}
@@ -254,14 +261,15 @@ class MovieDetail extends Component {
 
 								{movie.belongs_to_collection && (
 									<RelatedFilms>
-										<h4>part of</h4>
+										<h4>Part of</h4>
 										<h3>{movie.belongs_to_collection.name}</h3>
 										<img
 											src={
-												Object.keys(movie).length &&
-												`${POSTER_PATH_SMALL}${
-													movie.belongs_to_collection.poster_path
-												}`
+												movie.belongs_to_collection.poster_path
+													? `${POSTER_PATH_SMALL}${
+															movie.belongs_to_collection.poster_path
+													  }`
+													: blankPhoto
 											}
 											alt={movie.belongs_to_collection.name}
 										/>

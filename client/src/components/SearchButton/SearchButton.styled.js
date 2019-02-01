@@ -24,12 +24,17 @@ export const SearchInput = styled.input`
 
 	@media (max-width: 800px) {
 		max-width: 44px;
+		margin-right: -1rem;
+
+		&:focus {
+			max-width: 169px;
+		}
 	}
 `;
 
 export const SearchIcon = styled.div`
 	position: absolute;
-	left: 4px;
+	left: 5px;
 	top: 4px;
 	cursor: text;
 
