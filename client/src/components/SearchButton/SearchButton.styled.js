@@ -1,30 +1,46 @@
 import styled from 'styled-components';
-import { $lightGrey, $medGrey } from '../../assets/vars.styled';
+import { $brandGreen, $lightGrey } from '../../assets/vars.styled';
 
-export const SearchBadge = styled.div``;
+export const SearchForm = styled.form`
+	position: relative;
+	margin-right: 2rem;
+`;
 
 export const SearchInput = styled.input`
-	padding: 0.8rem;
-	margin: 0 2rem;
 	border-radius: 22px;
 	background: #111;
 	color: ${$lightGrey};
 	border: none;
 	transition: 0.3s;
-	max-width: 80px;
-	// height: 60px;
+	height: 44px;
 	font-size: 1rem;
-
-	::placeholder {
-		color: ${$lightGrey};
 	}
 
 	:focus {
-		max-width: 300px;
+		// space to account for left icon
+		padding: 0.8rem 0.8rem 0.8rem 2.8rem;
 		border-radius: 22px;
+	}
 
-		::placeholder {
-			color: ${$lightGrey};
+	@media (max-width: 800px) {
+		max-width: 44px;
+	}
+`;
+
+export const SearchIcon = styled.div`
+	position: absolute;
+	left: 4px;
+	top: 4px;
+	cursor: text;
+
+	svg {
+		fill: ${$lightGrey};
+	}
+
+	&:hover,
+	${SearchInput}:focus ~ & {
+		svg {
+			fill: ${$brandGreen};
 		}
 	}
 `;
