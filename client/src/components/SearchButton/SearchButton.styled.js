@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { $brandGreen, $lightGrey } from '../../assets/vars.styled';
+import { $brandGreen, $lightGrey, $medGrey } from '../../assets/vars.styled';
 
 export const SearchForm = styled.form`
 	position: relative;
@@ -14,6 +14,7 @@ export const SearchInput = styled.input`
 	transition: 0.3s;
 	height: 44px;
 	font-size: 1rem;
+	padding-left: 3rem;
 	}
 
 	:focus {
@@ -22,13 +23,17 @@ export const SearchInput = styled.input`
 		border-radius: 22px;
 	}
 
-	@media (max-width: 800px) {
+	@media (max-width: 650px) {
 		max-width: 44px;
 		margin-right: -1rem;
 
 		&:focus {
 			max-width: 169px;
 		}
+	}
+
+	&::placeholder {
+		color: ${$medGrey};
 	}
 `;
 

@@ -299,17 +299,20 @@ class MovieDetail extends Component {
 									/>
 								)}
 
-								<BackButton onClick={history.goBack}>
-									<svg
-										width="27"
-										height="152"
-										viewBox="0 0 27 152"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path d="M24 1L3.22649 75.1911C3.07834 75.7202 3.07835 76.2798 3.22649 76.8089L24 151" />
-									</svg>
-								</BackButton>
+								{/* TODO: Revisit this back button -- perhaps in navbar? */}
+								{/* <BackButton onClick={history.goBack}>
+										<svg
+											width="25"
+											height="54"
+											viewBox="0 0 25 54"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M23 2L3.62085 25.0704C2.68367 26.1861 2.68366 27.8139 3.62084 28.9296L23 52"
+											/>
+										</svg>
+									</BackButton> */}
 							</MainContent>
 						</MovieInfo>
 					</Fragment>

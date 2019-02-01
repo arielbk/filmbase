@@ -51,7 +51,8 @@ class SearchButton extends Component {
 					value={input}
 					onChange={this.handleChange}
 					ref={this.inputRef}
-					aria-label="Search input"
+					placeholder="Search..."
+					aria-label="Search"
 				/>
 				<SearchIcon>
 					<svg height="32px" version="1.1" viewBox="0 0 32 32" width="32px">
