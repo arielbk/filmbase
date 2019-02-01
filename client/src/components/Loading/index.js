@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { StyledLoader, Container, SquareOne, SquareTwo } from './Loading.styled';
+import { StyledLoader, Container, CircleOne, CircleTwo } from './Loading.styled';
 
 const Loading = () => (
 	<StyledLoader data-testid="loading">
 		<Container>
-			<SquareOne />
-			<SquareTwo />
+			<CircleOne />
+			<CircleTwo />
 		</Container>
 		<p>loading...</p>
 	</StyledLoader>
