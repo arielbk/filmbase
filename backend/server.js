@@ -15,10 +15,7 @@ mongoose.Promise = global.Promise;
 // Connect Mongoose
 const DB_URI = process.env.MONGO_URI;
 mongoose
-	.connect(
-		DB_URI,
-		{ useNewUrlParser: true }
-	)
+	.connect(DB_URI, { useNewUrlParser: true })
 	.then(() => console.info('Connected to MongoDB'))
 	.catch(err => console.error('Connection to MongoDB failed: ', err));
 
