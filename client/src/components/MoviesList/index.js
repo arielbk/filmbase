@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactStars from 'react-stars';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useQuery, useInfiniteQuery } from 'react-query';
 import Axios from 'axios';
-import { updateFilmList, setListPage, setSearchQuery, setSortBy } from '../../actions/listActions';
 
 import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 
@@ -19,52 +18,41 @@ import LoadMore from '../LoadMore';
 import Movie from '../Movie';
 import genres from '../../assets/genres';
 
-const MoviesList = ({ match, ...props }) => {
+const MoviesList = ({ match, showHearted, ...props }) => {
 	const [searchQuery, setSearchQuery] = useState('');
-	const [sortBy, setSortBy] = useState('popular.desc');
-	const [page, setPage] = useState(1);
+	const [sortBy, setSortBy] = useState('popularity.desc');
+	// const [page, setPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(10);
 	let voteCount = 100;
 	// Require at least 500 votes for the 'top rated' category
 	if (sortBy === 'vote_average.desc') voteCount = 500;
 
-	const fetchFilms = async () => {
+	const fetchFilms = async (key, options, page = 1) => {
 		const apiURL = searchQuery
 			? `https://api.themoviedb.org/3/search/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&query=${searchQuery}&page=${page}&include_adult=false`
 			: `https://api.themoviedb.org/3/discover/movie?api_key=5f65a05aa95f0f49a243118f362a4d69&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}&vote_count.gte=${voteCount}`;
 		const { data } = await axios.get(apiURL);
-		return data.results;
+		return data;
 	};
 
-	const { status, data, error, isFetching } = useQuery(
-		['films', { searchQuery, sortBy }],
-		fetchFilms
-	);
-	console.log({ status, data, error, isFetching });
-	const films = data;
+	const {
+		status,
+		data,
+		error,
+		isFetching,
+		isFetchingMore,
+		fetchMore,
+		canFetchMore,
+	} = useInfiniteQuery(['films', { searchQuery, sortBy }], fetchFilms, {
+		getFetchMore: lastGroup => lastGroup.page + 1,
+	});
+	console.log(fetchMore);
 
-	// useEffect(() => {
-	// 	newList();
-	// }, []);
+	const films = [];
+	data.forEach(group => group.results.forEach(film => films.push(film)));
 
-	// const newList = () => {
-	// 	const { query } = this.props.match.params;
-	// 	const { sortBy } = this.props.list;
-	// 	setListPage(1);
-	// 	this.props.setSearchQuery(query);
-	// 	this.props.updateFilmList(1, query, sortBy);
-	// 	this.setState({ searchQuery: query });
-	// };
+	const { user, isAuthenticated } = useSelector(state => state.auth);
 
-	const { showHearted } = props;
-	const { user, isAuthenticated } = props.auth;
-	// let films;
-	// if (showHearted) {
-	// 	const { hearted } = this.props.hearted;
-	// 	films = hearted;
-	// } else {
-	// 	films = props.list.films;
-	// }
 	let topComponent;
 	if (!showHearted) {
 		!searchQuery
@@ -84,7 +72,7 @@ const MoviesList = ({ match, ...props }) => {
 
 			{topComponent}
 
-			{isFetching ? (
+			{isFetching && !isFetchingMore ? (
 				<Loading />
 			) : (
 				<MovieGrid data-testid="movie-results">
@@ -92,7 +80,7 @@ const MoviesList = ({ match, ...props }) => {
 						<Movie key={movie.id} movie={movie}>
 							<h3 data-testid="movieposter-title">{movie.title}</h3>
 							<h5 data-testid="movieposter-year">
-								{movie.release_date.split('-')[0]}
+								{movie.release_date && movie.release_date.split('-')[0]}
 							</h5>
 							<ReactStars
 								count={5}
@@ -134,17 +122,15 @@ const MoviesList = ({ match, ...props }) => {
 				</h2>
 			)}
 
-			{!showHearted && !isFetching && page < totalPages && <LoadMore />}
+			{!showHearted && !isFetching && (
+				<LoadMore
+					fetchMore={fetchMore}
+					canFetchMore={canFetchMore}
+					isFetchingMore={isFetchingMore}
+				/>
+			)}
 		</>
 	);
 };
 
-const mapStateToProps = state => ({
-	list: state.list,
-	auth: state.auth,
-	hearted: state.hearted,
-});
-
-export default connect(mapStateToProps, { updateFilmList, setListPage, setSearchQuery, setSortBy })(
-	MoviesList
-);
+export default MoviesList;

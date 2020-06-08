@@ -5,19 +5,19 @@ import { loadMore } from '../../actions/listActions';
 
 import { StyledLoadMore } from './LoadMore.styled';
 
-const LoadMore = props => {
-	const { list, loadMore } = props;
-	const { page, searchQuery, sortBy, moreLoading } = list;
+const LoadMore = ({ isFetchingMore, fetchMore, canFetchMore }) => {
+	// const { list, loadMore } = props;
+	// const { page, searchQuery, sortBy, moreLoading } = list;
 
 	return (
 		<StyledLoadMore
 			onClick={() => {
-				if (moreLoading) return;
-				loadMore(page + 1, searchQuery, sortBy);
+				if (isFetchingMore) return;
+				fetchMore();
 			}}
-			loading={moreLoading}
+			loading={isFetchingMore}
 		>
-			{moreLoading ? 'Loading...' : 'Load More...'}
+			{isFetchingMore ? 'Loading...' : 'Load More...'}
 		</StyledLoadMore>
 	);
 };
@@ -35,7 +35,4 @@ const mapStateToProps = state => ({
 	list: state.list,
 });
 
-export default connect(
-	mapStateToProps,
-	{ loadMore }
-)(LoadMore);
+export default connect(mapStateToProps, { loadMore })(LoadMore);
