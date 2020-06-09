@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ReactStars from 'react-stars';
 import PropTypes from 'prop-types';
@@ -46,12 +46,19 @@ const MoviesList = ({ match, showHearted, ...props }) => {
 	} = useInfiniteQuery(['films', { searchQuery, sortBy }], fetchFilms, {
 		getFetchMore: lastGroup => lastGroup.page + 1,
 	});
-	console.log(fetchMore);
 
 	const films = [];
 	data.forEach(group => group.results.forEach(film => films.push(film)));
+	console.log(data);
 
 	const { user, isAuthenticated } = useSelector(state => state.auth);
+
+	const loadMoreButtonRef = useRef();
+	useIntersectionObserver({
+		target: loadMoreButtonRef,
+		onIntersect: fetchMore,
+		rootMargin: '500px',
+	});
 
 	let topComponent;
 	if (!showHearted) {
@@ -72,46 +79,46 @@ const MoviesList = ({ match, showHearted, ...props }) => {
 
 			{topComponent}
 
-			{isFetching && !isFetchingMore ? (
+			{/* {isFetching && !isFetchingMore ? (
 				<Loading />
-			) : (
-				<MovieGrid data-testid="movie-results">
-					{films.map(movie => (
-						<Movie key={movie.id} movie={movie}>
-							<h3 data-testid="movieposter-title">{movie.title}</h3>
-							<h5 data-testid="movieposter-year">
-								{movie.release_date && movie.release_date.split('-')[0]}
-							</h5>
-							<ReactStars
-								count={5}
-								value={movie.vote_average / 2}
-								size={24}
-								color2={$brandGreen}
-								edit={false}
-							/>
-							<GenreList>
-								{movie.genre_ids &&
-									movie.genre_ids.length &&
-									movie.genre_ids.map(genreID => (
-										<span key={genreID}>
-											{genres.map(
-												genre =>
-													genreID === genre.id && (
-														<GenreTab
-															data-testid="movieposter-genre"
-															key={genre.name}
-														>
-															{genre.name}
-														</GenreTab>
-													)
-											)}
-										</span>
-									))}
-							</GenreList>
-						</Movie>
-					))}
-				</MovieGrid>
-			)}
+			) : ( */}
+			<MovieGrid data-testid="movie-results">
+				{films.map(movie => (
+					<Movie key={movie.id} movie={movie}>
+						<h3 data-testid="movieposter-title">{movie.title}</h3>
+						<h5 data-testid="movieposter-year">
+							{movie.release_date && movie.release_date.split('-')[0]}
+						</h5>
+						<ReactStars
+							count={5}
+							value={movie.vote_average / 2}
+							size={24}
+							color2={$brandGreen}
+							edit={false}
+						/>
+						<GenreList>
+							{movie.genre_ids &&
+								movie.genre_ids.length &&
+								movie.genre_ids.map(genreID => (
+									<span key={genreID}>
+										{genres.map(
+											genre =>
+												genreID === genre.id && (
+													<GenreTab
+														data-testid="movieposter-genre"
+														key={genre.name}
+													>
+														{genre.name}
+													</GenreTab>
+												)
+										)}
+									</span>
+								))}
+						</GenreList>
+					</Movie>
+				))}
+			</MovieGrid>
+			{/* )} */}
 
 			{!isFetching && !films.length && (
 				<h2
@@ -122,13 +129,17 @@ const MoviesList = ({ match, showHearted, ...props }) => {
 				</h2>
 			)}
 
-			{!showHearted && !isFetching && (
+			{/* {!showHearted && !isFetching && (
 				<LoadMore
+					ref={loadMoreButtonRef}
 					fetchMore={fetchMore}
 					canFetchMore={canFetchMore}
 					isFetchingMore={isFetchingMore}
 				/>
-			)}
+			)} */}
+			<button type="button" ref={loadMoreButtonRef}>
+				Load more
+			</button>
 		</>
 	);
 };

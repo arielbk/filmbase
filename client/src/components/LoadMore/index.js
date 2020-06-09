@@ -5,12 +5,13 @@ import { loadMore } from '../../actions/listActions';
 
 import { StyledLoadMore } from './LoadMore.styled';
 
-const LoadMore = ({ isFetchingMore, fetchMore, canFetchMore }) => {
+const LoadMore = ({ isFetchingMore, fetchMore, canFetchMore, ref }) => {
 	// const { list, loadMore } = props;
 	// const { page, searchQuery, sortBy, moreLoading } = list;
 
 	return (
 		<StyledLoadMore
+			ref={ref}
 			onClick={() => {
 				if (isFetchingMore) return;
 				fetchMore();
