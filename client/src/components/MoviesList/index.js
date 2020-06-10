@@ -1,28 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import ReactStars from 'react-stars';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { useQuery, useInfiniteQuery } from 'react-query';
-import Axios from 'axios';
+import { useInfiniteQuery } from 'react-query';
 
 import useIntersectionObserver from '../../hooks/useIntersectionObserver';
-
-import { MovieGrid, GenreTab, GenreList } from './MoviesList.styled';
-
+import { MovieGrid, GenreTab, GenreList, LoadMore } from './MoviesList.styled';
 import { $brandGreen } from '../../assets/vars.styled';
 import Loading from '../Loading';
 import SortOptions from '../SortOptions';
-import LoadMore from '../LoadMore';
 import Movie from '../Movie';
 import genres from '../../assets/genres';
 
 const MoviesList = ({ match, showHearted, ...props }) => {
 	const [searchQuery, setSearchQuery] = useState('');
 	const [sortBy, setSortBy] = useState('popularity.desc');
-	// const [page, setPage] = useState(1);
-	const [totalPages, setTotalPages] = useState(10);
 	let voteCount = 100;
 	// Require at least 500 votes for the 'top rated' category
 	if (sortBy === 'vote_average.desc') voteCount = 500;
@@ -44,12 +38,12 @@ const MoviesList = ({ match, showHearted, ...props }) => {
 		fetchMore,
 		canFetchMore,
 	} = useInfiniteQuery(['films', { searchQuery, sortBy }], fetchFilms, {
-		getFetchMore: lastGroup => lastGroup.page + 1,
+		getFetchMore: lastGroup =>
+			lastGroup.total_pages > lastGroup.page ? lastGroup.page + 1 : null,
 	});
 
 	const films = [];
 	data.forEach(group => group.results.forEach(film => films.push(film)));
-	console.log(data);
 
 	const { user, isAuthenticated } = useSelector(state => state.auth);
 
@@ -59,6 +53,10 @@ const MoviesList = ({ match, showHearted, ...props }) => {
 		onIntersect: fetchMore,
 		rootMargin: '500px',
 	});
+
+	useEffect(() => {
+		if (match.params.query) setSearchQuery(match.params.query);
+	}, [match.params]);
 
 	let topComponent;
 	if (!showHearted) {
@@ -79,9 +77,6 @@ const MoviesList = ({ match, showHearted, ...props }) => {
 
 			{topComponent}
 
-			{/* {isFetching && !isFetchingMore ? (
-				<Loading />
-			) : ( */}
 			<MovieGrid data-testid="movie-results">
 				{films.map(movie => (
 					<Movie key={movie.id} movie={movie}>
@@ -129,17 +124,12 @@ const MoviesList = ({ match, showHearted, ...props }) => {
 				</h2>
 			)}
 
-			{/* {!showHearted && !isFetching && (
-				<LoadMore
-					ref={loadMoreButtonRef}
-					fetchMore={fetchMore}
-					canFetchMore={canFetchMore}
-					isFetchingMore={isFetchingMore}
-				/>
-			)} */}
-			<button type="button" ref={loadMoreButtonRef}>
-				Load more
-			</button>
+			{isFetchingMore && <Loading />}
+			{canFetchMore && (
+				<LoadMore type="button" ref={loadMoreButtonRef}>
+					Load more
+				</LoadMore>
+			)}
 		</>
 	);
 };
