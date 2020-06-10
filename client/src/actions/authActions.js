@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { SET_CURRENT_USER, SET_ERRORS } from './types';
 import jwt_decode from 'jwt-decode';
+import { SET_CURRENT_USER, SET_ERRORS } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
 // Register user
