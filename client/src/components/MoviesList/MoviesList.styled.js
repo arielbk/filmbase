@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { $brandGreen, $medGrey } from '../../assets/vars.styled';
 
 export const MovieGrid = styled.div`
 	margin: 0 auto;
@@ -38,4 +39,25 @@ export const GenreTab = styled.div`
 export const GenreList = styled.div`
 	margin-top: 0.2rem;
 	text-align: center;
+`;
+
+export const LoadMore = styled.div`
+	display: inline-block;
+	font-size: 0.9rem;
+	margin: 0 auto 5rem;
+	padding: 1rem;
+	width: 150px;
+	border-radius: 22px;
+	background: #111;
+	transition: 0.3s;
+	color: ${({ loading }) => (loading ? $medGrey : $brandGreen)};
+	cursor: ${({ loading }) => (loading ? 'wait' : 'pointer')};
+
+	&:hover {
+		color: ${({ loading }) => (loading ? $medGrey : '#fff')};
+	}
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
