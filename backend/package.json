@@ -4,7 +4,7 @@
 		"url": "https://github.com/arielbk/filmbase/issues"
 	},
 	"dependencies": {
-		"bcrypt": "^4.0.1",
+		"bcrypt": "^5.0.0",
 		"body-parser": "^1.18.3",
 		"concurrently": "^4.1.2",
 		"dotenv": "^8.2.0",
