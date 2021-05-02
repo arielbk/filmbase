@@ -1,50 +1,50 @@
 {
-	"name": "filmbase-back",
-	"version": "1.0.0",
-	"description": "Displays information fetched from [The Movie Database API](https://www.themoviedb.org/).",
-	"main": "server.js",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/arielbk/filmbase.git"
-	},
 	"author": "",
-	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/arielbk/filmbase/issues"
 	},
-	"homepage": "https://github.com/arielbk/filmbase#readme",
 	"dependencies": {
 		"bcrypt": "^4.0.1",
 		"body-parser": "^1.18.3",
-		"concurrently": "^4.1.0",
-		"dotenv": "^6.2.0",
-		"express": "^4.16.4",
+		"concurrently": "^4.1.2",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
 		"fsevents": "^2.1.3",
-		"gravatar": "^1.8.0",
-		"jsonwebtoken": "^8.4.0",
-		"lodash": "^4.17.15",
-		"mongoose": "^5.9.16",
-		"morgan": "^1.9.1",
-		"passport": "^0.4.0",
+		"gravatar": "^1.8.1",
+		"jsonwebtoken": "^8.5.1",
+		"lodash": "^4.17.21",
+		"mongoose": "^5.12.7",
+		"morgan": "^1.10.0",
+		"passport": "^0.4.1",
 		"passport-jwt": "^4.0.0",
 		"path": "^0.12.7",
-		"validator": "^10.10.0"
+		"validator": "^13.6.0"
 	},
+	"description": "Displays information fetched from [The Movie Database API](https://www.themoviedb.org/).",
 	"devDependencies": {
-		"eslint": "6.6.0",
-		"eslint-config-airbnb-base": "^13.1.0",
-		"eslint-config-prettier": "^3.3.0",
+		"eslint": "^6.8.0",
+		"eslint-config-airbnb-base": "^13.2.0",
+		"eslint-config-prettier": "^3.6.0",
 		"eslint-plugin-import": "^2.14.0",
 		"eslint-plugin-prettier": "^3.0.0",
-		"husky": "^1.2.1",
-		"lint-staged": "^8.1.0",
-		"nodemon": "^1.18.9",
-		"prettier": "^1.15.3",
-		"pretty-quick": "^1.8.0"
+		"husky": "^1.3.1",
+		"lint-staged": "^8.2.1",
+		"nodemon": "^1.19.4",
+		"prettier": "^1.19.1",
+		"pretty-quick": "^1.11.1"
 	},
+	"homepage": "https://github.com/arielbk/filmbase#readme",
 	"husky": {
 		"hooks": {
 			"pre-commit": "npm run precommit"
 		}
-	}
+	},
+	"license": "MIT",
+	"main": "server.js",
+	"name": "filmbase-back",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/arielbk/filmbase.git"
+	},
+	"version": "1.0.0"
 }
